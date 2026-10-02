@@ -11,7 +11,7 @@ const starfield = document.querySelector('.starfield');
 const starColors = ['#ffffff', '#d9e5ff', '#c8bfff', '#ffe4a3'];
 const stars = document.createDocumentFragment();
 
-for (let index = 0; index < 190; index += 1) {
+for (let index = 0; index < 280; index += 1) {
   const star = document.createElement('span');
   const size = 0.6 + Math.pow(Math.random(), 3) * 2.4;
 
