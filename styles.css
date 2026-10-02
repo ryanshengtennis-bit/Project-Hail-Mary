@@ -867,11 +867,29 @@ footer p span:first-child { color: var(--green); }
   opacity: 0;
   pointer-events: none;
   background-image:
-    radial-gradient(circle, rgba(255,255,255,.8) 0 1px, transparent 1.5px),
-    radial-gradient(circle, rgba(160,190,255,.65) 0 1px, transparent 1.5px),
-    radial-gradient(circle, rgba(255,215,115,.5) 0 1.2px, transparent 1.8px);
-  background-position: 0 0, 29px 41px, 17px 73px;
-  background-size: 73px 73px, 101px 101px, 137px 137px;
+    radial-gradient(circle, rgba(255,255,255,.88) 0 .8px, transparent 1.5px),
+    radial-gradient(circle, rgba(255,255,255,.58) 0 1.1px, transparent 1.8px),
+    radial-gradient(circle, rgba(183,207,255,.72) 0 .7px, transparent 1.4px),
+    radial-gradient(circle, rgba(255,255,255,.76) 0 1.4px, transparent 2px),
+    radial-gradient(circle, rgba(255,222,137,.5) 0 .9px, transparent 1.6px),
+    radial-gradient(circle, rgba(211,199,255,.62) 0 .65px, transparent 1.3px),
+    radial-gradient(circle, rgba(255,255,255,.46) 0 1px, transparent 1.7px);
+  background-position:
+    7px 19px,
+    53px 91px,
+    131px 37px,
+    29px 167px,
+    173px 113px,
+    83px 229px,
+    211px 61px;
+  background-size:
+    113px 149px,
+    197px 223px,
+    251px 173px,
+    307px 269px,
+    419px 337px,
+    367px 431px,
+    487px 293px;
   transition: opacity .5s ease;
 }
 
