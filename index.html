@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Ryan's personal website — biology, books, games, music, and coding.">
+  <title>Ryan | Curious by Nature</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="Ryan's homepage">
+        <span class="brand-mark" aria-hidden="true">
+          <img src="assets/ryan-crown-logo.jpg?v=2" alt="">
+          <span class="emblem-glint"></span>
+        </span>
+        <span>Ryan</span>
+      </a>
+      <nav aria-label="Main navigation">
+        <a href="#about">About</a>
+        <a href="#interests">Interests</a>
+        <a href="#now">Now</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy reveal">
+          <p class="eyebrow"><span></span> Student · Explorer · Creator</p>
+          <h1 id="hero-title">Hi, I’m Ryan.<span class="hero-tagline"><em>Curious by nature.</em></span></h1>
+          <p class="hero-intro">
+            I’m fascinated by living things, captivated by good stories, and always ready to learn something new.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#about">Get to know me <span aria-hidden="true">↓</span></a>
+            <a class="button button-quiet" href="#now">What I’m doing now <span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+
+        <div class="hero-art reveal" aria-label="An abstract biology-inspired illustration">
+          <div class="orb orb-main">
+            <svg class="cell-art" viewBox="0 0 420 420" role="img" aria-label="Stylised cell and leaf illustration">
+              <defs>
+                <linearGradient id="cellGradient" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#eee9ff"/>
+                  <stop offset="1" stop-color="#b8c4ff"/>
+                </linearGradient>
+              </defs>
+              <path class="cell-outline" d="M95 83c48-39 130-51 184-13 56 39 82 124 50 187-29 59-111 96-175 79-66-18-111-81-101-147 6-39 14-80 42-106Z"/>
+              <circle class="nucleus" cx="192" cy="196" r="65"/>
+              <circle class="nucleus-core" cx="203" cy="184" r="25"/>
+              <path class="leaf" d="M282 119c-9 39-35 61-73 67 5-40 29-64 73-67Z"/>
+              <path class="leaf-vein" d="m218 177 53-47"/>
+              <path class="microbe" d="M119 238c21-16 44-12 55 7 10 18 2 40-20 51-23 11-43 3-51-15-7-16-1-31 16-43Z"/>
+              <g class="bubbles">
+                <circle cx="111" cy="151" r="12"/><circle cx="289" cy="233" r="18"/>
+                <circle cx="254" cy="289" r="8"/><circle cx="147" cy="105" r="7"/>
+              </g>
+            </svg>
+            <span class="orbit orbit-one"></span>
+            <span class="orbit orbit-two"></span>
+          </div>
+          <div class="floating-note note-one"><span>🧬</span> Biology</div>
+          <div class="floating-note note-two"><span>✦</span> Stay curious</div>
+          <span class="dot-grid" aria-hidden="true"></span>
+        </div>
+      </section>
+
+      <section class="about section" id="about" aria-labelledby="about-title">
+        <div class="section-label reveal">01 · About me</div>
+        <div class="about-content reveal">
+          <h2 id="about-title">Learning how the world works, one question at a time.</h2>
+          <p>
+            I’m Ryan, a student with a big curiosity for science and creativity. Whether I’m exploring how cells work, getting lost in a book, or building something with code, I love following ideas and seeing where they lead.
+          </p>
+        </div>
+      </section>
+
+      <section class="interests section" id="interests" aria-labelledby="interests-title">
+        <div class="section-heading reveal">
+          <div>
+            <div class="section-label">02 · Things I enjoy</div>
+            <h2 id="interests-title">A few things that keep me inspired.</h2>
+          </div>
+          <p>My interests live somewhere between a laboratory, a library, a game world, and a melody.</p>
+        </div>
+
+        <div class="card-grid">
+          <article class="interest-card card-biology reveal">
+            <span class="card-number">01</span>
+            <div class="card-icon card-icon-dna" aria-hidden="true">
+              <svg viewBox="0 0 48 48">
+                <path class="dna-strand dna-strand-a" d="M14 6c0 9 20 10 20 18S14 33 14 42"/>
+                <path class="dna-strand dna-strand-b" d="M34 6c0 9-20 10-20 18s20 9 20 18"/>
+                <path class="dna-rungs" d="M17 10h14M19 17h10M14 24h20M19 31h10M17 38h14"/>
+              </svg>
+            </div>
+            <h3>
+              <button class="card-toggle" type="button" aria-expanded="false" aria-controls="biology-description">
+                <span>Biology</span><span class="card-arrow" aria-hidden="true">⌄</span>
+              </button>
+            </h3>
+            <div class="card-description" id="biology-description">
+              <p>Discovering the systems, structures, and tiny processes that make life possible.</p>
+            </div>
+            <span class="card-line"></span>
+          </article>
+          <article class="interest-card card-books reveal">
+            <span class="card-number">02</span>
+            <div class="card-icon card-icon-book" aria-hidden="true">
+              <svg viewBox="0 0 48 48">
+                <path d="M24 38c-4-4-10-6-18-5V11c8-1 14 1 18 5v22Z"/>
+                <path d="M24 38c4-4 10-6 18-5V11c-8-1-14 1-18 5v22Z"/>
+                <path class="icon-detail" d="M10 17c4 0 7 .7 10 2.4M10 22c4 0 7 .7 10 2.4M38 17c-4 0-7 .7-10 2.4M38 22c-4 0-7 .7-10 2.4"/>
+              </svg>
+            </div>
+            <h3>
+              <button class="card-toggle" type="button" aria-expanded="false" aria-controls="reading-description">
+                <span>Reading</span><span class="card-arrow" aria-hidden="true">⌄</span>
+              </button>
+            </h3>
+            <div class="card-description" id="reading-description">
+              <p>Opening a book and stepping into new ideas, perspectives, and worlds.</p>
+            </div>
+            <span class="card-line"></span>
+          </article>
+          <article class="interest-card card-games reveal">
+            <span class="card-number">03</span>
+            <div class="card-icon card-icon-game" aria-hidden="true">
+              <svg viewBox="0 0 48 48">
+                <path d="M16 15h16c6 0 10 5 11 14l1 7c.5 4-4 6-7 3l-5-6H16l-5 6c-3 3-7.5 1-7-3l1-7c1-9 5-14 11-14Z"/>
+                <path class="icon-detail" d="M12 24h8M16 20v8"/>
+                <circle class="icon-fill" cx="34" cy="22" r="2"/>
+                <circle class="icon-fill" cx="38" cy="27" r="2"/>
+              </svg>
+            </div>
+            <h3>
+              <button class="card-toggle" type="button" aria-expanded="false" aria-controls="gaming-description">
+                <span>Gaming</span><span class="card-arrow" aria-hidden="true">⌄</span>
+              </button>
+            </h3>
+            <div class="card-description" id="gaming-description">
+              <p>Enjoying challenges, good stories, and the satisfaction of mastering a game.</p>
+            </div>
+            <span class="card-line"></span>
+          </article>
+          <article class="interest-card card-music reveal">
+            <span class="card-number">04</span>
+            <div class="card-icon" aria-hidden="true">♫</div>
+            <h3>
+              <button class="card-toggle" type="button" aria-expanded="false" aria-controls="music-description">
+                <span>Music</span><span class="card-arrow" aria-hidden="true">⌄</span>
+              </button>
+            </h3>
+            <div class="card-description" id="music-description">
+              <p>Playing music, finding a rhythm, and expressing ideas without needing words.</p>
+            </div>
+            <span class="card-line"></span>
+          </article>
+        </div>
+      </section>
+
+      <section class="now section" id="now" aria-labelledby="now-title">
+        <div class="now-panel reveal">
+          <div class="now-copy">
+            <div class="section-label light">03 · Right now</div>
+            <h2 id="now-title">Building, learning, and preparing.</h2>
+            <p>I’m putting my curiosity into action through two projects that matter to me.</p>
+          </div>
+          <div class="goal-list">
+            <article class="goal">
+              <span class="goal-icon coding-logo" aria-hidden="true">
+                <svg viewBox="0 0 48 48" role="img">
+                  <rect class="code-window" x="5" y="7" width="38" height="34" rx="6"/>
+                  <path class="code-bar" d="M5 15h38"/>
+                  <circle class="code-dot dot-one" cx="11" cy="11" r="1.5"/>
+                  <circle class="code-dot dot-two" cx="16" cy="11" r="1.5"/>
+                  <circle class="code-dot dot-three" cx="21" cy="11" r="1.5"/>
+                  <path class="code-symbol" d="m19 23-5 5 5 5m10-10 5 5-5 5m-3-13-4 16"/>
+                </svg>
+              </span>
+              <div>
+                <p class="goal-kicker">Creating</p>
+                <h3>Learning to code & building this website</h3>
+                <p>Turning ideas into something real, one line at a time.</p>
+              </div>
+            </article>
+            <article class="goal">
+              <span class="goal-icon goal-logo">
+                <img src="assets/biology-olympiad-nz.png" alt="International Biology Olympiad New Zealand logo">
+              </span>
+              <div>
+                <p class="goal-kicker">Preparing</p>
+                <h3>NZIBO Tutorial Programme</h3>
+                <p>Strengthening my biology knowledge and taking on a new challenge.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="quote section reveal" aria-label="Personal motto">
+        <span class="quote-mark" aria-hidden="true">“</span>
+        <blockquote>Music can make you escape, or it can make a situation more manageable somehow.</blockquote>
+        <p>— Chris Martin</p>
+      </section>
+    </main>
+
+    <footer>
+      <a class="brand" href="#top">
+        <span class="brand-mark" aria-hidden="true">
+          <img src="assets/ryan-crown-logo.jpg?v=2" alt="">
+          <span class="emblem-glint"></span>
+        </span>
+        <span>Ryan</span>
+      </a>
+      <p>Made with curiosity <span aria-hidden="true">✦</span> <span id="year"></span></p>
+      <a class="back-top" href="#top">Back to top ↑</a>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
