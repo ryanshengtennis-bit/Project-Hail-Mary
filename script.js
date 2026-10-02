@@ -7,6 +7,27 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.12 });
 
+const starfield = document.querySelector('.starfield');
+const starColors = ['#ffffff', '#d9e5ff', '#c8bfff', '#ffe4a3'];
+const stars = document.createDocumentFragment();
+
+for (let index = 0; index < 190; index += 1) {
+  const star = document.createElement('span');
+  const size = 0.6 + Math.pow(Math.random(), 3) * 2.4;
+
+  star.className = 'space-star';
+  star.style.left = `${Math.random() * 100}%`;
+  star.style.top = `${Math.random() * 100}%`;
+  star.style.setProperty('--star-size', `${size.toFixed(2)}px`);
+  star.style.setProperty('--star-opacity', (0.3 + Math.random() * 0.7).toFixed(2));
+  star.style.setProperty('--star-color', starColors[Math.floor(Math.random() * starColors.length)]);
+  star.style.setProperty('--twinkle-speed', `${(2.5 + Math.random() * 5).toFixed(2)}s`);
+  star.style.setProperty('--twinkle-delay', `${(-Math.random() * 7).toFixed(2)}s`);
+  stars.appendChild(star);
+}
+
+starfield.appendChild(stars);
+
 document.querySelectorAll('.reveal').forEach((element, index) => {
   element.style.transitionDelay = `${Math.min(index % 4, 3) * 70}ms`;
   observer.observe(element);
