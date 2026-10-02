@@ -369,12 +369,24 @@ h1 em {
 
 .earth-orbit {
   position: absolute;
-  z-index: 1;
   width: 205px;
   height: 74px;
   border: 2px solid rgba(108,93,211,.45);
   border-radius: 50%;
   transform: rotate(-15deg);
+}
+
+.earth-orbit-back {
+  z-index: 1;
+  clip-path: inset(0 0 50% 0);
+  opacity: .6;
+}
+
+.earth-orbit-front {
+  z-index: 3;
+  clip-path: inset(50% 0 0 0);
+  border-color: rgba(108,93,211,.72);
+  filter: drop-shadow(0 3px 3px rgba(76,61,158,.2));
 }
 
 .earth-orbiter {
