@@ -802,31 +802,43 @@ footer p span:first-child { color: var(--green); }
 @keyframes earth-orbit-motion {
   0% {
     z-index: 1;
-    transform: translate(-50%, -50%) translateX(-108px) scale(.7);
+    transform: translate(-50%, -50%) translate(-99px, 27px) scale(.7);
     opacity: .72;
   }
+  6.25% { transform: translate(-50%, -50%) translate(-95px, 11px) scale(.67); }
+  12.5% { transform: translate(-50%, -50%) translate(-77px, -7px) scale(.64); }
+  18.75% { transform: translate(-50%, -50%) translate(-47px, -23px) scale(.61); }
   25% {
     z-index: 1;
-    transform: translate(-50%, -50%) translateY(-52px) scale(.58);
+    transform: translate(-50%, -50%) translate(-10px, -36px) scale(.58);
     opacity: .58;
   }
+  31.25% { transform: translate(-50%, -50%) translate(29px, -43px) scale(.66); }
+  37.5% { transform: translate(-50%, -50%) translate(63px, -44px) scale(.74); }
+  43.75% { transform: translate(-50%, -50%) translate(88px, -38px) scale(.82); }
   49% {
     z-index: 1;
   }
   50% {
     z-index: 4;
-    transform: translate(-50%, -50%) translateX(108px) scale(.9);
+    transform: translate(-50%, -50%) translate(99px, -27px) scale(.9);
     opacity: .92;
   }
+  56.25% { transform: translate(-50%, -50%) translate(95px, -11px) scale(.945); }
+  62.5% { transform: translate(-50%, -50%) translate(77px, 7px) scale(.99); }
+  68.75% { transform: translate(-50%, -50%) translate(47px, 23px) scale(1.035); }
   75% {
     z-index: 4;
-    transform: translate(-50%, -50%) translateY(58px) scale(1.08);
+    transform: translate(-50%, -50%) translate(10px, 36px) scale(1.08);
     opacity: 1;
   }
+  81.25% { transform: translate(-50%, -50%) translate(-29px, 43px) scale(.985); }
+  87.5% { transform: translate(-50%, -50%) translate(-63px, 44px) scale(.89); }
+  93.75% { transform: translate(-50%, -50%) translate(-88px, 38px) scale(.795); }
   99% { z-index: 4; }
   100% {
     z-index: 1;
-    transform: translate(-50%, -50%) translateX(-108px) scale(.7);
+    transform: translate(-50%, -50%) translate(-99px, 27px) scale(.7);
     opacity: .72;
   }
 }
