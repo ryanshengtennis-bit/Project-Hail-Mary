@@ -334,6 +334,75 @@ h1 em {
   border-top: 1px solid var(--line);
 }
 
+.about-side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.earth-wrap {
+  position: relative;
+  width: 190px;
+  height: 190px;
+  display: grid;
+  place-items: center;
+  margin: 16px 0 0 10px;
+}
+
+.cartoon-earth {
+  position: relative;
+  z-index: 2;
+  width: 172px;
+  overflow: visible;
+  filter: drop-shadow(0 16px 18px rgba(45,51,116,.2));
+  animation: earth-float 5s ease-in-out infinite;
+}
+
+.earth-shadow { fill: rgba(65,55,131,.13); }
+.earth-ocean { fill: url(#oceanGradient); stroke: #30376f; stroke-width: 3; }
+.earth-land { fill: url(#landGradient); stroke: #376f59; stroke-width: 1.7; stroke-linejoin: round; }
+.small-land { opacity: .95; }
+.earth-shine { fill: none; stroke: rgba(255,255,255,.65); stroke-width: 6; stroke-linecap: round; }
+.earth-eye { fill: none; stroke: #263054; stroke-width: 4; stroke-linecap: round; }
+.earth-smile { fill: none; stroke: #263054; stroke-width: 4; stroke-linecap: round; }
+.earth-cheeks { fill: #f59b9f; opacity: .65; }
+
+.earth-cloud { fill: rgba(255,255,255,.92); stroke: rgba(48,55,111,.25); stroke-width: 1.5; }
+.earth-cloud path { fill: none; stroke: rgba(48,55,111,.25); }
+
+.earth-orbit {
+  position: absolute;
+  z-index: 3;
+  width: 205px;
+  height: 74px;
+  border: 2px solid rgba(108,93,211,.45);
+  border-radius: 50%;
+  transform: rotate(-15deg);
+}
+
+.earth-orbit::after {
+  content: "";
+  position: absolute;
+  top: 8px;
+  right: 14px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #ffab8e;
+  box-shadow: 0 0 0 4px rgba(255,171,142,.18);
+}
+
+.earth-star {
+  position: absolute;
+  z-index: 4;
+  color: #6c5dd3;
+  line-height: 1;
+  animation: star-twinkle 2.6s ease-in-out infinite alternate;
+}
+
+.earth-star-one { top: 5px; right: -7px; font-size: 1.3rem; }
+.earth-star-two { bottom: 13px; left: -2px; color: #e78d78; font-size: 1.1rem; animation-delay: .8s; }
+
 .about h2,
 .section-heading h2,
 .now h2 {
@@ -677,6 +746,16 @@ footer p span:first-child { color: var(--green); }
   100% { transform: translate3d(6%, 7%, 0) scale(1.12); }
 }
 
+@keyframes earth-float {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-8px) rotate(2deg); }
+}
+
+@keyframes star-twinkle {
+  from { opacity: .45; transform: scale(.8) rotate(0); }
+  to { opacity: 1; transform: scale(1.15) rotate(15deg); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
@@ -704,7 +783,10 @@ footer p span:first-child { color: var(--green); }
   .orb-main { width: min(330px, 82vw); }
   .floating-note { font-size: .73rem; }
   .section { padding: 82px 0; }
-  .about { grid-template-columns: 1fr; gap: 12px; }
+  .about { grid-template-columns: 1fr; gap: 22px; }
+  .about-side { align-items: center; }
+  .about-side .section-label { align-self: flex-start; }
+  .earth-wrap { margin: 8px auto 18px; }
   .section-heading { align-items: start; flex-direction: column; gap: 20px; }
   .card-grid { grid-template-columns: 1fr; }
   .interest-card { min-height: 250px; }
