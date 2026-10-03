@@ -28,6 +28,63 @@ for (let index = 0; index < 280; index += 1) {
 
 starfield.appendChild(stars);
 
+const crownMark = document.querySelector('.brand-mark');
+let crownClicks = 0;
+let crownClickTimer;
+let meteorShowerActive = false;
+
+function launchMeteorShower() {
+  if (meteorShowerActive) return;
+
+  meteorShowerActive = true;
+  const shower = document.createElement('div');
+  const meteorCount = window.innerWidth < 680 ? 24 : 38;
+
+  shower.className = 'meteor-shower';
+  shower.setAttribute('aria-hidden', 'true');
+
+  for (let index = 0; index < meteorCount; index += 1) {
+    const meteor = document.createElement('span');
+    const isGolden = Math.random() > 0.62;
+
+    meteor.className = `meteor${isGolden ? ' meteor-gold' : ''}`;
+    meteor.style.left = `${20 + Math.random() * 115}vw`;
+    meteor.style.top = `${-30 + Math.random() * 42}vh`;
+    meteor.style.setProperty('--meteor-delay', `${(Math.random() * 1.8).toFixed(2)}s`);
+    meteor.style.setProperty('--meteor-duration', `${(1.05 + Math.random() * 1.1).toFixed(2)}s`);
+    meteor.style.setProperty('--meteor-length', `${(70 + Math.random() * 150).toFixed(0)}px`);
+    meteor.style.setProperty('--meteor-scale', (0.65 + Math.random() * 0.75).toFixed(2));
+    shower.appendChild(meteor);
+  }
+
+  document.body.appendChild(shower);
+  crownMark.classList.add('meteor-triggered');
+
+  window.setTimeout(() => {
+    shower.remove();
+    crownMark.classList.remove('meteor-triggered');
+    meteorShowerActive = false;
+  }, 4300);
+}
+
+crownMark.addEventListener('click', () => {
+  crownClicks += 1;
+  crownMark.classList.remove('secret-tap');
+  void crownMark.offsetWidth;
+  crownMark.classList.add('secret-tap');
+
+  window.clearTimeout(crownClickTimer);
+  crownClickTimer = window.setTimeout(() => {
+    crownClicks = 0;
+  }, 2600);
+
+  if (crownClicks >= 5) {
+    crownClicks = 0;
+    window.clearTimeout(crownClickTimer);
+    launchMeteorShower();
+  }
+});
+
 document.querySelectorAll('.reveal').forEach((element, index) => {
   element.style.transitionDelay = `${Math.min(index % 4, 3) * 70}ms`;
   observer.observe(element);
