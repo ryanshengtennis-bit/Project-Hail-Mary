@@ -67,7 +67,8 @@ function launchMeteorShower() {
   }, 4300);
 }
 
-crownMark.addEventListener('click', () => {
+crownMark.addEventListener('click', (event) => {
+  event.preventDefault();
   crownClicks += 1;
   crownMark.classList.remove('secret-tap');
   void crownMark.offsetWidth;
