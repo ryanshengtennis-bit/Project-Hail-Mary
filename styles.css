@@ -604,7 +604,7 @@ h1 em {
 
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   align-items: start;
   gap: 15px;
 }
@@ -638,6 +638,8 @@ h1 em {
 .card-books { background: linear-gradient(145deg, #ffe8dc 0%, #ffc9b7 100%); }
 .card-games { background: linear-gradient(145deg, #e1f4fb 0%, #b9dfef 100%); }
 .card-music { background: linear-gradient(145deg, #fff3c9 0%, #f4da83 100%); }
+.card-tennis { background: linear-gradient(145deg, #ffe9f1 0%, #f5bfd3 100%); }
+.card-fencing { background: linear-gradient(145deg, #eef0ff 0%, #c8d0f5 100%); }
 .card-number { position: absolute; top: 24px; right: 25px; font-size: .7rem; font-weight: 700; opacity: .55; }
 
 .card-icon {
@@ -701,7 +703,9 @@ h1 em {
 }
 
 .card-icon-dna,
-.card-icon-game {
+.card-icon-game,
+.card-icon-tennis,
+.card-icon-fencing {
   background: rgba(255,255,255,.22);
   box-shadow: inset 0 0 0 5px rgba(255,255,255,.1);
 }
