@@ -491,6 +491,14 @@ h1 em {
 .space-object-saturn { fill: #d6bb83; stroke: #927752; stroke-width: 1.3; }
 .space-object-saturn-ring { fill: none; stroke: #b58e63; stroke-width: 2.2; }
 .space-object-saturn-revolution { transform-box: view-box; transform-origin: 32px 32px; animation: saturn-revolution 7s linear infinite; }
+.space-object-black-hole-disk { fill: none; stroke: #8d83d9; stroke-width: 8; opacity: .88; }
+.space-object-black-hole-hotline { fill: none; stroke: #e6b5ff; stroke-width: 2.5; }
+.space-object-black-hole { fill: #11101c; stroke: #d6c5ff; stroke-width: 1.5; }
+.space-object-black-hole-center { fill: #030308; }
+.space-object-supernova-wave { fill: none; stroke: #95b7e8; stroke-width: 1.5; stroke-dasharray: 2 4; opacity: .88; }
+.space-object-supernova-rays { fill: none; stroke: #eaa2c2; stroke-width: 2.5; stroke-linecap: round; }
+.space-object-supernova-burst { fill: #eab66f; stroke: #a86e9a; stroke-width: 1.5; stroke-linejoin: round; }
+.space-object-supernova-core { fill: #fff1b5; }
 .space-object-planet { fill: #8297c9; stroke: #5a668e; stroke-width: 2; }
 .space-object-detail { stroke: #59688c; stroke-width: 2; }
 .space-object-star { fill: #e8c978; stroke: #9b7c59; stroke-width: 1.5; stroke-linejoin: round; }
@@ -1142,6 +1150,14 @@ html[data-theme="dark"] .space-object-solar-orbit { stroke: #bab0ff; }
 html[data-theme="dark"] .space-object-sun { fill: #ffe59a; stroke: #fff0be; }
 html[data-theme="dark"] .space-object-saturn { fill: #d5c5ff; stroke: #f3eaff; }
 html[data-theme="dark"] .space-object-saturn-ring { stroke: #ead7ff; }
+html[data-theme="dark"] .space-object-black-hole-disk { stroke: #9b8cff; }
+html[data-theme="dark"] .space-object-black-hole-hotline { stroke: #f1d1ff; }
+html[data-theme="dark"] .space-object-black-hole { fill: #070812; stroke: #e5dcff; }
+html[data-theme="dark"] .space-object-black-hole-center { fill: #000; }
+html[data-theme="dark"] .space-object-supernova-wave { stroke: #b6c7ff; }
+html[data-theme="dark"] .space-object-supernova-rays { stroke: #ffb3d4; }
+html[data-theme="dark"] .space-object-supernova-burst { fill: #f3b780; stroke: #ffc6ed; }
+html[data-theme="dark"] .space-object-supernova-core { fill: #fff7d0; }
 html[data-theme="dark"] .space-object-planet { fill: #7284dd; stroke: #cad0ff; }
 html[data-theme="dark"] .space-object-detail { stroke: #d2d5f0; }
 html[data-theme="dark"] .space-object-star { fill: #f1d88e; stroke: #fff0be; }

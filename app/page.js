@@ -18,7 +18,7 @@ const solarSystemFacts = [
   'There are more than 200 known moons orbiting planets in our solar system.',
 ];
 
-const spaceObjectTypes = ['planet', 'star', 'comet', 'moon', 'asteroid', 'satellite', 'rocket', 'galaxy'];
+const spaceObjectTypes = ['planet', 'star', 'comet', 'moon', 'asteroid', 'satellite', 'rocket', 'galaxy', 'black-hole', 'supernova'];
 
 const spaceObjectHideSpots = [
   { section: 'hero', side: 'left', top: '5%' },
@@ -106,6 +106,10 @@ function SpaceObjectIcon({ type }) {
   switch (type) {
     case 'planet':
       return <g><ellipse className="space-object-orbit" cx="32" cy="32" rx="27" ry="10" transform="rotate(-20 32 32)"/><circle className="space-object-planet" cx="32" cy="32" r="16"/><path className="space-object-detail" d="M20 28c6-5 15-5 22-1m-23 9c7 4 14 4 21 1"/></g>;
+    case 'black-hole':
+      return <g><ellipse className="space-object-black-hole-disk" cx="32" cy="32" rx="25" ry="10" transform="rotate(-22 32 32)"/><ellipse className="space-object-black-hole-hotline" cx="32" cy="32" rx="20" ry="5" transform="rotate(-22 32 32)"/><circle className="space-object-black-hole" cx="32" cy="32" r="13"/><circle className="space-object-black-hole-center" cx="32" cy="32" r="8"/></g>;
+    case 'supernova':
+      return <g><circle className="space-object-supernova-wave" cx="32" cy="32" r="25"/><path className="space-object-supernova-rays" d="M32 3v12m0 34v12M3 32h12m34 0h12M11.5 11.5 20 20m24 24 8.5 8.5m0-41L44 20m-24 24-8.5 8.5"/><path className="space-object-supernova-burst" d="m32 13 5.2 11.1L49 18l-5 12 12 2-12 5 6 12-13-5-5 12-5-12-12 5 5-12-12-5 12-2-5-12 12 6Z"/><circle className="space-object-supernova-core" cx="32" cy="32" r="6"/></g>;
     case 'saturn':
       return <g><ellipse className="space-object-solar-orbit" cx="32" cy="32" rx="23" ry="11"/><circle className="space-object-sun" cx="32" cy="32" r="6"/><g className="space-object-saturn-revolution"><g transform="translate(22 0)"><circle className="space-object-saturn" cx="32" cy="32" r="5"/><ellipse className="space-object-saturn-ring" cx="32" cy="32" rx="9" ry="3.5" transform="rotate(-20 32 32)"/></g></g></g>;
     case 'star':
@@ -136,8 +140,8 @@ function SpaceObjectLayer({ section, objects, onFind }) {
           className={`space-object-button side-${object.side}`}
           key={object.id}
           type="button"
-          aria-label={`Click ${object.type}, object ${object.id + 1} of 10`}
-          title={`Click ${object.type}`}
+          aria-label={`Click ${object.type.replace('-', ' ')}, object ${object.id + 1} of 10`}
+          title={`Click ${object.type.replace('-', ' ')}`}
           style={{ top: object.top }}
           onClick={() => onFind(object.id)}
         >
