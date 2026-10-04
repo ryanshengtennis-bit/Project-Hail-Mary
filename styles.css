@@ -305,6 +305,8 @@ nav a:hover::after { transform: scaleX(1); transform-origin: left; }
 .brand-mark.meteor-triggered { animation: crown-meteor-glow 1s ease-in-out 3; }
 
 .hero {
+  position: relative;
+  isolation: isolate;
   min-height: 680px;
   display: grid;
   grid-template-columns: 1.08fr .92fr;
@@ -442,7 +444,46 @@ h1 em {
   background-size: 12px 12px;
 }
 
-.section { padding: 112px 0; }
+.section { position: relative; isolation: isolate; padding: 112px 0; }
+
+.hero > :not(.bunny-layer),
+.section > :not(.bunny-layer) { position: relative; z-index: 1; }
+
+.bunny-layer {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.hidden-bunny {
+  position: absolute;
+  width: 68px;
+  height: 64px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  filter: drop-shadow(0 5px 6px rgba(55,43,77,.2));
+  pointer-events: auto;
+  cursor: pointer;
+  animation: bunny-peek 3s ease-in-out infinite;
+}
+
+.hidden-bunny.peek-left { left: -22px; clip-path: inset(0 0 0 17px); }
+.hidden-bunny.peek-right { right: -22px; clip-path: inset(0 17px 0 0); animation-delay: -.9s; }
+.hidden-bunny:focus-visible { z-index: 2; clip-path: none; outline: 3px solid #6c5dd3; outline-offset: 2px; }
+.hidden-bunny svg { width: 100%; height: 100%; overflow: visible; }
+.bunny-ear, .bunny-face { fill: #fffdf7; stroke: #927b6f; stroke-width: 1.5; }
+.bunny-ear-inner { fill: #f2b8c5; }
+.bunny-cheek { fill: #f3aebb; }
+.bunny-eye, .bunny-nose { fill: #4c3d42; }
+.bunny-mouth { fill: none; stroke: #4c3d42; stroke-width: 1.5; stroke-linecap: round; }
+
+@keyframes bunny-peek {
+  0%, 100% { translate: 0 4px; }
+  50% { translate: 0 -2px; }
+}
 
 .about {
   display: grid;
@@ -771,7 +812,20 @@ h1 em {
   transition: grid-template-rows .35s ease, opacity .25s ease, padding .35s ease;
 }
 
-.card-description > p { min-height: 0; overflow: hidden; }
+.card-description-inner { min-height: 0; overflow: hidden; }
+.card-description-inner > p { margin-bottom: 0; }
+
+.bunny-hunt {
+  margin-top: 12px;
+  padding: 12px 14px;
+  border: 1px solid rgba(23,61,50,.16);
+  border-radius: 8px;
+  background: rgba(255,255,255,.3);
+}
+
+.bunny-hunt p { margin-bottom: 4px; }
+.bunny-hunt .bunny-hunt-progress { margin-bottom: 0; font-size: .78rem; font-weight: 700; opacity: .72; }
+.bunny-hunt .solar-system-fact { margin: 9px 0 0; font-weight: 700; }
 
 .card-link {
   width: fit-content;

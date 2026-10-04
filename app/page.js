@@ -3,6 +3,53 @@
 import { useEffect, useRef, useState } from 'react';
 
 const starColors = ['#ffffff', '#d9e5ff', '#c8bfff', '#ffe4a3'];
+const solarSystemFacts = [
+  'A day on Venus is longer than its year.',
+  'Mars is home to Olympus Mons, the tallest volcano in the solar system.',
+  'Saturn’s rings are made mostly of ice and bits of rocky material.',
+  'Neptune takes about 165 Earth years to orbit the Sun once.',
+  'Uranus spins almost on its side as it travels around the Sun.',
+  'Mercury completes one trip around the Sun in just 88 Earth days.',
+  'The Sun contains about 99.8% of the solar system’s total mass.',
+  'Jupiter’s Great Red Spot is a gigantic storm that has raged for centuries.',
+  'Venus is the hottest planet, even though Mercury is closer to the Sun.',
+  'The Moon is slowly drifting away from Earth by about 3.8 centimetres each year.',
+  'Light from the Sun takes about eight minutes to reach Earth.',
+  'There are more than 200 known moons orbiting planets in our solar system.',
+];
+
+const bunnyHideSpots = [
+  { section: 'hero', side: 'left', top: '5%' },
+  { section: 'hero', side: 'right', top: '20%' },
+  { section: 'hero', side: 'left', top: '95%' },
+  { section: 'hero', side: 'right', top: '80%' },
+  { section: 'about', side: 'left', top: '14%' },
+  { section: 'about', side: 'right', top: '32%' },
+  { section: 'about', side: 'left', top: '68%' },
+  { section: 'about', side: 'right', top: '86%' },
+  { section: 'interests', side: 'left', top: '9%' },
+  { section: 'interests', side: 'right', top: '24%' },
+  { section: 'interests', side: 'left', top: '46%' },
+  { section: 'interests', side: 'right', top: '63%' },
+  { section: 'interests', side: 'left', top: '87%' },
+  { section: 'now', side: 'left', top: '12%' },
+  { section: 'now', side: 'right', top: '29%' },
+  { section: 'now', side: 'left', top: '61%' },
+  { section: 'now', side: 'right', top: '83%' },
+  { section: 'quote', side: 'left', top: '8%' },
+  { section: 'quote', side: 'right', top: '27%' },
+  { section: 'quote', side: 'left', top: '69%' },
+  { section: 'quote', side: 'right', top: '90%' },
+];
+
+function getRandomBunnySpots() {
+  const spots = [...bunnyHideSpots];
+  for (let index = spots.length - 1; index > 0; index -= 1) {
+    const swapIndex = Math.floor(Math.random() * (index + 1));
+    [spots[index], spots[swapIndex]] = [spots[swapIndex], spots[index]];
+  }
+  return spots.slice(0, 10).map((spot, id) => ({ ...spot, id }));
+}
 
 function Brand({ footer = false, onCrownClick }) {
   return (
@@ -16,7 +63,7 @@ function Brand({ footer = false, onCrownClick }) {
   );
 }
 
-function InterestCard({ number, className, title, subtitle, description, href, children }) {
+function InterestCard({ number, className, title, subtitle, description, href, extra, children }) {
   const [open, setOpen] = useState(false);
   const descriptionId = `${title.toLowerCase()}-description`;
 
@@ -31,15 +78,53 @@ function InterestCard({ number, className, title, subtitle, description, href, c
       </h3>
       {subtitle && <p className="card-subtitle">{subtitle}</p>}
       <div className={`card-description${open ? ' is-open' : ''}`} id={descriptionId}>
-        <p>{description}</p>
-        {href && (
-          <a className="card-link" href={href} target="_blank" rel="noopener noreferrer" onClick={(event) => event.stopPropagation()}>
-            Visit fencing arena <span aria-hidden="true">↗</span>
-          </a>
-        )}
+        <div className="card-description-inner">
+          <p>{description}</p>
+          {extra}
+          {href && (
+            <a className="card-link" href={href} target="_blank" rel="noopener noreferrer" onClick={(event) => event.stopPropagation()}>
+              Visit fencing arena <span aria-hidden="true">↗</span>
+            </a>
+          )}
+        </div>
       </div>
       <span className="card-line" />
     </article>
+  );
+}
+
+function BunnyLayer({ section, bunnies, onFind }) {
+  const sectionBunnies = bunnies.filter((bunny) => bunny.section === section);
+  if (!sectionBunnies.length) return null;
+
+  return (
+    <div className="bunny-layer">
+      {sectionBunnies.map((bunny) => (
+        <button
+          className={`hidden-bunny peek-${bunny.side}`}
+          key={bunny.id}
+          type="button"
+          aria-label={`Find hidden bunny ${bunny.id + 1}`}
+          title="You found a bunny!"
+          style={{ top: bunny.top, [bunny.side]: '-22px' }}
+          onClick={() => onFind(bunny.id)}
+        >
+          <svg viewBox="0 0 64 62" aria-hidden="true">
+            <ellipse className="bunny-ear" cx="20" cy="19" rx="7" ry="17" transform="rotate(-12 20 19)" />
+            <ellipse className="bunny-ear-inner" cx="20" cy="18" rx="3" ry="11" transform="rotate(-12 20 18)" />
+            <ellipse className="bunny-ear" cx="43" cy="19" rx="7" ry="17" transform="rotate(12 43 19)" />
+            <ellipse className="bunny-ear-inner" cx="43" cy="18" rx="3" ry="11" transform="rotate(12 43 18)" />
+            <ellipse className="bunny-face" cx="32" cy="42" rx="23" ry="18" />
+            <ellipse className="bunny-cheek" cx="20" cy="44" rx="4" ry="2.5" />
+            <ellipse className="bunny-cheek" cx="44" cy="44" rx="4" ry="2.5" />
+            <circle className="bunny-eye" cx="25" cy="38" r="1.8" />
+            <circle className="bunny-eye" cx="39" cy="38" r="1.8" />
+            <path className="bunny-nose" d="M30 43q2-2 4 0l-2 2Z" />
+            <path className="bunny-mouth" d="M32 45v2m0 0q-3 3-5 0m5 0q3 3 5 0" />
+          </svg>
+        </button>
+      ))}
+    </div>
   );
 }
 
@@ -48,12 +133,17 @@ export default function Home() {
   const [darkMode, setDarkMode] = useState(false);
   const [ripple, setRipple] = useState(null);
   const [meteors, setMeteors] = useState([]);
+  const [bunnies, setBunnies] = useState([]);
+  const [foundBunnyCount, setFoundBunnyCount] = useState(0);
+  const [solarSystemFact, setSolarSystemFact] = useState('');
+  const foundBunnyIds = useRef(new Set());
   const crownClicks = useRef(0);
   const crownClickTimer = useRef(null);
   const meteorTimer = useRef(null);
   const rippleTimers = useRef([]);
 
   useEffect(() => {
+    setBunnies(getRandomBunnySpots());
     setStars(Array.from({ length: 280 }, (_, index) => ({
       id: index,
       left: `${Math.random() * 100}%`,
@@ -133,6 +223,18 @@ export default function Home() {
     }
   }
 
+  function handleBunnyClick(id) {
+    if (foundBunnyIds.current.has(id)) return;
+    foundBunnyIds.current.add(id);
+    const foundCount = foundBunnyIds.current.size;
+    setFoundBunnyCount(foundCount);
+    setBunnies((current) => current.filter((bunny) => bunny.id !== id));
+
+    if (foundCount === 10) {
+      setSolarSystemFact(solarSystemFacts[Math.floor(Math.random() * solarSystemFacts.length)]);
+    }
+  }
+
   function handleThemeToggle(event) {
     if (ripple) return;
     const nextDarkMode = !darkMode;
@@ -190,6 +292,7 @@ export default function Home() {
 
         <main id="top">
           <section className="hero" aria-labelledby="hero-title">
+            <BunnyLayer section="hero" bunnies={bunnies} onFind={handleBunnyClick} />
             <div className="hero-copy reveal">
               <p className="eyebrow"><span /> Student · Explorer · Creator</p>
               <h1 id="hero-title">Hi, I’m Ryan.<span className="hero-tagline"><em>Curious by nature.</em></span></h1>
@@ -219,6 +322,7 @@ export default function Home() {
           </section>
 
           <section className="about section" id="about" aria-labelledby="about-title">
+            <BunnyLayer section="about" bunnies={bunnies} onFind={handleBunnyClick} />
             <div className="about-side reveal">
               <div className="section-label">01 · About me</div>
               <div className="earth-wrap" aria-hidden="true">
@@ -248,6 +352,7 @@ export default function Home() {
           </section>
 
           <section className="interests section" id="interests" aria-labelledby="interests-title">
+            <BunnyLayer section="interests" bunnies={bunnies} onFind={handleBunnyClick} />
             <div className="section-heading reveal">
               <div><div className="section-label">02 · Things I enjoy</div><h2 id="interests-title">A few things that keep me inspired.</h2></div>
               <p>My interests live somewhere between a laboratory, a library, a game world, a melody, a tennis court, and a fencing piste.</p>
@@ -271,13 +376,26 @@ export default function Home() {
               <InterestCard number="06" className="card-fencing" title="Fencing" subtitle="Click for a game" description="Combining quick decisions, precise movement, and tactical thinking." href="https://en-garde-fencing-arena.echristina-wang.chatgpt.site">
                 <div className="card-icon card-icon-fencing" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M8 38 38 8M10 31l7 7M6 42l5-5M40 6l2 2"/><path d="m10 8 30 30M31 38l7-7M6 6l5 5M38 40l2 2"/><path className="icon-detail" d="M13 34c-3 3-3 7-1 9M34 13c3-3 7-3 9-1"/></svg></div>
               </InterestCard>
-              <InterestCard number="07" className="card-creativity" title="Creativity" description="Imagining new possibilities and turning ideas into something of my own. Click the website icon five times for a little magic.">
+              <InterestCard
+                number="07"
+                className="card-creativity"
+                title="Creativity"
+                description="Imagining new possibilities and turning ideas into something of my own. Click the website icon five times for a little magic."
+                extra={(
+                  <div className="bunny-hunt" aria-live="polite">
+                    <p>Find and click on 10 bunnies to reveal a fun fact!</p>
+                    <p className="bunny-hunt-progress">Bunnies found: {foundBunnyCount} of 10</p>
+                    {solarSystemFact && <p className="solar-system-fact">{solarSystemFact}</p>}
+                  </div>
+                )}
+              >
                 <div className="card-icon card-icon-creativity" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="m13 35 20-20 5 5-20 20-5-5Z"/><path className="icon-detail" d="m30 9 1.5-4M36 14l4-1.5M25 8l-1-4M39 25l4 1M19 18l-3-3"/><path d="m12 8 .7 2.3L15 11l-2.3.7L12 14l-.7-2.3L9 11l2.3-.7L12 8Z"/></svg></div>
               </InterestCard>
             </div>
           </section>
 
           <section className="now section" id="now" aria-labelledby="now-title">
+            <BunnyLayer section="now" bunnies={bunnies} onFind={handleBunnyClick} />
             <div className="now-panel reveal">
               <div className="now-copy"><div className="section-label light">03 · Right now</div><h2 id="now-title">Building, learning, and preparing.</h2><p>I’m putting my curiosity into action through two projects that matter to me.</p></div>
               <div className="goal-list">
@@ -294,6 +412,7 @@ export default function Home() {
           </section>
 
           <section className="quote section reveal" aria-label="Personal motto">
+            <BunnyLayer section="quote" bunnies={bunnies} onFind={handleBunnyClick} />
             <span className="quote-mark" aria-hidden="true">“</span>
             <blockquote>Music can make you escape, or it can make a situation more manageable somehow.</blockquote>
             <p>— Chris Martin</p>
