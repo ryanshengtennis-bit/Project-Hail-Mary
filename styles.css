@@ -824,8 +824,14 @@ h1 em {
   opacity: .78;
 }
 
-.card-icon-tennis svg { fill: none; }
-.tennis-sun-button { display: grid; width: 100%; height: 100%; padding: 0; place-items: center; border: 0; border-radius: 50%; background: transparent; cursor: pointer; }
+.card-icon-tennis { position: relative; }
+.card-icon-tennis > svg { fill: none; }
+.card-icon-tennis .racket-inner { stroke-width: 1.2; opacity: .72; }
+.card-icon-tennis .racket-strings { stroke-width: .75; opacity: .58; }
+.card-icon-tennis .racket-shaft { stroke-width: 2.8; }
+.card-icon-tennis .racket-grip { stroke-width: 1.1; }
+.tennis-sun-button { position: absolute; top: 10px; left: 32px; display: grid; width: 20px; height: 20px; padding: 0; place-items: center; border: 0; border-radius: 50%; background: transparent; cursor: pointer; }
+.tennis-sun-button svg { width: 20px; height: 20px; fill: none; }
 .tennis-sun-button:focus-visible { outline: 3px solid #6c5dd3; outline-offset: 2px; }
 .card-icon-tennis .tennis-sun-halo { stroke: #e6a741; stroke-width: 1.5; stroke-dasharray: 1.5 3; }
 .card-icon-tennis .tennis-sun-rays { stroke: #a76e32; stroke-width: 2; }
