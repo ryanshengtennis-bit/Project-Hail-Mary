@@ -570,7 +570,7 @@ h1 em {
   height: 100px;
   border: 1.5px dashed rgba(108,93,211,.38);
   border-radius: 50%;
-  transform: translate(-50%, -50%) rotate(-12deg);
+  transform: translate(-50%, -50%) rotate(-20deg);
 }
 
 .saturn-orbit-track {
@@ -1327,25 +1327,25 @@ html[data-theme="dark"] .moon-track { border-color: rgba(193,199,255,.45); }
 }
 
 @keyframes solar-orbit-motion {
-  0% { z-index: 1; transform: translate(-50%, -50%) translate(-84px, 18px) scale(.86); }
-  6.25% { transform: translate(-50%, -50%) translate(-82px, -2px) scale(.82); }
-  12.5% { transform: translate(-50%, -50%) translate(-67px, -22px) scale(.78); }
-  18.75% { transform: translate(-50%, -50%) translate(-42px, -38px) scale(.75); }
-  25% { z-index: 1; transform: translate(-50%, -50%) translate(-10px, -49px) scale(.72); }
-  31.25% { transform: translate(-50%, -50%) translate(23px, -52px) scale(.78); }
-  37.5% { transform: translate(-50%, -50%) translate(52px, -47px) scale(.84); }
-  43.75% { transform: translate(-50%, -50%) translate(74px, -35px) scale(.9); }
+  0% { z-index: 1; transform: translate(-50%, -50%) translate(-81px, 29px) scale(.86); }
+  6.25% { transform: translate(-50%, -50%) translate(-81px, 9px) scale(.82); }
+  12.5% { transform: translate(-50%, -50%) translate(-69px, -12px) scale(.78); }
+  18.75% { transform: translate(-50%, -50%) translate(-47px, -32px) scale(.75); }
+  25% { z-index: 1; transform: translate(-50%, -50%) translate(-17px, -47px) scale(.72); }
+  31.25% { transform: translate(-50%, -50%) translate(15px, -55px) scale(.78); }
+  37.5% { transform: translate(-50%, -50%) translate(45px, -54px) scale(.84); }
+  43.75% { transform: translate(-50%, -50%) translate(68px, -45px) scale(.9); }
   49% { z-index: 1; }
-  50% { z-index: 4; transform: translate(-50%, -50%) translate(84px, -18px) scale(.95); }
-  56.25% { transform: translate(-50%, -50%) translate(82px, 2px) scale(.98); }
-  62.5% { transform: translate(-50%, -50%) translate(67px, 22px) scale(1.02); }
-  68.75% { transform: translate(-50%, -50%) translate(42px, 38px) scale(1.05); }
-  75% { z-index: 4; transform: translate(-50%, -50%) translate(10px, 49px) scale(1.08); }
-  81.25% { transform: translate(-50%, -50%) translate(-23px, 52px) scale(1.03); }
-  87.5% { transform: translate(-50%, -50%) translate(-52px, 47px) scale(.97); }
-  93.75% { transform: translate(-50%, -50%) translate(-74px, 35px) scale(.91); }
+  50% { z-index: 4; transform: translate(-50%, -50%) translate(81px, -29px) scale(.95); }
+  56.25% { transform: translate(-50%, -50%) translate(81px, -9px) scale(.98); }
+  62.5% { transform: translate(-50%, -50%) translate(69px, 12px) scale(1.02); }
+  68.75% { transform: translate(-50%, -50%) translate(47px, 32px) scale(1.05); }
+  75% { z-index: 4; transform: translate(-50%, -50%) translate(17px, 47px) scale(1.08); }
+  81.25% { transform: translate(-50%, -50%) translate(-15px, 55px) scale(1.03); }
+  87.5% { transform: translate(-50%, -50%) translate(-45px, 54px) scale(.97); }
+  93.75% { transform: translate(-50%, -50%) translate(-68px, 45px) scale(.91); }
   99% { z-index: 4; }
-  100% { z-index: 1; transform: translate(-50%, -50%) translate(-84px, 18px) scale(.86); }
+  100% { z-index: 1; transform: translate(-50%, -50%) translate(-81px, 29px) scale(.86); }
 }
 
 @keyframes saturn-solar-orbit-motion {
