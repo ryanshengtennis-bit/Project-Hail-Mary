@@ -271,7 +271,7 @@ export default function Home() {
               <InterestCard number="06" className="card-fencing" title="Fencing" subtitle="Click for a game" description="Combining quick decisions, precise movement, and tactical thinking." href="https://en-garde-fencing-arena.echristina-wang.chatgpt.site">
                 <div className="card-icon card-icon-fencing" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M8 38 38 8M10 31l7 7M6 42l5-5M40 6l2 2"/><path d="m10 8 30 30M31 38l7-7M6 6l5 5M38 40l2 2"/><path className="icon-detail" d="M13 34c-3 3-3 7-1 9M34 13c3-3 7-3 9-1"/></svg></div>
               </InterestCard>
-              <InterestCard number="07" className="card-creativity" title="Creativity" subtitle="Click the website icon five times for a little magic." description="Imagining new possibilities and turning ideas into something of my own.">
+              <InterestCard number="07" className="card-creativity" title="Creativity" description="Imagining new possibilities and turning ideas into something of my own. Click the website icon five times for a little magic.">
                 <div className="card-icon card-icon-creativity" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="m13 35 20-20 5 5-20 20-5-5Z"/><path className="icon-detail" d="m30 9 1.5-4M36 14l4-1.5M25 8l-1-4M39 25l4 1M19 18l-3-3"/><path d="m12 8 .7 2.3L15 11l-2.3.7L12 14l-.7-2.3L9 11l2.3-.7L12 8Z"/></svg></div>
               </InterestCard>
             </div>
