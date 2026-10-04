@@ -18,7 +18,9 @@ const solarSystemFacts = [
   'There are more than 200 known moons orbiting planets in our solar system.',
 ];
 
-const bunnyHideSpots = [
+const spaceObjectTypes = ['planet', 'star', 'comet', 'moon', 'asteroid', 'satellite', 'rocket', 'galaxy'];
+
+const spaceObjectHideSpots = [
   { section: 'hero', side: 'left', top: '5%' },
   { section: 'hero', side: 'right', top: '20%' },
   { section: 'hero', side: 'left', top: '95%' },
@@ -42,13 +44,19 @@ const bunnyHideSpots = [
   { section: 'quote', side: 'right', top: '90%' },
 ];
 
-function getRandomBunnySpots() {
-  const spots = [...bunnyHideSpots];
-  for (let index = spots.length - 1; index > 0; index -= 1) {
+function shuffle(items) {
+  const shuffled = [...items];
+  for (let index = shuffled.length - 1; index > 0; index -= 1) {
     const swapIndex = Math.floor(Math.random() * (index + 1));
-    [spots[index], spots[swapIndex]] = [spots[swapIndex], spots[index]];
+    [shuffled[index], shuffled[swapIndex]] = [shuffled[swapIndex], shuffled[index]];
   }
-  return spots.slice(0, 10).map((spot, id) => ({ ...spot, id }));
+  return shuffled;
+}
+
+function getRandomSpaceObjects() {
+  const spots = shuffle(spaceObjectHideSpots).slice(0, 10);
+  const objects = shuffle(spaceObjectTypes);
+  return spots.map((spot, id) => ({ ...spot, id, type: objects[id % objects.length] }));
 }
 
 function Brand({ footer = false, onCrownClick }) {
@@ -93,34 +101,45 @@ function InterestCard({ number, className, title, subtitle, description, href, e
   );
 }
 
-function BunnyLayer({ section, bunnies, onFind }) {
-  const sectionBunnies = bunnies.filter((bunny) => bunny.section === section);
-  if (!sectionBunnies.length) return null;
+function SpaceObjectIcon({ type }) {
+  switch (type) {
+    case 'planet':
+      return <g><ellipse className="space-object-orbit" cx="32" cy="32" rx="27" ry="10" transform="rotate(-20 32 32)"/><circle className="space-object-planet" cx="32" cy="32" r="16"/><path className="space-object-detail" d="M20 28c6-5 15-5 22-1m-23 9c7 4 14 4 21 1"/></g>;
+    case 'star':
+      return <g><path className="space-object-star" d="m32 5 7 18 19 1-15 12 5 19-16-11-16 11 5-19L6 24l19-1 7-18Z"/><circle className="space-object-sparkle" cx="32" cy="32" r="5"/></g>;
+    case 'comet':
+      return <g><path className="space-object-trail" d="M6 48 31 23m-18 32 25-25m-32 9 23-23"/><circle className="space-object-comet" cx="42" cy="20" r="12"/><path className="space-object-detail" d="M37 18q5-6 10-2"/></g>;
+    case 'moon':
+      return <g><circle className="space-object-moon" cx="32" cy="32" r="23"/><circle className="space-object-shadow" cx="42" cy="20" r="19"/><circle className="space-object-crater" cx="21" cy="29" r="3"/><circle className="space-object-crater" cx="28" cy="43" r="2"/></g>;
+    case 'asteroid':
+      return <g><path className="space-object-asteroid" d="m10 19 11-11 16 3 14 12-2 17-13 11-18-4L8 35Z"/><circle className="space-object-crater" cx="22" cy="24" r="3"/><circle className="space-object-crater" cx="39" cy="37" r="4"/><path className="space-object-detail" d="m26 42 7-4"/></g>;
+    case 'satellite':
+      return <g transform="rotate(-24 32 32)"><rect className="space-object-satellite" x="23" y="23" width="18" height="18" rx="4"/><path className="space-object-panel" d="M4 22h15v20H4zm41 0h15v20H45zM32 9v14m0 18v12"/><path className="space-object-detail" d="M8 27h7m-7 6h7m34-6h7m-7 6h7"/></g>;
+    case 'rocket':
+      return <g transform="rotate(35 32 32)"><path className="space-object-rocket" d="M32 7c10 8 14 18 12 30L32 48 20 37C18 25 22 15 32 7Z"/><circle className="space-object-window" cx="32" cy="25" r="5"/><path className="space-object-fin" d="m20 31-9 4 2 13 13-7m18-10 9 4-2 13-13-7"/><path className="space-object-flame" d="m27 43 5 12 5-12"/></g>;
+    default:
+      return <g><path className="space-object-galaxy" d="M32 31c-11-13-25-3-17 8 7 9 23 7 28-3 6-12-8-25-22-22-9 2-15 10-15 19"/><circle className="space-object-core" cx="32" cy="32" r="6"/><circle className="space-object-sparkle" cx="49" cy="13" r="2"/></g>;
+  }
+}
+
+function SpaceObjectLayer({ section, objects, onFind }) {
+  const sectionObjects = objects.filter((object) => object.section === section);
+  if (!sectionObjects.length) return null;
 
   return (
-    <div className="bunny-layer">
-      {sectionBunnies.map((bunny) => (
+    <div className="space-object-layer">
+      {sectionObjects.map((object) => (
         <button
-          className={`hidden-bunny peek-${bunny.side}`}
-          key={bunny.id}
+          className={`hidden-space-object peek-${object.side}`}
+          key={object.id}
           type="button"
-          aria-label={`Find hidden bunny ${bunny.id + 1}`}
-          title="You found a bunny!"
-          style={{ top: bunny.top }}
-          onClick={() => onFind(bunny.id)}
+          aria-label={`Find hidden ${object.type} ${object.id + 1} of 10`}
+          title={`Hidden ${object.type}`}
+          style={{ top: object.top }}
+          onClick={() => onFind(object.id)}
         >
           <svg viewBox="0 0 64 62" aria-hidden="true">
-            <ellipse className="bunny-ear" cx="20" cy="19" rx="7" ry="17" transform="rotate(-12 20 19)" />
-            <ellipse className="bunny-ear-inner" cx="20" cy="18" rx="3" ry="11" transform="rotate(-12 20 18)" />
-            <ellipse className="bunny-ear" cx="43" cy="19" rx="7" ry="17" transform="rotate(12 43 19)" />
-            <ellipse className="bunny-ear-inner" cx="43" cy="18" rx="3" ry="11" transform="rotate(12 43 18)" />
-            <ellipse className="bunny-face" cx="32" cy="42" rx="23" ry="18" />
-            <ellipse className="bunny-cheek" cx="20" cy="44" rx="4" ry="2.5" />
-            <ellipse className="bunny-cheek" cx="44" cy="44" rx="4" ry="2.5" />
-            <circle className="bunny-eye" cx="25" cy="38" r="1.8" />
-            <circle className="bunny-eye" cx="39" cy="38" r="1.8" />
-            <path className="bunny-nose" d="M30 43q2-2 4 0l-2 2Z" />
-            <path className="bunny-mouth" d="M32 45v2m0 0q-3 3-5 0m5 0q3 3 5 0" />
+            <SpaceObjectIcon type={object.type} />
           </svg>
         </button>
       ))}
@@ -133,17 +152,17 @@ export default function Home() {
   const [darkMode, setDarkMode] = useState(false);
   const [ripple, setRipple] = useState(null);
   const [meteors, setMeteors] = useState([]);
-  const [bunnies, setBunnies] = useState([]);
-  const [foundBunnyCount, setFoundBunnyCount] = useState(0);
+  const [spaceObjects, setSpaceObjects] = useState([]);
+  const [foundObjectCount, setFoundObjectCount] = useState(0);
   const [solarSystemFact, setSolarSystemFact] = useState('');
-  const foundBunnyIds = useRef(new Set());
+  const foundObjectIds = useRef(new Set());
   const crownClicks = useRef(0);
   const crownClickTimer = useRef(null);
   const meteorTimer = useRef(null);
   const rippleTimers = useRef([]);
 
   useEffect(() => {
-    setBunnies(getRandomBunnySpots());
+    setSpaceObjects(getRandomSpaceObjects());
     setStars(Array.from({ length: 280 }, (_, index) => ({
       id: index,
       left: `${Math.random() * 100}%`,
@@ -223,12 +242,12 @@ export default function Home() {
     }
   }
 
-  function handleBunnyClick(id) {
-    if (foundBunnyIds.current.has(id)) return;
-    foundBunnyIds.current.add(id);
-    const foundCount = foundBunnyIds.current.size;
-    setFoundBunnyCount(foundCount);
-    setBunnies((current) => current.filter((bunny) => bunny.id !== id));
+  function handleSpaceObjectClick(id) {
+    if (foundObjectIds.current.has(id)) return;
+    foundObjectIds.current.add(id);
+    const foundCount = foundObjectIds.current.size;
+    setFoundObjectCount(foundCount);
+    setSpaceObjects((current) => current.filter((object) => object.id !== id));
 
     if (foundCount === 10) {
       setSolarSystemFact(solarSystemFacts[Math.floor(Math.random() * solarSystemFacts.length)]);
@@ -292,7 +311,7 @@ export default function Home() {
 
         <main id="top">
           <section className="hero" aria-labelledby="hero-title">
-            <BunnyLayer section="hero" bunnies={bunnies} onFind={handleBunnyClick} />
+            <SpaceObjectLayer section="hero" objects={spaceObjects} onFind={handleSpaceObjectClick} />
             <div className="hero-copy reveal">
               <p className="eyebrow"><span /> Student · Explorer · Creator</p>
               <h1 id="hero-title">Hi, I’m Ryan.<span className="hero-tagline"><em>Curious by nature.</em></span></h1>
@@ -322,7 +341,7 @@ export default function Home() {
           </section>
 
           <section className="about section" id="about" aria-labelledby="about-title">
-            <BunnyLayer section="about" bunnies={bunnies} onFind={handleBunnyClick} />
+            <SpaceObjectLayer section="about" objects={spaceObjects} onFind={handleSpaceObjectClick} />
             <div className="about-side reveal">
               <div className="section-label">01 · About me</div>
               <div className="earth-wrap" aria-hidden="true">
@@ -352,7 +371,7 @@ export default function Home() {
           </section>
 
           <section className="interests section" id="interests" aria-labelledby="interests-title">
-            <BunnyLayer section="interests" bunnies={bunnies} onFind={handleBunnyClick} />
+            <SpaceObjectLayer section="interests" objects={spaceObjects} onFind={handleSpaceObjectClick} />
             <div className="section-heading reveal">
               <div><div className="section-label">02 · Things I enjoy</div><h2 id="interests-title">A few things that keep me inspired.</h2></div>
               <p>My interests live somewhere between a laboratory, a library, a game world, a melody, a tennis court, and a fencing piste.</p>
@@ -382,9 +401,9 @@ export default function Home() {
                 title="Creativity"
                 description="Imagining new possibilities and turning ideas into something of my own. Click the website icon five times for a little magic."
                 extra={(
-                  <div className="bunny-hunt" aria-live="polite">
-                    <p>Find and click on 10 bunnies to reveal a fun fact!</p>
-                    <p className="bunny-hunt-progress">Bunnies found: {foundBunnyCount} of 10</p>
+                  <div className="space-object-hunt" aria-live="polite">
+                    <p>Find and click on 10 space objects to reveal a fun fact!</p>
+                    <p className="space-object-hunt-progress">Objects found: {foundObjectCount} of 10</p>
                     {solarSystemFact && <p className="solar-system-fact">{solarSystemFact}</p>}
                   </div>
                 )}
@@ -395,7 +414,7 @@ export default function Home() {
           </section>
 
           <section className="now section" id="now" aria-labelledby="now-title">
-            <BunnyLayer section="now" bunnies={bunnies} onFind={handleBunnyClick} />
+            <SpaceObjectLayer section="now" objects={spaceObjects} onFind={handleSpaceObjectClick} />
             <div className="now-panel reveal">
               <div className="now-copy"><div className="section-label light">03 · Right now</div><h2 id="now-title">Building, learning, and preparing.</h2><p>I’m putting my curiosity into action through two projects that matter to me.</p></div>
               <div className="goal-list">
@@ -412,7 +431,7 @@ export default function Home() {
           </section>
 
           <section className="quote section reveal" aria-label="Personal motto">
-            <BunnyLayer section="quote" bunnies={bunnies} onFind={handleBunnyClick} />
+            <SpaceObjectLayer section="quote" objects={spaceObjects} onFind={handleSpaceObjectClick} />
             <span className="quote-mark" aria-hidden="true">“</span>
             <blockquote>Music can make you escape, or it can make a situation more manageable somehow.</blockquote>
             <p>— Chris Martin</p>

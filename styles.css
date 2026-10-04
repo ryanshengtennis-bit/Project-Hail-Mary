@@ -446,10 +446,10 @@ h1 em {
 
 .section { position: relative; isolation: isolate; padding: 112px 0; }
 
-.hero > :not(.bunny-layer),
-.section > :not(.bunny-layer) { position: relative; z-index: 1; }
+.hero > :not(.space-object-layer),
+.section > :not(.space-object-layer) { position: relative; z-index: 1; }
 
-.bunny-layer {
+.space-object-layer {
   position: absolute;
   z-index: 2;
   inset: 0;
@@ -457,7 +457,7 @@ h1 em {
   pointer-events: none;
 }
 
-.hidden-bunny {
+.hidden-space-object {
   position: absolute;
   width: 64px;
   height: 60px;
@@ -468,20 +468,35 @@ h1 em {
   filter: drop-shadow(0 5px 6px rgba(55,43,77,.2));
   pointer-events: auto;
   cursor: pointer;
-  animation: bunny-peek 3s ease-in-out infinite;
+  animation: space-object-peek 3s ease-in-out infinite;
 }
 
-.hidden-bunny.peek-left { left: -32px; clip-path: inset(0 0 0 32px); }
-.hidden-bunny.peek-right { right: -32px; clip-path: inset(0 32px 0 0); animation-delay: -.9s; }
-.hidden-bunny:focus-visible { z-index: 2; clip-path: none; outline: 3px solid #6c5dd3; outline-offset: 2px; }
-.hidden-bunny svg { width: 100%; height: 100%; overflow: visible; }
-.bunny-ear, .bunny-face { fill: #fffdf7; stroke: #927b6f; stroke-width: 1.5; }
-.bunny-ear-inner { fill: #f2b8c5; }
-.bunny-cheek { fill: #f3aebb; }
-.bunny-eye, .bunny-nose { fill: #4c3d42; }
-.bunny-mouth { fill: none; stroke: #4c3d42; stroke-width: 1.5; stroke-linecap: round; }
+.hidden-space-object.peek-left { left: -32px; clip-path: inset(0 0 0 32px); }
+.hidden-space-object.peek-right { right: -32px; clip-path: inset(0 32px 0 0); animation-delay: -.9s; }
+.hidden-space-object:focus-visible { z-index: 2; clip-path: none; outline: 3px solid #6c5dd3; outline-offset: 2px; }
+.hidden-space-object svg { width: 100%; height: 100%; overflow: visible; }
+.space-object-orbit, .space-object-detail, .space-object-trail, .space-object-panel { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.space-object-orbit { stroke: #8a79d6; stroke-width: 3; opacity: .8; }
+.space-object-planet { fill: #72addf; stroke: #3e5682; stroke-width: 2; }
+.space-object-detail { stroke: #44577c; stroke-width: 2; }
+.space-object-star { fill: #ffd56a; stroke: #a66b3e; stroke-width: 1.5; stroke-linejoin: round; }
+.space-object-sparkle { fill: #fff5bd; }
+.space-object-trail { stroke: #edaa80; stroke-width: 4; opacity: .82; }
+.space-object-comet { fill: #89c9e7; stroke: #47698e; stroke-width: 2; }
+.space-object-moon { fill: #e4dff8; stroke: #77729c; stroke-width: 2; }
+.space-object-shadow { fill: #c8c2e3; }
+.space-object-crater { fill: #a9a4c9; }
+.space-object-asteroid { fill: #bd9272; stroke: #715e67; stroke-width: 2; stroke-linejoin: round; }
+.space-object-satellite { fill: #e7d8ad; stroke: #5b6284; stroke-width: 2; }
+.space-object-panel { stroke: #5274a0; stroke-width: 2; }
+.space-object-rocket { fill: #f4f0e6; stroke: #596184; stroke-width: 2; stroke-linejoin: round; }
+.space-object-window { fill: #78c6df; stroke: #596184; stroke-width: 2; }
+.space-object-fin { fill: #e98783; stroke: #596184; stroke-width: 2; stroke-linejoin: round; }
+.space-object-flame { fill: #ffd56a; stroke: #d57955; stroke-width: 1.5; stroke-linejoin: round; }
+.space-object-galaxy { fill: none; stroke: #ad88dc; stroke-width: 4; stroke-linecap: round; }
+.space-object-core { fill: #ffe18a; }
 
-@keyframes bunny-peek {
+@keyframes space-object-peek {
   0%, 100% { translate: 0 4px; }
   50% { translate: 0 -2px; }
 }
@@ -816,7 +831,7 @@ h1 em {
 .card-description-inner { min-height: 0; overflow: hidden; }
 .card-description-inner > p { margin-bottom: 0; }
 
-.bunny-hunt {
+.space-object-hunt {
   margin-top: 12px;
   padding: 12px 14px;
   border: 1px solid rgba(23,61,50,.16);
@@ -824,9 +839,9 @@ h1 em {
   background: rgba(255,255,255,.3);
 }
 
-.bunny-hunt p { margin-bottom: 4px; }
-.bunny-hunt .bunny-hunt-progress { margin-bottom: 0; font-size: .78rem; font-weight: 700; opacity: .72; }
-.bunny-hunt .solar-system-fact { margin: 9px 0 0; font-weight: 700; }
+.space-object-hunt p { margin-bottom: 4px; }
+.space-object-hunt .space-object-hunt-progress { margin-bottom: 0; font-size: .78rem; font-weight: 700; opacity: .72; }
+.space-object-hunt .solar-system-fact { margin: 9px 0 0; font-weight: 700; }
 
 .card-link {
   width: fit-content;
