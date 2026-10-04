@@ -495,7 +495,7 @@ export default function Home() {
                 extra={(
                   <div className="space-object-hunt" aria-live="polite">
                     <p>Find and click on {huntTargetCount} space objects to reveal a fun fact!</p>
-                    <p className="decoy-warning">Warning: Any object, even Saturn or the Sun, could be a decoy. Decoys explode when clicked but don’t count!</p>
+                    <p className="decoy-warning">Warning: Some objects are decoys. They explode when clicked but don’t count!</p>
                     <p className="space-object-hunt-progress">Objects found: {foundObjectCount} of {huntTargetCount}</p>
                     {decoyFeedback && <p className="decoy-feedback">{decoyFeedback}</p>}
                     {solarSystemFact && <p className="solar-system-fact">{solarSystemFact}</p>}
