@@ -55,9 +55,13 @@ function shuffle(items) {
 
 function getRandomSpaceObjects() {
   const saturnSpot = spaceObjectHideSpots.find((spot) => spot.section === 'about' && spot.side === 'right');
-  const spots = [saturnSpot, ...shuffle(spaceObjectHideSpots.filter((spot) => spot !== saturnSpot)).slice(0, 9)];
-  const objects = shuffle(spaceObjectTypes);
-  return spots.map((spot, id) => ({ ...spot, id, type: id === 0 ? 'saturn' : objects[(id - 1) % objects.length] }));
+  const otherSpots = shuffle(spaceObjectHideSpots.filter((spot) => spot !== saturnSpot)).slice(0, 8);
+  const objects = shuffle(spaceObjectTypes).slice(0, 8);
+  return [
+    { ...saturnSpot, id: 0, type: 'saturn' },
+    { section: 'interests', id: 1, type: 'sun' },
+    ...otherSpots.map((spot, index) => ({ ...spot, id: index + 2, type: objects[index] })),
+  ];
 }
 
 function Brand({ footer = false, onCrownClick }) {
@@ -130,7 +134,7 @@ function SpaceObjectIcon({ type }) {
 }
 
 function SpaceObjectLayer({ section, objects, onFind }) {
-  const sectionObjects = objects.filter((object) => object.section === section && object.id !== 0);
+  const sectionObjects = objects.filter((object) => object.section === section && object.id > 1);
   if (!sectionObjects.length) return null;
 
   return (
@@ -405,7 +409,7 @@ export default function Home() {
                 <div className="card-icon" aria-hidden="true">♫</div>
               </InterestCard>
               <InterestCard number="05" className="card-tennis" title="Tennis" description="Building skill, strategy, and resilience one rally at a time.">
-                <div className="card-icon card-icon-tennis" aria-hidden="true"><svg viewBox="0 0 48 48"><g className="tennis-racket" transform="rotate(-34 22 23)"><ellipse cx="19" cy="16" rx="10" ry="13"/><ellipse className="racket-inner" cx="19" cy="16" rx="7.2" ry="10.2"/><path className="racket-strings" d="M13 8v16M17 6v20M21 6v20M25 9v14M11 11h16M10 16h18M12 21h14"/><path className="racket-shaft" d="m19 29 1 12M16.5 41h7"/><path className="racket-grip" d="m17.5 33 4.5 2m-4.2 2 4.5 2"/></g><circle className="tennis-ball" cx="38" cy="10" r="5"/><path className="tennis-seam" d="M35 6.1c2.6 2 3.6 5.5 1.4 8.4M41 5.8c-2.5 2.2-3.2 5.7-.9 8.5"/></svg></div>
+                {spaceObjects.some((object) => object.id === 1) && <div className="card-icon card-icon-tennis"><button className="tennis-sun-button" type="button" aria-label="Click the Sun, space object 2 of 10" title="Click the Sun" onClick={(event) => { event.stopPropagation(); handleSpaceObjectClick(1); }}><svg viewBox="0 0 48 48" aria-hidden="true"><circle className="tennis-sun-halo" cx="24" cy="24" r="18"/><path className="tennis-sun-rays" d="M24 2v7m0 30v7M2 24h7m30 0h7M8.4 8.4l5 5m21.2 21.2 5 5m0-31.2-5 5M13.4 34.6l-5 5"/><circle className="tennis-sun-core" cx="24" cy="24" r="10"/><circle className="tennis-sun-shine" cx="21" cy="20" r="2.4"/></svg></button></div>}
               </InterestCard>
               <InterestCard number="06" className="card-fencing" title="Fencing" subtitle="Click for a game" description="Combining quick decisions, precise movement, and tactical thinking." href="https://en-garde-fencing-arena.echristina-wang.chatgpt.site">
                 <div className="card-icon card-icon-fencing" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M8 38 38 8M10 31l7 7M6 42l5-5M40 6l2 2"/><path d="m10 8 30 30M31 38l7-7M6 6l5 5M38 40l2 2"/><path className="icon-detail" d="M13 34c-3 3-3 7-1 9M34 13c3-3 7-3 9-1"/></svg></div>
