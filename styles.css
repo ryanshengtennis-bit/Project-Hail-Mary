@@ -464,37 +464,46 @@ h1 em {
   padding: 0;
   border: 0;
   background: transparent;
-  opacity: .86;
-  filter: drop-shadow(0 5px 6px rgba(55,43,77,.2));
+  opacity: .72;
+  filter: drop-shadow(0 0 5px rgba(103,111,180,.28));
   pointer-events: auto;
   cursor: pointer;
   animation: space-object-peek 3s ease-in-out infinite;
 }
 
+.hidden-space-object::before {
+  content: "";
+  position: absolute;
+  inset: 10px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(119,125,196,.2), transparent 72%);
+  filter: blur(3px);
+}
+
 .hidden-space-object.peek-left { left: -32px; clip-path: inset(0 0 0 32px); }
 .hidden-space-object.peek-right { right: -32px; clip-path: inset(0 32px 0 0); animation-delay: -.9s; }
 .hidden-space-object:focus-visible { z-index: 2; clip-path: none; outline: 3px solid #6c5dd3; outline-offset: 2px; }
-.hidden-space-object svg { width: 100%; height: 100%; overflow: visible; }
+.hidden-space-object svg { position: relative; width: 100%; height: 100%; overflow: visible; }
 .space-object-orbit, .space-object-detail, .space-object-trail, .space-object-panel { fill: none; stroke-linecap: round; stroke-linejoin: round; }
-.space-object-orbit { stroke: #8a79d6; stroke-width: 3; opacity: .8; }
-.space-object-planet { fill: #72addf; stroke: #3e5682; stroke-width: 2; }
-.space-object-detail { stroke: #44577c; stroke-width: 2; }
-.space-object-star { fill: #ffd56a; stroke: #a66b3e; stroke-width: 1.5; stroke-linejoin: round; }
-.space-object-sparkle { fill: #fff5bd; }
-.space-object-trail { stroke: #edaa80; stroke-width: 4; opacity: .82; }
-.space-object-comet { fill: #89c9e7; stroke: #47698e; stroke-width: 2; }
-.space-object-moon { fill: #e4dff8; stroke: #77729c; stroke-width: 2; }
-.space-object-shadow { fill: #c8c2e3; }
-.space-object-crater { fill: #a9a4c9; }
-.space-object-asteroid { fill: #bd9272; stroke: #715e67; stroke-width: 2; stroke-linejoin: round; }
-.space-object-satellite { fill: #e7d8ad; stroke: #5b6284; stroke-width: 2; }
-.space-object-panel { stroke: #5274a0; stroke-width: 2; }
-.space-object-rocket { fill: #f4f0e6; stroke: #596184; stroke-width: 2; stroke-linejoin: round; }
-.space-object-window { fill: #78c6df; stroke: #596184; stroke-width: 2; }
-.space-object-fin { fill: #e98783; stroke: #596184; stroke-width: 2; stroke-linejoin: round; }
-.space-object-flame { fill: #ffd56a; stroke: #d57955; stroke-width: 1.5; stroke-linejoin: round; }
-.space-object-galaxy { fill: none; stroke: #ad88dc; stroke-width: 4; stroke-linecap: round; }
-.space-object-core { fill: #ffe18a; }
+.space-object-orbit { stroke: #9189c7; stroke-width: 3; opacity: .8; }
+.space-object-planet { fill: #8297c9; stroke: #5a668e; stroke-width: 2; }
+.space-object-detail { stroke: #59688c; stroke-width: 2; }
+.space-object-star { fill: #e8c978; stroke: #9b7c59; stroke-width: 1.5; stroke-linejoin: round; }
+.space-object-sparkle { fill: #fcf0c4; }
+.space-object-trail { stroke: #a9a8cf; stroke-width: 4; opacity: .82; }
+.space-object-comet { fill: #9fc5dc; stroke: #647e9e; stroke-width: 2; }
+.space-object-moon { fill: #ded9ed; stroke: #87829f; stroke-width: 2; }
+.space-object-shadow { fill: #c4bfdc; }
+.space-object-crater { fill: #ada8c4; }
+.space-object-asteroid { fill: #a8a8bd; stroke: #73758f; stroke-width: 2; stroke-linejoin: round; }
+.space-object-satellite { fill: #bdc9d9; stroke: #647594; stroke-width: 2; }
+.space-object-panel { stroke: #7e99c2; stroke-width: 2; }
+.space-object-rocket { fill: #d9dded; stroke: #737b9d; stroke-width: 2; stroke-linejoin: round; }
+.space-object-window { fill: #8dc8d7; stroke: #59698b; stroke-width: 2; }
+.space-object-fin { fill: #9d8ebc; stroke: #737b9d; stroke-width: 2; stroke-linejoin: round; }
+.space-object-flame { fill: #e7cd83; stroke: #a88b64; stroke-width: 1.5; stroke-linejoin: round; }
+.space-object-galaxy { fill: none; stroke: #9c8cce; stroke-width: 4; stroke-linecap: round; }
+.space-object-core { fill: #efd590; }
 
 @keyframes space-object-peek {
   0%, 100% { translate: 0 4px; }
@@ -1069,6 +1078,32 @@ html[data-theme="dark"] .page-shell::before {
 }
 
 html[data-theme="dark"] .starfield { opacity: 1; }
+
+html[data-theme="dark"] .hidden-space-object {
+  opacity: .86;
+  filter: drop-shadow(0 0 7px rgba(139,157,255,.52)) drop-shadow(0 0 15px rgba(116,94,235,.26));
+}
+
+html[data-theme="dark"] .hidden-space-object::before { background: radial-gradient(circle, rgba(126,151,255,.32), transparent 72%); }
+html[data-theme="dark"] .space-object-orbit { stroke: #bab0ff; }
+html[data-theme="dark"] .space-object-planet { fill: #7284dd; stroke: #cad0ff; }
+html[data-theme="dark"] .space-object-detail { stroke: #d2d5f0; }
+html[data-theme="dark"] .space-object-star { fill: #f1d88e; stroke: #fff0be; }
+html[data-theme="dark"] .space-object-sparkle { fill: #fff9df; }
+html[data-theme="dark"] .space-object-trail { stroke: #92a6f2; }
+html[data-theme="dark"] .space-object-comet { fill: #8cc4ed; stroke: #d6e7ff; }
+html[data-theme="dark"] .space-object-moon { fill: #c6c6ef; stroke: #eef0ff; }
+html[data-theme="dark"] .space-object-shadow { fill: #636d9f; }
+html[data-theme="dark"] .space-object-crater { fill: #858ab9; }
+html[data-theme="dark"] .space-object-asteroid { fill: #989ac3; stroke: #d6d8ff; }
+html[data-theme="dark"] .space-object-satellite { fill: #c1d3ea; stroke: #ecf3ff; }
+html[data-theme="dark"] .space-object-panel { stroke: #849fd8; }
+html[data-theme="dark"] .space-object-rocket { fill: #e5e2fb; stroke: #e3dcff; }
+html[data-theme="dark"] .space-object-window { fill: #79d7ec; stroke: #e3dcff; }
+html[data-theme="dark"] .space-object-fin { fill: #bd9ade; stroke: #e3dcff; }
+html[data-theme="dark"] .space-object-flame { fill: #f8d38b; stroke: #fff0be; }
+html[data-theme="dark"] .space-object-galaxy { stroke: #be9fff; }
+html[data-theme="dark"] .space-object-core { fill: #ffe59a; }
 
 html[data-theme="dark"] .site-header {
   border-color: rgba(165,185,255,.2);
