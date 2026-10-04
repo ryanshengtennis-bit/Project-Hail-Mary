@@ -464,10 +464,11 @@ h1 em {
   padding: 0;
   border: 0;
   background: transparent;
-  opacity: .72;
+  opacity: var(--hunt-opacity, .72);
   filter: drop-shadow(0 0 5px rgba(103,111,180,.28));
   pointer-events: auto;
   cursor: pointer;
+  scale: var(--hunt-scale, 1);
   animation: space-object-float 3s ease-in-out infinite;
 }
 
@@ -646,6 +647,8 @@ h1 em {
   top: 50%;
   left: 50%;
   width: 76px;
+  scale: var(--hunt-scale, 1);
+  opacity: var(--hunt-opacity, .86);
   overflow: visible;
   transform: translate(-50%, -50%);
   filter: drop-shadow(0 3px 6px rgba(45,51,116,.28));
@@ -830,7 +833,7 @@ h1 em {
 .card-icon-tennis .racket-strings { stroke-width: .75; opacity: .58; }
 .card-icon-tennis .racket-shaft { stroke-width: 2.8; }
 .card-icon-tennis .racket-grip { stroke-width: 1.1; }
-.tennis-sun-button { position: absolute; top: 10px; left: 32px; display: grid; width: 20px; height: 20px; padding: 0; place-items: center; border: 0; border-radius: 50%; background: transparent; cursor: pointer; }
+.tennis-sun-button { position: absolute; top: 10px; left: 32px; display: grid; width: 20px; height: 20px; padding: 0; place-items: center; border: 0; border-radius: 50%; background: transparent; cursor: pointer; scale: var(--hunt-scale, 1); opacity: var(--hunt-opacity, 1); }
 .tennis-sun-button svg { width: 20px; height: 20px; fill: none; }
 .tennis-sun-button:focus-visible { outline: 3px solid #6c5dd3; outline-offset: 2px; }
 .card-icon-tennis .tennis-sun-halo { stroke: #e6a741; stroke-width: 1.5; stroke-dasharray: 1.5 3; }
@@ -917,6 +920,9 @@ h1 em {
 .space-object-hunt p { margin-bottom: 4px; }
 .space-object-hunt .space-object-hunt-progress { margin-bottom: 0; font-size: .78rem; font-weight: 700; opacity: .72; }
 .space-object-hunt .solar-system-fact { margin: 9px 0 0; font-weight: 700; }
+.play-again-button { margin-top: 10px; padding: 8px 12px; border: 1px solid rgba(44,54,93,.32); border-radius: 999px; color: var(--ink); background: rgba(255,255,255,.58); font: inherit; font-size: .84rem; font-weight: 700; cursor: pointer; }
+.play-again-button:hover { background: rgba(255,255,255,.9); }
+.play-again-button:focus-visible { outline: 3px solid #6c5dd3; outline-offset: 2px; }
 
 .card-link {
   width: fit-content;
@@ -1146,7 +1152,7 @@ html[data-theme="dark"] .page-shell::before {
 html[data-theme="dark"] .starfield { opacity: 1; }
 
 html[data-theme="dark"] .space-object-button {
-  opacity: .86;
+  opacity: var(--hunt-opacity, .86);
   filter: drop-shadow(0 0 7px rgba(139,157,255,.52)) drop-shadow(0 0 15px rgba(116,94,235,.26));
 }
 

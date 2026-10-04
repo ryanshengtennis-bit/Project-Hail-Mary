@@ -53,14 +53,15 @@ function shuffle(items) {
   return shuffled;
 }
 
-function getRandomSpaceObjects() {
+function getRandomSpaceObjects(round = 0) {
   const saturnSpot = spaceObjectHideSpots.find((spot) => spot.section === 'about' && spot.side === 'right');
-  const otherSpots = shuffle(spaceObjectHideSpots.filter((spot) => spot !== saturnSpot)).slice(0, 8);
-  const objects = shuffle(spaceObjectTypes).slice(0, 8);
+  const targetCount = Math.min(10 + round * 2, spaceObjectHideSpots.length);
+  const otherSpots = shuffle(spaceObjectHideSpots.filter((spot) => spot !== saturnSpot)).slice(0, targetCount - 2);
+  const objects = shuffle(spaceObjectTypes);
   return [
     { ...saturnSpot, id: 0, type: 'saturn' },
     { section: 'interests', id: 1, type: 'sun' },
-    ...otherSpots.map((spot, index) => ({ ...spot, id: index + 2, type: objects[index] })),
+    ...otherSpots.map((spot, index) => ({ ...spot, id: index + 2, type: objects[index % objects.length] })),
   ];
 }
 
@@ -166,6 +167,9 @@ export default function Home() {
   const [spaceObjects, setSpaceObjects] = useState([]);
   const [foundObjectCount, setFoundObjectCount] = useState(0);
   const [solarSystemFact, setSolarSystemFact] = useState('');
+  const [huntRound, setHuntRound] = useState(0);
+  const [huntComplete, setHuntComplete] = useState(false);
+  const huntTargetCount = Math.min(10 + huntRound * 2, spaceObjectHideSpots.length);
   const foundObjectIds = useRef(new Set());
   const crownClicks = useRef(0);
   const crownClickTimer = useRef(null);
@@ -260,9 +264,21 @@ export default function Home() {
     setFoundObjectCount(foundCount);
     setSpaceObjects((current) => current.filter((object) => object.id !== id));
 
-    if (foundCount === 10) {
+    if (foundCount === huntTargetCount) {
       setSolarSystemFact(solarSystemFacts[Math.floor(Math.random() * solarSystemFacts.length)]);
+      setHuntComplete(true);
     }
+  }
+
+  function handlePlayAgain(event) {
+    event.stopPropagation();
+    const nextRound = huntRound + 1;
+    foundObjectIds.current.clear();
+    setHuntRound(nextRound);
+    setFoundObjectCount(0);
+    setSolarSystemFact('');
+    setHuntComplete(false);
+    setSpaceObjects(getRandomSpaceObjects(nextRound));
   }
 
   function handleThemeToggle(event) {
@@ -290,7 +306,10 @@ export default function Home() {
 
   return (
     <>
-      <div className="page-shell">
+      <div className="page-shell" style={{
+        '--hunt-scale': 1 / (1 + huntRound * 0.12),
+        '--hunt-opacity': 0.86 / (1 + huntRound * 0.08),
+      }}>
         <div className="starfield" aria-hidden="true">
           {stars.map((star) => (
             <span className="space-star" key={star.id} style={{
@@ -424,9 +443,10 @@ export default function Home() {
                 description="Imagining new possibilities and turning ideas into something of my own. Click the website icon five times for a little magic."
                 extra={(
                   <div className="space-object-hunt" aria-live="polite">
-                    <p>Find and click on 10 space objects to reveal a fun fact!</p>
-                    <p className="space-object-hunt-progress">Objects found: {foundObjectCount} of 10</p>
+                    <p>Find and click on {huntTargetCount} space objects to reveal a fun fact!</p>
+                    <p className="space-object-hunt-progress">Objects found: {foundObjectCount} of {huntTargetCount}</p>
                     {solarSystemFact && <p className="solar-system-fact">{solarSystemFact}</p>}
+                    {huntComplete && <button className="play-again-button" type="button" onClick={handlePlayAgain}>Play again · {Math.min(10 + (huntRound + 1) * 2, spaceObjectHideSpots.length)} objects</button>}
                   </div>
                 )}
               >
