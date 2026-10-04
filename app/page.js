@@ -97,11 +97,11 @@ function InterestCard({ number, className, title, subtitle, description, href, e
   const descriptionId = `${title.toLowerCase()}-description`;
 
   return (
-    <article className={`interest-card ${className} reveal`} onClick={() => setOpen((value) => !value)}>
+    <article className={`interest-card ${className} reveal`}>
       <span className="card-number">{number}</span>
       {children}
       <h3>
-        <button className="card-toggle" type="button" aria-expanded={open} aria-controls={descriptionId}>
+        <button className="card-toggle" type="button" aria-expanded={open} aria-controls={descriptionId} onClick={() => setOpen((value) => !value)}>
           <span>{title}</span><span className="card-arrow" aria-hidden="true">⌄</span>
         </button>
       </h3>
@@ -375,7 +375,8 @@ export default function Home() {
           ))}
         </div>
 
-        <header className="site-header">
+        <a className="skip-link" href="#main-content">Skip to content</a>
+        <header className="site-header" id="top">
           <Brand onCrownClick={handleCrownClick} />
           <div className="header-actions">
             <nav aria-label="Main navigation">
@@ -390,7 +391,7 @@ export default function Home() {
           </div>
         </header>
 
-        <main id="top">
+        <main id="main-content">
           <section className="hero" aria-labelledby="hero-title">
             <SpaceObjectLayer section="hero" objects={spaceObjects} decoys={decoys} onFind={handleSpaceObjectClick} onDecoy={handleDecoyClick} />
             <div className="hero-copy reveal">
