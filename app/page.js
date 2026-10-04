@@ -58,19 +58,25 @@ function shuffle(items) {
 
 function getRandomHuntBoard(round = 0) {
   const saturnSpot = spaceObjectHideSpots.find((spot) => spot.section === 'about' && spot.side === 'right');
-  const targetCount = Math.min(10 + round * 2, spaceObjectHideSpots.length - 2);
+  const targetCount = Math.min(10 + round * 2, spaceObjectHideSpots.length - 4);
   const availableSpots = shuffle(spaceObjectHideSpots.filter((spot) => spot !== saturnSpot));
   const decoySpots = availableSpots.slice(0, 3);
-  const otherSpots = availableSpots.slice(3, 3 + targetCount - 2);
-  const objects = shuffle(spaceObjectTypes);
+  const saturnIsDecoy = Math.random() < .35;
+  const sunIsDecoy = Math.random() < .35;
+  const objects = [];
+  const decoys = [];
+  if (saturnIsDecoy) decoys.push({ ...saturnSpot, id: `decoy-${round}-saturn`, type: 'saturn', special: 'saturn' });
+  else objects.push({ ...saturnSpot, id: 0, type: 'saturn' });
+  if (sunIsDecoy) decoys.push({ section: 'interests', id: `decoy-${round}-sun`, type: 'sun', special: 'sun' });
+  else objects.push({ section: 'interests', id: 1, type: 'sun' });
+  const otherSpots = availableSpots.slice(3, 3 + targetCount - objects.length);
+  const objectTypes = shuffle(spaceObjectTypes);
   const decoyTypes = shuffle(spaceObjectTypes);
+  objects.push(...otherSpots.map((spot, index) => ({ ...spot, id: index + 2, type: objectTypes[index % objectTypes.length] })));
+  decoys.push(...decoySpots.map((spot, index) => ({ ...spot, id: `decoy-${round}-${index}`, type: decoyTypes[index] })));
   return {
-    objects: [
-      { ...saturnSpot, id: 0, type: 'saturn' },
-      { section: 'interests', id: 1, type: 'sun' },
-      ...otherSpots.map((spot, index) => ({ ...spot, id: index + 2, type: objects[index % objects.length] })),
-    ],
-    decoys: decoySpots.map((spot, index) => ({ ...spot, id: `decoy-${round}-${index}`, type: decoyTypes[index] })),
+    objects,
+    decoys,
   };
 }
 
@@ -143,9 +149,9 @@ function SpaceObjectIcon({ type }) {
   }
 }
 
-function SpaceObjectLayer({ section, objects, decoys, onFind, onDecoy, totalCount }) {
+function SpaceObjectLayer({ section, objects, decoys, onFind, onDecoy }) {
   const sectionObjects = objects.filter((object) => object.section === section && object.id > 1);
-  const sectionDecoys = decoys.filter((decoy) => decoy.section === section);
+  const sectionDecoys = decoys.filter((decoy) => decoy.section === section && !decoy.special);
   if (!sectionObjects.length && !sectionDecoys.length) return null;
 
   return (
@@ -155,7 +161,7 @@ function SpaceObjectLayer({ section, objects, decoys, onFind, onDecoy, totalCoun
           className={`space-object-button side-${object.side}`}
           key={object.id}
           type="button"
-          aria-label={`Click ${object.type.replace('-', ' ')}, object ${object.id + 1} of ${totalCount}`}
+          aria-label={`Click ${object.type.replace('-', ' ')}`}
           title={`Click ${object.type.replace('-', ' ')}`}
           style={{ top: object.top }}
           onClick={() => onFind(object.id)}
@@ -197,7 +203,9 @@ export default function Home() {
   const [decoyFeedback, setDecoyFeedback] = useState('');
   const [huntRound, setHuntRound] = useState(0);
   const [huntComplete, setHuntComplete] = useState(false);
-  const huntTargetCount = Math.min(10 + huntRound * 2, spaceObjectHideSpots.length - 2);
+  const huntTargetCount = Math.min(10 + huntRound * 2, spaceObjectHideSpots.length - 4);
+  const saturnDecoy = decoys.find((decoy) => decoy.special === 'saturn');
+  const sunDecoy = decoys.find((decoy) => decoy.special === 'sun');
   const foundObjectIds = useRef(new Set());
   const crownClicks = useRef(0);
   const crownClickTimer = useRef(null);
@@ -384,7 +392,7 @@ export default function Home() {
 
         <main id="top">
           <section className="hero" aria-labelledby="hero-title">
-            <SpaceObjectLayer section="hero" objects={spaceObjects} decoys={decoys} onFind={handleSpaceObjectClick} onDecoy={handleDecoyClick} totalCount={huntTargetCount} />
+            <SpaceObjectLayer section="hero" objects={spaceObjects} decoys={decoys} onFind={handleSpaceObjectClick} onDecoy={handleDecoyClick} />
             <div className="hero-copy reveal">
               <p className="eyebrow"><span /> Student · Explorer · Creator</p>
               <h1 id="hero-title">Hi, I’m Ryan.<span className="hero-tagline"><em>Curious by nature.</em></span></h1>
@@ -414,7 +422,7 @@ export default function Home() {
           </section>
 
           <section className="about section" id="about" aria-labelledby="about-title">
-            <SpaceObjectLayer section="about" objects={spaceObjects} decoys={decoys} onFind={handleSpaceObjectClick} onDecoy={handleDecoyClick} totalCount={huntTargetCount} />
+            <SpaceObjectLayer section="about" objects={spaceObjects} decoys={decoys} onFind={handleSpaceObjectClick} onDecoy={handleDecoyClick} />
             <div className="about-side reveal">
               <div className="section-label">01 · About me</div>
               <div className="earth-wrap">
@@ -435,7 +443,7 @@ export default function Home() {
                     <g className="earth-cheeks"><ellipse cx="78" cy="122" rx="9" ry="5"/><ellipse cx="143" cy="122" rx="9" ry="5"/></g>
                   </svg>
                 </div>
-                {spaceObjects.some((object) => object.id === 0) && <button className="saturn-orbiter" type="button" aria-label={`Click Saturn, space object 1 of ${huntTargetCount}`} title="Click Saturn" onClick={() => handleSpaceObjectClick(0)}>
+                {(spaceObjects.some((object) => object.id === 0) || saturnDecoy) && <button className={`saturn-orbiter space-object-button side-right${saturnDecoy?.exploding ? ' is-exploding' : ''}`} type="button" disabled={saturnDecoy?.exploding} aria-label="Click Saturn" title="Click Saturn" onClick={() => saturnDecoy ? handleDecoyClick(saturnDecoy.id) : handleSpaceObjectClick(0)}>
                   <svg className="about-saturn" viewBox="0 0 48 48">
                     <ellipse className="about-saturn-ring-back" cx="24" cy="24" rx="20" ry="7" transform="rotate(-22 24 24)"/>
                     <circle className="about-saturn-planet" cx="24" cy="24" r="10"/>
@@ -452,7 +460,7 @@ export default function Home() {
           </section>
 
           <section className="interests section" id="interests" aria-labelledby="interests-title">
-            <SpaceObjectLayer section="interests" objects={spaceObjects} decoys={decoys} onFind={handleSpaceObjectClick} onDecoy={handleDecoyClick} totalCount={huntTargetCount} />
+            <SpaceObjectLayer section="interests" objects={spaceObjects} decoys={decoys} onFind={handleSpaceObjectClick} onDecoy={handleDecoyClick} />
             <div className="section-heading reveal">
               <div><div className="section-label">02 · Things I enjoy</div><h2 id="interests-title">A few things that keep me inspired.</h2></div>
               <p>My interests live somewhere between a laboratory, a library, a game world, a melody, a tennis court, and a fencing piste.</p>
@@ -473,7 +481,7 @@ export default function Home() {
               <InterestCard number="05" className="card-tennis" title="Tennis" description="Building skill, strategy, and resilience one rally at a time.">
                 <div className="card-icon card-icon-tennis">
                   <svg viewBox="0 0 48 48" aria-hidden="true"><g className="tennis-racket" transform="rotate(-34 22 23)"><ellipse cx="19" cy="16" rx="10" ry="13"/><ellipse className="racket-inner" cx="19" cy="16" rx="7.2" ry="10.2"/><path className="racket-strings" d="M13 8v16M17 6v20M21 6v20M25 9v14M11 11h16M10 16h18M12 21h14"/><path className="racket-shaft" d="m19 29 1 12M16.5 41h7"/><path className="racket-grip" d="m17.5 33 4.5 2m-4.2 2 4.5 2"/></g></svg>
-                  {spaceObjects.some((object) => object.id === 1) && <button className="tennis-sun-button" type="button" aria-label={`Click the Sun, space object 2 of ${huntTargetCount}`} title="Click the Sun" onClick={(event) => { event.stopPropagation(); handleSpaceObjectClick(1); }}><svg viewBox="0 0 48 48" aria-hidden="true"><circle className="tennis-sun-halo" cx="24" cy="24" r="18"/><path className="tennis-sun-rays" d="M24 2v7m0 30v7M2 24h7m30 0h7M8.4 8.4l5 5m21.2 21.2 5 5m0-31.2-5 5M13.4 34.6l-5 5"/><circle className="tennis-sun-core" cx="24" cy="24" r="10"/><circle className="tennis-sun-shine" cx="21" cy="20" r="2.4"/></svg></button>}
+                  {(spaceObjects.some((object) => object.id === 1) || sunDecoy) && <button className={`tennis-sun-button${sunDecoy?.exploding ? ' is-exploding' : ''}`} type="button" disabled={sunDecoy?.exploding} aria-label="Click the Sun" title="Click the Sun" onClick={(event) => { event.stopPropagation(); sunDecoy ? handleDecoyClick(sunDecoy.id) : handleSpaceObjectClick(1); }}><svg viewBox="0 0 48 48" aria-hidden="true"><circle className="tennis-sun-halo" cx="24" cy="24" r="18"/><path className="tennis-sun-rays" d="M24 2v7m0 30v7M2 24h7m30 0h7M8.4 8.4l5 5m21.2 21.2 5 5m0-31.2-5 5M13.4 34.6l-5 5"/><circle className="tennis-sun-core" cx="24" cy="24" r="10"/><circle className="tennis-sun-shine" cx="21" cy="20" r="2.4"/></svg></button>}
                 </div>
               </InterestCard>
               <InterestCard number="06" className="card-fencing" title="Fencing" subtitle="Click for a game" description="Combining quick decisions, precise movement, and tactical thinking." href="https://en-garde-fencing-arena.echristina-wang.chatgpt.site">
@@ -487,11 +495,11 @@ export default function Home() {
                 extra={(
                   <div className="space-object-hunt" aria-live="polite">
                     <p>Find and click on {huntTargetCount} space objects to reveal a fun fact!</p>
-                    <p className="decoy-warning">Warning: Some objects are decoys. They disappear when clicked, but don’t count!</p>
+                    <p className="decoy-warning">Warning: Any object, even Saturn or the Sun, could be a decoy. Decoys explode when clicked but don’t count!</p>
                     <p className="space-object-hunt-progress">Objects found: {foundObjectCount} of {huntTargetCount}</p>
                     {decoyFeedback && <p className="decoy-feedback">{decoyFeedback}</p>}
                     {solarSystemFact && <p className="solar-system-fact">{solarSystemFact}</p>}
-                    {huntComplete && <button className="play-again-button" type="button" onClick={handlePlayAgain}>Play again · {Math.min(10 + (huntRound + 1) * 2, spaceObjectHideSpots.length)} objects</button>}
+                    {huntComplete && <button className="play-again-button" type="button" onClick={handlePlayAgain}>Play again · {Math.min(10 + (huntRound + 1) * 2, spaceObjectHideSpots.length - 4)} objects</button>}
                   </div>
                 )}
               >
@@ -501,7 +509,7 @@ export default function Home() {
           </section>
 
           <section className="now section" id="now" aria-labelledby="now-title">
-            <SpaceObjectLayer section="now" objects={spaceObjects} decoys={decoys} onFind={handleSpaceObjectClick} onDecoy={handleDecoyClick} totalCount={huntTargetCount} />
+            <SpaceObjectLayer section="now" objects={spaceObjects} decoys={decoys} onFind={handleSpaceObjectClick} onDecoy={handleDecoyClick} />
             <div className="now-panel reveal">
               <div className="now-copy"><div className="section-label light">03 · Right now</div><h2 id="now-title">Building, learning, and preparing.</h2><p>I’m putting my curiosity into action through two projects that matter to me.</p></div>
               <div className="goal-list">
@@ -518,7 +526,7 @@ export default function Home() {
           </section>
 
           <section className="quote section reveal" aria-label="Personal motto">
-            <SpaceObjectLayer section="quote" objects={spaceObjects} decoys={decoys} onFind={handleSpaceObjectClick} onDecoy={handleDecoyClick} totalCount={huntTargetCount} />
+            <SpaceObjectLayer section="quote" objects={spaceObjects} decoys={decoys} onFind={handleSpaceObjectClick} onDecoy={handleDecoyClick} />
             <span className="quote-mark" aria-hidden="true">“</span>
             <blockquote>Music can make you escape, or it can make a situation more manageable somehow.</blockquote>
             <p>— Chris Martin</p>
