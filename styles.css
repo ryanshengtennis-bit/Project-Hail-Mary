@@ -622,10 +622,16 @@ h1 em {
   z-index: 3;
   top: 50%;
   left: 50%;
-  width: 1px;
-  height: 1px;
+  width: 76px;
+  height: 76px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
   animation: saturn-solar-orbit-motion 16s linear infinite;
 }
+
+.saturn-orbiter:focus-visible { outline: 2px solid #6c5dd3; outline-offset: 3px; border-radius: 50%; }
 
 .about-saturn {
   position: absolute;

@@ -126,7 +126,7 @@ function SpaceObjectIcon({ type }) {
 }
 
 function SpaceObjectLayer({ section, objects, onFind }) {
-  const sectionObjects = objects.filter((object) => object.section === section);
+  const sectionObjects = objects.filter((object) => object.section === section && object.id !== 0);
   if (!sectionObjects.length) return null;
 
   return (
@@ -347,10 +347,10 @@ export default function Home() {
             <SpaceObjectLayer section="about" objects={spaceObjects} onFind={handleSpaceObjectClick} />
             <div className="about-side reveal">
               <div className="section-label">01 · About me</div>
-              <div className="earth-wrap" aria-hidden="true">
-                <span className="earth-star earth-star-one">✦</span><span className="earth-star earth-star-two">✧</span>
-                <span className="solar-orbit-track"/><span className="saturn-orbit-track"/><span className="solar-sun"/>
-                <div className="planet-orbiter">
+              <div className="earth-wrap">
+                <span className="earth-star earth-star-one" aria-hidden="true">✦</span><span className="earth-star earth-star-two" aria-hidden="true">✧</span>
+                <span className="solar-orbit-track" aria-hidden="true"/><span className="saturn-orbit-track" aria-hidden="true"/><span className="solar-sun" aria-hidden="true"/>
+                <div className="planet-orbiter" aria-hidden="true">
                   <span className="moon-track moon-track-back"/><span className="moon-track moon-track-front"/><span className="cartoon-moon"/>
                   <svg className="cartoon-earth" viewBox="0 0 220 220">
                     <defs>
@@ -365,14 +365,14 @@ export default function Home() {
                     <g className="earth-cheeks"><ellipse cx="78" cy="122" rx="9" ry="5"/><ellipse cx="143" cy="122" rx="9" ry="5"/></g>
                   </svg>
                 </div>
-                <div className="saturn-orbiter">
+                {spaceObjects.some((object) => object.id === 0) && <button className="saturn-orbiter" type="button" aria-label="Click Saturn, space object 1 of 10" title="Click Saturn" onClick={() => handleSpaceObjectClick(0)}>
                   <svg className="about-saturn" viewBox="0 0 48 48">
                     <ellipse className="about-saturn-ring-back" cx="24" cy="24" rx="20" ry="7" transform="rotate(-22 24 24)"/>
                     <circle className="about-saturn-planet" cx="24" cy="24" r="10"/>
                     <path className="about-saturn-bands" d="M16 21c5 2 11 2 16 0m-16 6c5-2 11-2 16 0"/>
                     <path className="about-saturn-ring-front" d="M6 27c10 5 26 5 36-1"/>
                   </svg>
-                </div>
+                </button>}
               </div>
             </div>
             <div className="about-content reveal">
