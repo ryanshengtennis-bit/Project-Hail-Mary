@@ -130,11 +130,11 @@ function SpaceObjectLayer({ section, objects, onFind }) {
     <div className="space-object-layer">
       {sectionObjects.map((object) => (
         <button
-          className={`hidden-space-object peek-${object.side}`}
+          className={`space-object-button side-${object.side}`}
           key={object.id}
           type="button"
-          aria-label={`Find hidden ${object.type} ${object.id + 1} of 10`}
-          title={`Hidden ${object.type}`}
+          aria-label={`Click ${object.type}, object ${object.id + 1} of 10`}
+          title={`Click ${object.type}`}
           style={{ top: object.top }}
           onClick={() => onFind(object.id)}
         >
