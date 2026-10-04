@@ -486,6 +486,11 @@ h1 em {
 .space-object-button svg { position: relative; width: 100%; height: 100%; overflow: visible; }
 .space-object-orbit, .space-object-detail, .space-object-trail, .space-object-panel { fill: none; stroke-linecap: round; stroke-linejoin: round; }
 .space-object-orbit { stroke: #9189c7; stroke-width: 3; opacity: .8; }
+.space-object-solar-orbit { fill: none; stroke: #9189c7; stroke-width: 1.5; stroke-dasharray: 2 3; opacity: .8; }
+.space-object-sun { fill: #efd590; stroke: #b88b53; stroke-width: 1.5; }
+.space-object-saturn { fill: #d6bb83; stroke: #927752; stroke-width: 1.3; }
+.space-object-saturn-ring { fill: none; stroke: #b58e63; stroke-width: 2.2; }
+.space-object-saturn-revolution { transform-box: view-box; transform-origin: 32px 32px; animation: saturn-revolution 7s linear infinite; }
 .space-object-planet { fill: #8297c9; stroke: #5a668e; stroke-width: 2; }
 .space-object-detail { stroke: #59688c; stroke-width: 2; }
 .space-object-star { fill: #e8c978; stroke: #9b7c59; stroke-width: 1.5; stroke-linejoin: round; }
@@ -508,6 +513,10 @@ h1 em {
 @keyframes space-object-float {
   0%, 100% { translate: 0 4px; }
   50% { translate: 0 -2px; }
+}
+
+@keyframes saturn-revolution {
+  to { transform: rotate(360deg); }
 }
 
 .about {
@@ -1086,6 +1095,10 @@ html[data-theme="dark"] .space-object-button {
 
 html[data-theme="dark"] .space-object-button::before { background: radial-gradient(circle, rgba(126,151,255,.32), transparent 72%); }
 html[data-theme="dark"] .space-object-orbit { stroke: #bab0ff; }
+html[data-theme="dark"] .space-object-solar-orbit { stroke: #bab0ff; }
+html[data-theme="dark"] .space-object-sun { fill: #ffe59a; stroke: #fff0be; }
+html[data-theme="dark"] .space-object-saturn { fill: #d5c5ff; stroke: #f3eaff; }
+html[data-theme="dark"] .space-object-saturn-ring { stroke: #ead7ff; }
 html[data-theme="dark"] .space-object-planet { fill: #7284dd; stroke: #cad0ff; }
 html[data-theme="dark"] .space-object-detail { stroke: #d2d5f0; }
 html[data-theme="dark"] .space-object-star { fill: #f1d88e; stroke: #fff0be; }

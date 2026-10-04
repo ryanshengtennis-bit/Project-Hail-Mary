@@ -54,9 +54,10 @@ function shuffle(items) {
 }
 
 function getRandomSpaceObjects() {
-  const spots = shuffle(spaceObjectHideSpots).slice(0, 10);
+  const saturnSpot = spaceObjectHideSpots.find((spot) => spot.section === 'about' && spot.side === 'right');
+  const spots = [saturnSpot, ...shuffle(spaceObjectHideSpots.filter((spot) => spot !== saturnSpot)).slice(0, 9)];
   const objects = shuffle(spaceObjectTypes);
-  return spots.map((spot, id) => ({ ...spot, id, type: objects[id % objects.length] }));
+  return spots.map((spot, id) => ({ ...spot, id, type: id === 0 ? 'saturn' : objects[(id - 1) % objects.length] }));
 }
 
 function Brand({ footer = false, onCrownClick }) {
@@ -105,6 +106,8 @@ function SpaceObjectIcon({ type }) {
   switch (type) {
     case 'planet':
       return <g><ellipse className="space-object-orbit" cx="32" cy="32" rx="27" ry="10" transform="rotate(-20 32 32)"/><circle className="space-object-planet" cx="32" cy="32" r="16"/><path className="space-object-detail" d="M20 28c6-5 15-5 22-1m-23 9c7 4 14 4 21 1"/></g>;
+    case 'saturn':
+      return <g><ellipse className="space-object-solar-orbit" cx="32" cy="32" rx="23" ry="11"/><circle className="space-object-sun" cx="32" cy="32" r="6"/><g className="space-object-saturn-revolution"><g transform="translate(22 0)"><circle className="space-object-saturn" cx="32" cy="32" r="5"/><ellipse className="space-object-saturn-ring" cx="32" cy="32" rx="9" ry="3.5" transform="rotate(-20 32 32)"/></g></g></g>;
     case 'star':
       return <g><path className="space-object-star" d="m32 5 7 18 19 1-15 12 5 19-16-11-16 11 5-19L6 24l19-1 7-18Z"/><circle className="space-object-sparkle" cx="32" cy="32" r="5"/></g>;
     case 'comet':
