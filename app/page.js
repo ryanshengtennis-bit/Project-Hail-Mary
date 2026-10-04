@@ -349,7 +349,7 @@ export default function Home() {
               <div className="section-label">01 · About me</div>
               <div className="earth-wrap" aria-hidden="true">
                 <span className="earth-star earth-star-one">✦</span><span className="earth-star earth-star-two">✧</span>
-                <span className="solar-orbit-track"/><span className="solar-sun"/>
+                <span className="solar-orbit-track"/><span className="saturn-orbit-track"/><span className="solar-sun"/>
                 <div className="planet-orbiter">
                   <span className="moon-track moon-track-back"/><span className="moon-track moon-track-front"/><span className="cartoon-moon"/>
                   <svg className="cartoon-earth" viewBox="0 0 220 220">
@@ -363,6 +363,14 @@ export default function Home() {
                     <path className="earth-land small-land" d="m73 128 15 5 8 14-8 20-11-6-4-17-10-8 10-8Z"/>
                     <path className="earth-shine" d="M62 70c10-18 27-29 45-34"/><path className="earth-eye" d="M83 107c4 4 8 4 12 0M126 107c4 4 8 4 12 0"/><path className="earth-smile" d="M94 125c10 10 23 10 33 0"/>
                     <g className="earth-cheeks"><ellipse cx="78" cy="122" rx="9" ry="5"/><ellipse cx="143" cy="122" rx="9" ry="5"/></g>
+                  </svg>
+                </div>
+                <div className="saturn-orbiter">
+                  <svg className="about-saturn" viewBox="0 0 48 48">
+                    <ellipse className="about-saturn-ring-back" cx="24" cy="24" rx="20" ry="7" transform="rotate(-22 24 24)"/>
+                    <circle className="about-saturn-planet" cx="24" cy="24" r="10"/>
+                    <path className="about-saturn-bands" d="M16 21c5 2 11 2 16 0m-16 6c5-2 11-2 16 0"/>
+                    <path className="about-saturn-ring-front" d="M6 27c10 5 26 5 36-1"/>
                   </svg>
                 </div>
               </div>

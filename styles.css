@@ -573,6 +573,18 @@ h1 em {
   transform: translate(-50%, -50%) rotate(-12deg);
 }
 
+.saturn-orbit-track {
+  position: absolute;
+  z-index: 0;
+  top: 50%;
+  left: 50%;
+  width: 214px;
+  height: 132px;
+  border: 1.5px dashed rgba(108,93,211,.28);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) rotate(-12deg);
+}
+
 .solar-sun {
   position: absolute;
   z-index: 2;
@@ -604,6 +616,31 @@ h1 em {
   height: 110px;
   animation: solar-orbit-motion 10s linear infinite;
 }
+
+.saturn-orbiter {
+  position: absolute;
+  z-index: 3;
+  top: 50%;
+  left: 50%;
+  width: 1px;
+  height: 1px;
+  animation: saturn-solar-orbit-motion 16s linear infinite;
+}
+
+.about-saturn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 38px;
+  overflow: visible;
+  transform: translate(-50%, -50%);
+  filter: drop-shadow(0 3px 6px rgba(45,51,116,.28));
+}
+
+.about-saturn-planet { fill: #d9b779; stroke: #876d4f; stroke-width: 1.5; }
+.about-saturn-bands { fill: none; stroke: #9e815a; stroke-width: 1.5; stroke-linecap: round; }
+.about-saturn-ring-back { fill: none; stroke: #a28764; stroke-width: 3; opacity: .72; }
+.about-saturn-ring-front { fill: none; stroke: #e4c99a; stroke-width: 3.5; stroke-linecap: round; }
 
 .moon-track {
   position: absolute;
@@ -1182,6 +1219,11 @@ html[data-theme="dark"] .quote blockquote {
 
 html[data-theme="dark"] .quote-mark { color: #d5ad50; }
 html[data-theme="dark"] .solar-orbit-track { border-color: rgba(175,166,255,.5); }
+html[data-theme="dark"] .saturn-orbit-track { border-color: rgba(175,166,255,.38); }
+html[data-theme="dark"] .about-saturn-planet { fill: #d5c5ff; stroke: #f3eaff; }
+html[data-theme="dark"] .about-saturn-bands { stroke: #f1e5ff; }
+html[data-theme="dark"] .about-saturn-ring-back { stroke: #c6b2f1; }
+html[data-theme="dark"] .about-saturn-ring-front { stroke: #f3eaff; }
 html[data-theme="dark"] .moon-track { border-color: rgba(193,199,255,.45); }
 
 @keyframes theme-ripple-bloom {
@@ -1304,6 +1346,14 @@ html[data-theme="dark"] .moon-track { border-color: rgba(193,199,255,.45); }
   93.75% { transform: translate(-50%, -50%) translate(-74px, 35px) scale(.91); }
   99% { z-index: 4; }
   100% { z-index: 1; transform: translate(-50%, -50%) translate(-84px, 18px) scale(.86); }
+}
+
+@keyframes saturn-solar-orbit-motion {
+  0% { z-index: 1; transform: translate(-50%, -50%) translate(-101px, 18px) scale(.76); }
+  25% { z-index: 1; transform: translate(-50%, -50%) translate(0, -58px) scale(.72); }
+  50% { z-index: 4; transform: translate(-50%, -50%) translate(101px, -18px) scale(1); }
+  75% { z-index: 4; transform: translate(-50%, -50%) translate(0, 58px) scale(1.08); }
+  100% { z-index: 1; transform: translate(-50%, -50%) translate(-101px, 18px) scale(.76); }
 }
 
 @keyframes moon-orbit-motion {
