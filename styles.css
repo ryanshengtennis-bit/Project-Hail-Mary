@@ -459,19 +459,20 @@ h1 em {
 
 .hidden-bunny {
   position: absolute;
-  width: 68px;
-  height: 64px;
+  width: 64px;
+  height: 60px;
   padding: 0;
   border: 0;
   background: transparent;
+  opacity: .86;
   filter: drop-shadow(0 5px 6px rgba(55,43,77,.2));
   pointer-events: auto;
   cursor: pointer;
   animation: bunny-peek 3s ease-in-out infinite;
 }
 
-.hidden-bunny.peek-left { left: -22px; clip-path: inset(0 0 0 17px); }
-.hidden-bunny.peek-right { right: -22px; clip-path: inset(0 17px 0 0); animation-delay: -.9s; }
+.hidden-bunny.peek-left { left: -32px; clip-path: inset(0 0 0 32px); }
+.hidden-bunny.peek-right { right: -32px; clip-path: inset(0 32px 0 0); animation-delay: -.9s; }
 .hidden-bunny:focus-visible { z-index: 2; clip-path: none; outline: 3px solid #6c5dd3; outline-offset: 2px; }
 .hidden-bunny svg { width: 100%; height: 100%; overflow: visible; }
 .bunny-ear, .bunny-face { fill: #fffdf7; stroke: #927b6f; stroke-width: 1.5; }

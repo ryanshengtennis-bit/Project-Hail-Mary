@@ -106,7 +106,7 @@ function BunnyLayer({ section, bunnies, onFind }) {
           type="button"
           aria-label={`Find hidden bunny ${bunny.id + 1}`}
           title="You found a bunny!"
-          style={{ top: bunny.top, [bunny.side]: '-22px' }}
+          style={{ top: bunny.top }}
           onClick={() => onFind(bunny.id)}
         >
           <svg viewBox="0 0 64 62" aria-hidden="true">
