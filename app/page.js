@@ -16,7 +16,7 @@ function Brand({ footer = false, onCrownClick }) {
   );
 }
 
-function InterestCard({ number, className, title, description, href, children }) {
+function InterestCard({ number, className, title, subtitle, description, href, children }) {
   const [open, setOpen] = useState(false);
   const descriptionId = `${title.toLowerCase()}-description`;
 
@@ -29,6 +29,7 @@ function InterestCard({ number, className, title, description, href, children })
           <span>{title}</span><span className="card-arrow" aria-hidden="true">⌄</span>
         </button>
       </h3>
+      {subtitle && <p className="card-subtitle">{subtitle}</p>}
       <div className={`card-description${open ? ' is-open' : ''}`} id={descriptionId}>
         <p>{description}</p>
         {href && (
@@ -267,7 +268,7 @@ export default function Home() {
               <InterestCard number="05" className="card-tennis" title="Tennis" description="Building skill, strategy, and resilience one rally at a time.">
                 <div className="card-icon card-icon-tennis" aria-hidden="true"><svg viewBox="0 0 48 48"><g className="tennis-racket" transform="rotate(-34 22 23)"><ellipse cx="19" cy="16" rx="10" ry="13"/><ellipse className="racket-inner" cx="19" cy="16" rx="7.2" ry="10.2"/><path className="racket-strings" d="M13 8v16M17 6v20M21 6v20M25 9v14M11 11h16M10 16h18M12 21h14"/><path className="racket-shaft" d="m19 29 1 12M16.5 41h7"/><path className="racket-grip" d="m17.5 33 4.5 2m-4.2 2 4.5 2"/></g><circle className="tennis-ball" cx="38" cy="10" r="5"/><path className="tennis-seam" d="M35 6.1c2.6 2 3.6 5.5 1.4 8.4M41 5.8c-2.5 2.2-3.2 5.7-.9 8.5"/></svg></div>
               </InterestCard>
-              <InterestCard number="06" className="card-fencing" title="Fencing" description="Combining quick decisions, precise movement, and tactical thinking." href="https://en-garde-fencing-arena.echristina-wang.chatgpt.site">
+              <InterestCard number="06" className="card-fencing" title="Fencing" subtitle="Click for a game" description="Combining quick decisions, precise movement, and tactical thinking." href="https://en-garde-fencing-arena.echristina-wang.chatgpt.site">
                 <div className="card-icon card-icon-fencing" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M8 38 38 8M10 31l7 7M6 42l5-5M40 6l2 2"/><path d="m10 8 30 30M31 38l7-7M6 6l5 5M38 40l2 2"/><path className="icon-detail" d="M13 34c-3 3-3 7-1 9M34 13c3-3 7-3 9-1"/></svg></div>
               </InterestCard>
             </div>
