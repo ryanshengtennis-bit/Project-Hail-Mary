@@ -70,7 +70,7 @@ function getRandomHuntBoard(round = 0) {
       { section: 'interests', id: 1, type: 'sun' },
       ...otherSpots.map((spot, index) => ({ ...spot, id: index + 2, type: objects[index % objects.length] })),
     ],
-    decoys: decoySpots.map((spot, index) => ({ ...spot, id: `decoy-${index}`, type: decoyTypes[index] })),
+    decoys: decoySpots.map((spot, index) => ({ ...spot, id: `decoy-${round}-${index}`, type: decoyTypes[index] })),
   };
 }
 
@@ -167,9 +167,10 @@ function SpaceObjectLayer({ section, objects, decoys, onFind, onDecoy, totalCoun
       ))}
       {sectionDecoys.map((decoy) => (
         <button
-          className={`space-object-button side-${decoy.side}`}
+          className={`space-object-button side-${decoy.side}${decoy.exploding ? ' is-exploding' : ''}`}
           key={decoy.id}
           type="button"
+          disabled={decoy.exploding}
           aria-label="Click space object"
           title="Space object"
           style={{ top: decoy.top }}
@@ -302,8 +303,11 @@ export default function Home() {
   }
 
   function handleDecoyClick(id) {
-    setDecoys((current) => current.filter((decoy) => decoy.id !== id));
+    setDecoys((current) => current.map((decoy) => decoy.id === id ? { ...decoy, exploding: true } : decoy));
     setDecoyFeedback('That was a decoy—it did not count. Keep searching!');
+    window.setTimeout(() => {
+      setDecoys((current) => current.filter((decoy) => decoy.id !== id));
+    }, 550);
   }
 
   function handlePlayAgain(event) {
