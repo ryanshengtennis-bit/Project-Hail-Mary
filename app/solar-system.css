@@ -13,7 +13,8 @@
 .system-mercury { --surface: #b2a9a3; }
 .system-venus { --surface: repeating-linear-gradient(165deg, #d5a56b 0 4px, #edc98b 5px 8px); }
 .system-earth { --surface: radial-gradient(ellipse at 30% 35%, #79c98d 0 23%, transparent 25%), radial-gradient(ellipse at 75% 60%, #9bd08c 0 20%, transparent 22%), #4d9ed1; }
-.system-earth::after { content: ''; position: absolute; width: 22%; aspect-ratio: 1; right: -45%; top: -15%; border-radius: 50%; background: #d9dcdf; box-shadow: inset -1px -1px 2px #626778; }
+.system-earth::before { content: ''; position: absolute; left: 50%; top: 50%; width: 190%; height: 160%; transform: translate(-50%, -50%); border: 1px solid rgba(174,190,224,.25); border-radius: 50%; }
+.system-earth::after { content: ''; position: absolute; width: 22%; aspect-ratio: 1; left: 0; top: 0; border-radius: 50%; background: #d9dcdf; box-shadow: inset -1px -1px 2px #626778; offset-path: ellipse(95% 80% at 50% 50%); offset-anchor: center; offset-rotate: 0deg; animation: system-orbit 4s linear infinite; }
 .system-mars { --surface: #ca7254; }
 .system-jupiter { --surface: repeating-linear-gradient(170deg, #bc9075 0 5px, #eed7b4 6px 10px, #d9b993 11px 14px); }
 .system-jupiter::after { content: ''; position: absolute; width: 28%; height: 17%; left: 18%; top: 62%; border-radius: 50%; background: #b16b54; transform: rotate(-10deg); }
@@ -49,5 +50,5 @@ html[data-theme="dark"] .system-orbit-track { border-color: rgba(187,171,255,.3)
   .system-saturn::after { border-width: 3px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .system-planet { animation: none !important; }
+  .system-planet, .system-earth::after { animation: none !important; }
 }
