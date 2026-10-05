@@ -1510,37 +1510,60 @@ html { scroll-padding-top: 1.5rem; }
 
 .hero-art { grid-template-columns: minmax(0, 1fr); gap: 15px; padding-bottom: 8px; }
 .orb-main { width: min(430px, 84vw); }
+.orb-main {
+  border: 1px solid rgba(127,116,237,.22);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,.92) 0%, rgba(224,223,255,.72) 56%, rgba(114,102,221,.15) 70%, transparent 71%);
+  box-shadow: inset 0 0 44px rgba(126,117,231,.12), 0 0 0 11px rgba(108,93,211,.045), 0 28px 70px rgba(49,43,119,.18);
+  animation: atom-orb-glow 5s ease-in-out infinite alternate;
+}
 .atom-art { position: absolute; inset: 6%; width: 88%; height: 88%; overflow: visible; }
-.atom-shell { fill: none; stroke: rgba(79,70,146,.32); stroke-width: 1.5; stroke-dasharray: 3 5; }
-.atom-electron { fill: #f28b78; stroke: #fff8f3; stroke-width: 2; filter: drop-shadow(0 0 5px rgba(242,139,120,.52)); }
+.atom-shell { fill: none; stroke: rgba(79,70,146,.48); stroke-width: 1.35; stroke-dasharray: 1 5; stroke-linecap: round; }
+.atom-shell-label { fill: #665db3; font: 700 9px ui-monospace, monospace; }
+.atom-electron { fill: #ffab82; stroke: #fff8f3; stroke-width: 2; filter: drop-shadow(0 0 6px rgba(255,163,117,.72)); }
 .atom-shell-group { transform-box: view-box; transform-origin: 210px 210px; animation: atom-shell-spin var(--shell-speed) linear infinite; }
-.atom-nucleus { fill: #6557c9; stroke: #fff; stroke-width: 3; filter: drop-shadow(0 8px 14px rgba(51,42,120,.3)); }
-.atom-symbol { fill: white; font: 700 24px var(--sans); }
+.atom-nucleus { fill: #4a3ba9; stroke: #f7f5ff; stroke-width: 4; filter: drop-shadow(0 0 6px rgba(120,105,235,.52)) drop-shadow(0 8px 16px rgba(51,42,120,.42)); }
+.atom-symbol { fill: white; font: 700 25px var(--sans); }
 .atom-details {
   position: relative;
   z-index: 3;
   width: min(460px, 94%);
-  padding: 18px 20px 14px;
-  border: 1px solid rgba(255,255,255,.8);
-  border-radius: 20px;
-  background: rgba(255,255,255,.84);
-  box-shadow: 0 16px 40px rgba(48,42,103,.14), inset 0 1px 0 white;
-  backdrop-filter: blur(14px);
+  padding: 17px 19px 12px;
+  overflow: hidden;
+  border: 1px solid rgba(154,151,255,.34);
+  border-radius: 22px;
+  color: #f7f6ff;
+  background: radial-gradient(circle at 100% 0%, rgba(115,104,229,.22), transparent 48%), linear-gradient(145deg, #121834, #24214f);
+  box-shadow: 0 20px 48px rgba(29,26,80,.28), inset 0 1px 0 rgba(255,255,255,.12);
+  backdrop-filter: blur(16px);
 }
-.atom-details-heading { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
-.atom-symbol-badge { width: 45px; height: 45px; display: grid; flex: 0 0 auto; place-items: center; border-radius: 14px; color: white; background: linear-gradient(145deg, #7667d8, #3e7da4); font-size: 1.2rem; font-weight: 700; }
-.atom-kicker { margin: 0 0 1px; color: var(--ink-soft); font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
-.atom-details-heading h2 { margin: 0; font-size: 1.25rem; letter-spacing: -.02em; }
-.atom-number { margin-left: auto; color: #5145a3; font-size: .78rem; font-weight: 700; white-space: nowrap; }
-.atom-details > p { margin: 5px 0 0; color: var(--ink-soft); font-size: .83rem; line-height: 1.45; }
-.atom-details > p strong { color: var(--ink); }
-.atom-details .atom-fact { margin-top: 10px; padding-top: 9px; border-top: 1px solid var(--line); color: var(--ink); font-size: .88rem; }
-.atom-details .atom-model-note { margin-top: 9px; font-size: .7rem; opacity: .75; }
+.atom-card-label { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 11px; color: #aaa8db; font-size: .75rem; font-weight: 700; letter-spacing: .1em; }
+.atom-card-label > span:last-child { display: flex; align-items: center; gap: 7px; color: #9bd8cf; }
+.atom-card-label i { width: 6px; height: 6px; border-radius: 50%; background: #79d7bd; box-shadow: 0 0 10px rgba(121,215,189,.8); }
+.atom-details-heading { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+.atom-symbol-badge { width: 48px; height: 48px; display: grid; flex: 0 0 auto; place-items: center; border: 1px solid rgba(194,186,255,.4); border-radius: 15px; color: #fff; background: linear-gradient(145deg, #8376e6, #4b498f); box-shadow: inset 0 1px 0 rgba(255,255,255,.25), 0 7px 18px rgba(0,0,0,.2); font-size: 1.22rem; font-weight: 700; }
+.atom-kicker { margin: 0 0 2px; color: #a5a6ca; font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.atom-details-heading h2 { margin: 0; color: #fff; font-size: 1.4rem; letter-spacing: -.02em; }
+.atom-mass { width: 46px; height: 46px; margin-left: auto; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,.12); border-radius: 13px; background: rgba(255,255,255,.07); }
+.atom-mass strong { color: #ffe2a0; font-size: 1.08rem; line-height: 1; }
+.atom-mass small { margin-top: 3px; color: #b8b8d2; font-size: .75rem; font-weight: 700; letter-spacing: .08em; }
+.atom-particle-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 8px; }
+.atom-particle-grid > div { display: flex; flex-direction: column; gap: 2px; padding: 9px 11px; border: 1px solid rgba(255,255,255,.09); border-radius: 12px; background: rgba(255,255,255,.055); }
+.atom-particle-grid strong { color: #fff; font-size: 1rem; line-height: 1.2; }
+.atom-particle-grid span { color: #a8a9c9; font-size: .75rem; font-weight: 700; letter-spacing: .04em; }
+.atom-shell-readout { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 12px; }
+.atom-shell-readout > strong { color: #c5c3e2; font-size: .72rem; }
+.atom-shell-pills { display: flex; gap: 5px; }
+.atom-shell-pills > span { min-width: 34px; height: 31px; display: inline-flex; align-items: center; justify-content: center; gap: 4px; padding-inline: 6px; border: 1px solid rgba(173,164,255,.22); border-radius: 9px; color: white; background: rgba(127,115,227,.14); font-size: .75rem; font-weight: 700; }
+.atom-shell-pills small { color: #aaa5df; font-size: .7rem; }
+.atom-fact-box { display: grid; grid-template-columns: auto 1fr; align-items: start; gap: 10px; margin-top: 12px; padding: 10px 12px; border-left: 2px solid #f3c878; border-radius: 0 11px 11px 0; background: rgba(243,200,120,.08); }
+.atom-fact-box > span { padding-top: 2px; color: #f3d38f; font-size: .75rem; font-weight: 700; letter-spacing: .05em; white-space: nowrap; }
+.atom-fact-box p { margin: 0; color: #e8e8f7; font-size: .78rem; line-height: 1.4; }
+.atom-details .atom-model-note { margin: 9px 0 0; color: #b3b2cc; font-size: .75rem; text-align: right; }
 
 @keyframes atom-shell-spin { to { transform: rotate(360deg); } }
+@keyframes atom-orb-glow { from { box-shadow: inset 0 0 35px rgba(126,117,231,.1), 0 0 0 9px rgba(108,93,211,.035), 0 24px 58px rgba(49,43,119,.13); } to { box-shadow: inset 0 0 52px rgba(126,117,231,.2), 0 0 0 13px rgba(108,93,211,.065), 0 32px 82px rgba(49,43,119,.22); } }
 
-html[data-theme="dark"] .atom-details { border-color: rgba(208,203,255,.18); background: rgba(17,20,46,.89); box-shadow: 0 18px 42px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.1); }
-html[data-theme="dark"] .atom-number { color: #c1b6ff; }
 html[data-theme="dark"] .atom-shell { stroke: rgba(207,199,255,.4); }
 
 @media (max-width: 680px) {
@@ -1571,6 +1594,11 @@ html[data-theme="dark"] .atom-shell { stroke: rgba(207,199,255,.4); }
   .hero-art { min-height: 0; padding-top: 12px; }
   .orb-main { width: min(330px, 82vw); }
   .atom-details { padding: 15px 16px 13px; }
+  .atom-card-label { font-size: .75rem; letter-spacing: .06em; }
+  .atom-shell-readout { gap: 8px; }
+  .atom-shell-readout > strong { font-size: .66rem; }
+  .atom-particle-grid > div { padding: 8px; }
+  .atom-fact-box { gap: 7px; padding: 9px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

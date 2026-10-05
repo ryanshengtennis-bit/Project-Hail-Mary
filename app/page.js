@@ -176,6 +176,7 @@ function AtomDiagram({ atom }) {
         return (
           <g className="atom-shell-group" key={`${atom.symbol}-${shellIndex}`} style={{ '--shell-speed': `${18 + shellIndex * 7}s`, animationDelay: `${-shellIndex * 2.7}s` }}>
             <circle className="atom-shell" cx="210" cy="210" r={radius} />
+            <text className="atom-shell-label" x={210 + radius + 9} y="214">{'KLMN'[shellIndex]}</text>
             {Array.from({ length: electronCount }, (_, electronIndex) => {
               const angle = -Math.PI / 2 + (2 * Math.PI * electronIndex) / electronCount + shellIndex * 0.19;
               return (
@@ -466,14 +467,22 @@ export default function Home() {
                 <AtomDiagram atom={atom} />
               </div>
               <div className="atom-details">
+                <div className="atom-card-label"><span>ELEMENT FILE</span><span>Z = {atom.number} <i aria-hidden="true" /> NEUTRAL</span></div>
                 <div className="atom-details-heading">
                   <span className="atom-symbol-badge" aria-hidden="true">{atom.symbol}</span>
-                  <div><p className="atom-kicker">A different atom each visit</p><h2>{atom.name}-{atom.isotope}</h2></div>
-                  <span className="atom-number">No. {atom.number}</span>
+                  <div><p className="atom-kicker">A different atom each visit</p><h2>{atom.name}</h2></div>
+                  <span className="atom-mass"><strong>{atom.isotope}</strong><small>MASS</small></span>
                 </div>
-                <p className="atom-particles"><strong>Structure</strong> {atom.number} protons · {atom.isotope - atom.number} neutrons · {atom.number} electrons</p>
-                <p className="atom-shells"><strong>Electron shells</strong> {atom.shells.join(' · ')}</p>
-                <p className="atom-fact"><strong>Quick fact</strong> {atom.fact}</p>
+                <div className="atom-particle-grid" role="group" aria-label={`Atomic structure: ${atom.number} protons, ${atom.isotope - atom.number} neutrons, ${atom.number} electrons`}>
+                  <div><strong>{atom.number}</strong><span>PROTONS</span></div>
+                  <div><strong>{atom.isotope - atom.number}</strong><span>NEUTRONS</span></div>
+                  <div><strong>{atom.number}</strong><span>ELECTRONS</span></div>
+                </div>
+                <div className="atom-shell-readout">
+                  <strong>Electron shells</strong>
+                  <div className="atom-shell-pills">{atom.shells.map((electronCount, index) => <span key={index}><small>{'KLMN'[index]}</small>{electronCount}</span>)}</div>
+                </div>
+                <div className="atom-fact-box"><span>QUICK FACT</span><p>{atom.fact}</p></div>
                 <p className="atom-model-note">Bohr-style model · not to scale</p>
               </div>
               <span className="dot-grid" aria-hidden="true"/>
