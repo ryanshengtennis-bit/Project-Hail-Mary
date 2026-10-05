@@ -1,0 +1,68 @@
+/* Compact layouts and comfortable touch targets for phones and small tablets. */
+@media (max-width: 940px) {
+  .hero, .hero-copy, .hero-art, .atom-details, .goal > div { min-width: 0; }
+}
+
+@media (max-width: 680px) {
+  .site-header, main, footer { width: calc(100% - 32px); }
+  .site-header { padding: 12px; border-radius: 18px; }
+  .site-header nav { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; padding-top: 10px; }
+  .site-header nav a { display: flex; align-items: center; justify-content: center; min-height: 44px; border-radius: 10px; background: rgba(255,255,255,.07); }
+  .site-header nav a::after { bottom: 4px; left: 25%; right: 25%; }
+  .site-header .theme-toggle { min-height: 44px; font-size: .8rem; }
+
+  .hero { padding: 38px 0 44px; gap: 28px; }
+  .eyebrow { margin-bottom: 18px; font-size: .68rem; letter-spacing: .1em; }
+  .hero h1 { margin-bottom: 20px; font-size: clamp(2.6rem, 11vw, 4rem); line-height: 1.06; }
+  .hero-tagline { margin-top: 8px; }
+  .hero-intro { max-width: 34rem; margin-bottom: 22px; font-size: 1rem; line-height: 1.65; }
+  .hero-actions { gap: 10px; }
+  .hero-actions .button { width: 100%; min-height: 46px; }
+
+  .hero-art { gap: 18px; padding-top: 4px; }
+  .hero-art .orb-main { width: min(230px, 65vw); }
+  .atom-details { width: 100%; max-width: 460px; padding: 16px; border-radius: 18px; }
+  .atom-card-label { gap: 8px; flex-wrap: wrap; font-size: .65rem; letter-spacing: .06em; }
+  .atom-details-heading { gap: 10px; }
+  .atom-details-heading > div { min-width: 0; }
+  .atom-details-heading h2 { font-size: 1.3rem; overflow-wrap: anywhere; }
+  .atom-kicker { font-size: .65rem; letter-spacing: .04em; }
+  .atom-symbol-badge { width: 42px; height: 42px; border-radius: 12px; }
+  .atom-mass { flex: 0 0 42px; }
+  .atom-style-picker { gap: 7px; }
+  .atom-style-picker select { min-height: 44px; font-size: 1rem; background-position: calc(100% - 15px) 19px, calc(100% - 10px) 19px; }
+  .atom-particle-grid { gap: 6px; }
+  .atom-particle-grid > div { padding: 9px 7px; }
+  .atom-particle-grid span { font-size: .65rem; letter-spacing: .02em; }
+  .atom-shell-readout { flex-wrap: wrap; }
+  .atom-shell-pills { flex-wrap: wrap; }
+  .atom-fact-box { grid-template-columns: minmax(0, 1fr); gap: 4px; padding: 10px; }
+  .atom-fact-box p { font-size: .85rem; line-height: 1.55; }
+  .atom-detail-footer { align-items: stretch; flex-direction: column; gap: 9px; }
+  .atom-details .atom-model-note { font-size: .7rem; }
+  .atom-another-button { min-height: 44px; justify-content: center; }
+
+  .section { padding-block: 48px; }
+  .section-label { margin-bottom: 16px; }
+  .section-heading { gap: 12px; margin-bottom: 24px; }
+  .section-heading h2, .about h2, .now h2 { font-size: clamp(1.9rem, 8vw, 2.6rem); line-height: 1.15; }
+  .section-heading p, .about-content p { font-size: 1rem; }
+  .card-grid { gap: 14px; }
+  .interest-card { min-height: 0; padding: 22px; }
+  .interest-card .card-icon { width: 56px; height: 56px; margin-bottom: 18px; }
+  .card-toggle { min-height: 44px; }
+  .card-link, .play-again-button { min-height: 44px; display: inline-flex; align-items: center; }
+  .space-object-hunt { overflow-wrap: anywhere; }
+  .now-panel { padding: 28px 18px; gap: 26px; border-radius: 22px; }
+  .goal { padding: 18px; gap: 12px; }
+  .goal h3, .goal p { overflow-wrap: anywhere; }
+  .quote { margin-block: 32px; padding: 38px 22px; }
+  footer { padding-block: 26px; gap: 16px; }
+  .back-top { min-height: 44px; display: inline-flex; align-items: center; }
+}
+
+@media (min-width: 480px) and (max-width: 680px) {
+  .hero-actions .button { width: auto; flex: 1; }
+  .atom-detail-footer { flex-direction: row; align-items: center; }
+  .atom-another-button { flex-shrink: 0; }
+}
