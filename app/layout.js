@@ -1,5 +1,6 @@
 import '../styles.css';
 import './mobile.css';
+import './solar-system.css';
 
 export const metadata = {
   title: 'Ryan | Curious by Nature',

@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import SolarSystem from './SolarSystem';
 
 const starColors = ['#ffffff', '#d9e5ff', '#c8bfff', '#ffe4a3'];
 const solarSystemFacts = [
@@ -563,33 +564,7 @@ export default function Home() {
             <SpaceObjectLayer section="about" objects={spaceObjects} decoys={decoys} onFind={handleSpaceObjectClick} onDecoy={handleDecoyClick} />
             <div className="about-side reveal">
               <div className="section-label">01 · About me</div>
-              <div className="earth-wrap">
-                <span className="earth-star earth-star-one" aria-hidden="true">✦</span><span className="earth-star earth-star-two" aria-hidden="true">✧</span>
-                <span className="solar-orbit-track" aria-hidden="true"/><span className="saturn-orbit-track" aria-hidden="true"/><span className="solar-sun" aria-hidden="true"/>
-                <div className="planet-orbiter" aria-hidden="true">
-                  <span className="moon-track moon-track-back"/><span className="moon-track moon-track-front"/><span className="cartoon-moon"/>
-                  <svg className="cartoon-earth" viewBox="0 0 220 220">
-                    <defs>
-                      <linearGradient id="oceanGradient" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#77d6f2"/><stop offset="1" stopColor="#4b72da"/></linearGradient>
-                      <linearGradient id="landGradient" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#c9ec8f"/><stop offset="1" stopColor="#65b77a"/></linearGradient>
-                    </defs>
-                    <circle className="earth-shadow" cx="110" cy="116" r="79"/><circle className="earth-ocean" cx="110" cy="104" r="78"/>
-                    <path className="earth-land" d="M56 61c13-18 31-29 51-34l10 13-8 13-18 2-7 13 10 11-5 17-19 5-11-10-14-2-7-13 18-15Z"/>
-                    <path className="earth-land" d="M139 51c18 8 32 23 41 40l-11 8-1 18-13 5-7 20-15 14-12-7 3-19-12-12 7-17 16-7 4-12-9-12 9-19Z"/>
-                    <path className="earth-land small-land" d="m73 128 15 5 8 14-8 20-11-6-4-17-10-8 10-8Z"/>
-                    <path className="earth-shine" d="M62 70c10-18 27-29 45-34"/><path className="earth-eye" d="M83 107c4 4 8 4 12 0M126 107c4 4 8 4 12 0"/><path className="earth-smile" d="M94 125c10 10 23 10 33 0"/>
-                    <g className="earth-cheeks"><ellipse cx="78" cy="122" rx="9" ry="5"/><ellipse cx="143" cy="122" rx="9" ry="5"/></g>
-                  </svg>
-                </div>
-                {(spaceObjects.some((object) => object.id === 0) || saturnDecoy) && <button className={`saturn-orbiter space-object-button side-right${saturnDecoy?.exploding ? ' is-exploding' : ''}`} type="button" disabled={saturnDecoy?.exploding} aria-label="Click Saturn" title="Click Saturn" onClick={() => saturnDecoy ? handleDecoyClick(saturnDecoy.id) : handleSpaceObjectClick(0)}>
-                  <svg className="about-saturn" viewBox="0 0 48 48">
-                    <ellipse className="about-saturn-ring-back" cx="24" cy="24" rx="20" ry="7" transform="rotate(-22 24 24)"/>
-                    <circle className="about-saturn-planet" cx="24" cy="24" r="10"/>
-                    <path className="about-saturn-bands" d="M16 21c5 2 11 2 16 0m-16 6c5-2 11-2 16 0"/>
-                    <path className="about-saturn-ring-front" d="M6 27c10 5 26 5 36-1"/>
-                  </svg>
-                </button>}
-              </div>
+              <SolarSystem saturnVisible={spaceObjects.some((object) => object.id === 0) || Boolean(saturnDecoy)} saturnExploding={saturnDecoy?.exploding} onSaturnClick={() => saturnDecoy ? handleDecoyClick(saturnDecoy.id) : handleSpaceObjectClick(0)} />
             </div>
             <div className="about-content reveal">
               <h2 id="about-title">Learning how the world works, one question at a time.</h2>
