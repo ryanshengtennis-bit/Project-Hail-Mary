@@ -1510,30 +1510,35 @@ html { scroll-padding-top: 1.5rem; }
 
 .hero-art { grid-template-columns: minmax(0, 1fr); gap: 15px; padding-bottom: 8px; }
 .orb-main { width: min(430px, 84vw); }
-.orb-main {
-  border: 1px solid rgba(127,116,237,.22);
+.hero-art .orb-main {
+  isolation: isolate;
+  border: 1px solid rgba(137,203,255,.3);
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255,255,255,.92) 0%, rgba(224,223,255,.72) 56%, rgba(114,102,221,.15) 70%, transparent 71%);
-  box-shadow: inset 0 0 44px rgba(126,117,231,.12), 0 0 0 11px rgba(108,93,211,.045), 0 28px 70px rgba(49,43,119,.18);
-  animation: atom-orb-glow 5s ease-in-out infinite alternate;
+  background: radial-gradient(ellipse at 50% 50%, rgba(134,90,240,.42), transparent 48%), radial-gradient(ellipse at 24% 18%, rgba(44,200,220,.18), transparent 50%), #0b102b;
+  box-shadow: inset 0 0 60px rgba(97,111,224,.18), 0 0 0 9px rgba(117,137,233,.05), 0 24px 70px rgba(25,30,81,.3);
+  animation: none;
 }
+.hero-art .orb-main::before, .hero-art .orb-main::after { content: ''; position: absolute; pointer-events: none; border-radius: 50%; }
+.hero-art .orb-main::before { inset: 3%; border: 1px dashed rgba(148,204,246,.22); }
+.hero-art .orb-main::after { inset: 0; border: 3px solid transparent; border-top-color: #8be6ed; border-bottom-color: #a890ef; transform: rotate(-35deg); opacity: .7; }
+html[data-theme="dark"] .hero-art .orb-main { background: radial-gradient(circle, rgba(134,90,240,.35), transparent 55%), #080d24; box-shadow: inset 0 0 60px rgba(97,111,224,.18), 0 0 0 9px rgba(117,137,233,.05), 0 24px 70px rgba(0,0,0,.35); }
 .atom-art { position: absolute; inset: 6%; width: 88%; height: 88%; overflow: visible; }
-.atom-shell { fill: none; stroke: rgba(79,70,146,.48); stroke-width: 1.35; stroke-dasharray: 1 5; stroke-linecap: round; }
-.atom-shell-label { fill: #665db3; font: 700 9px ui-monospace, monospace; }
-.atom-electron { fill: #ffab82; stroke: #fff8f3; stroke-width: 2; filter: drop-shadow(0 0 6px rgba(255,163,117,.72)); }
+.atom-shell { fill: none; stroke: rgba(167,199,255,.48); stroke-width: 1; stroke-linecap: round; }
+.atom-shell-label { fill: #bdcdf4; font: 700 9px ui-monospace, monospace; }
+.atom-electron { fill: #9df5ee; stroke: #f2fffe; stroke-width: 1.5; filter: drop-shadow(0 0 5px rgba(89,238,230,.9)); }
 .atom-shell-group { transform-box: view-box; transform-origin: 210px 210px; animation: atom-shell-spin var(--shell-speed) linear infinite; }
-.atom-nucleus { fill: #4a3ba9; stroke: #f7f5ff; stroke-width: 4; filter: drop-shadow(0 0 6px rgba(120,105,235,.52)) drop-shadow(0 8px 16px rgba(51,42,120,.42)); }
+.atom-nucleus { fill: #7152c9; stroke: #d6c4ff; stroke-width: 2; filter: drop-shadow(0 0 10px rgba(174,133,255,.8)) drop-shadow(0 0 25px rgba(136,94,231,.65)); }
 .atom-symbol { fill: white; font: 700 25px var(--sans); }
 .atom-details {
   position: relative;
   z-index: 3;
   width: min(460px, 94%);
-  padding: 17px 19px 12px;
+  padding: 22px 23px 18px;
   overflow: hidden;
   border: 1px solid rgba(154,151,255,.34);
   border-radius: 22px;
   color: #f7f6ff;
-  background: radial-gradient(circle at 100% 0%, rgba(115,104,229,.22), transparent 48%), linear-gradient(145deg, #121834, #24214f);
+  background: radial-gradient(circle at 100% 0%, rgba(74,174,187,.15), transparent 48%), linear-gradient(145deg, #10172e, #211b42);
   box-shadow: 0 20px 48px rgba(29,26,80,.28), inset 0 1px 0 rgba(255,255,255,.12);
   backdrop-filter: blur(16px);
 }
@@ -1551,12 +1556,19 @@ html { scroll-padding-top: 1.5rem; }
 .atom-style-picker label { color: #c5c3e2; font-size: .8rem; font-weight: 700; }
 .atom-style-picker select { min-width: 174px; height: 40px; padding: 0 36px 0 12px; border: 1px solid rgba(173,164,255,.3); border-radius: 11px; color: #f7f6ff; background-color: #282557; background-image: linear-gradient(45deg, transparent 50%, #c7c2fa 50%), linear-gradient(135deg, #c7c2fa 50%, transparent 50%); background-position: calc(100% - 15px) 17px, calc(100% - 10px) 17px; background-size: 5px 5px; background-repeat: no-repeat; color-scheme: dark; font: 600 .84rem var(--sans); cursor: pointer; }
 .atom-style-picker select:focus-visible { outline: 3px solid #a6ead7; outline-offset: 3px; }
-.atom-rutherford-orbit { fill: none; stroke: rgba(108,93,211,.55); stroke-width: 1.7; stroke-dasharray: 4 4; }
+.atom-style-picker select { appearance: none; }
+.atom-rutherford-orbit { fill: none; stroke: rgba(167,199,255,.55); stroke-width: 1.2; }
 .atom-cloud-aura { fill: rgba(124,116,226,.13); filter: blur(13px); }
 .atom-cloud-dot { fill: #89daf0; filter: drop-shadow(0 0 4px rgba(117,207,239,.7)); }
 .atom-particle-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 8px; }
 .atom-particle-grid > div { display: flex; flex-direction: column; gap: 2px; padding: 9px 11px; border: 1px solid rgba(255,255,255,.09); border-radius: 12px; background: rgba(255,255,255,.055); }
 .atom-particle-grid strong { color: #fff; font-size: 1rem; line-height: 1.2; }
+.atom-particle-grid > div { border-top: 2px solid rgba(250,173,167,.65); }
+.atom-particle-grid > div:nth-child(2) { border-top-color: rgba(185,165,249,.65); }
+.atom-particle-grid > div:nth-child(3) { border-top-color: rgba(134,238,227,.65); }
+.atom-particle-grid > div:first-child strong { color: #ffbeb5; }
+.atom-particle-grid > div:nth-child(2) strong { color: #d4c1ff; }
+.atom-particle-grid > div:nth-child(3) strong { color: #9df5ee; }
 .atom-particle-grid span { color: #a8a9c9; font-size: .75rem; font-weight: 700; letter-spacing: .04em; }
 .atom-shell-readout { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 12px; }
 .atom-shell-readout > strong { color: #c5c3e2; font-size: .72rem; }
