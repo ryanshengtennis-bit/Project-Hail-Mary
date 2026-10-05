@@ -18,6 +18,23 @@ const solarSystemFacts = [
   'There are more than 200 known moons orbiting planets in our solar system.',
 ];
 
+const atomModels = [
+  { name: 'Hydrogen', symbol: 'H', number: 1, isotope: 1, shells: [1], fact: 'Hydrogen makes up about three-quarters of the detectable matter in the universe.' },
+  { name: 'Helium', symbol: 'He', number: 2, isotope: 4, shells: [2], fact: 'Helium was detected in the Sun before it was found on Earth.' },
+  { name: 'Lithium', symbol: 'Li', number: 3, isotope: 7, shells: [2, 1], fact: 'Lithium is the least dense metal.' },
+  { name: 'Carbon', symbol: 'C', number: 6, isotope: 12, shells: [2, 4], fact: 'Diamond and graphite are both made of carbon atoms.' },
+  { name: 'Nitrogen', symbol: 'N', number: 7, isotope: 14, shells: [2, 5], fact: 'Nitrogen gas makes up most of Earth’s atmosphere.' },
+  { name: 'Oxygen', symbol: 'O', number: 8, isotope: 16, shells: [2, 6], fact: 'Oxygen is the third most abundant element in the universe.' },
+  { name: 'Neon', symbol: 'Ne', number: 10, isotope: 20, shells: [2, 8], fact: 'Neon glows reddish-orange inside a discharge tube.' },
+  { name: 'Sodium', symbol: 'Na', number: 11, isotope: 23, shells: [2, 8, 1], fact: 'Table salt is a compound made from sodium and chlorine.' },
+  { name: 'Magnesium', symbol: 'Mg', number: 12, isotope: 24, shells: [2, 8, 2], fact: 'Burning magnesium gives off a bright white light.' },
+  { name: 'Silicon', symbol: 'Si', number: 14, isotope: 28, shells: [2, 8, 4], fact: 'Silicon is a key material in computer chips.' },
+  { name: 'Sulfur', symbol: 'S', number: 16, isotope: 32, shells: [2, 8, 6], fact: 'Pure sulfur is a bright yellow solid.' },
+  { name: 'Argon', symbol: 'Ar', number: 18, isotope: 40, shells: [2, 8, 8], fact: 'Argon is the most abundant noble gas in Earth’s atmosphere.' },
+  { name: 'Calcium', symbol: 'Ca', number: 20, isotope: 40, shells: [2, 8, 8, 2], fact: 'Calcium is the most abundant mineral in the human body.' },
+  { name: 'Iron', symbol: 'Fe', number: 26, isotope: 56, shells: [2, 8, 14, 2], fact: 'Iron is the main ingredient in steel.' },
+];
+
 const spaceObjectTypes = ['planet', 'star', 'comet', 'moon', 'asteroid', 'satellite', 'rocket', 'galaxy', 'black-hole', 'supernova'];
 
 const spaceObjectHideSpots = [
@@ -149,6 +166,35 @@ function SpaceObjectIcon({ type }) {
   }
 }
 
+function AtomDiagram({ atom }) {
+  return (
+    <svg className="atom-art" viewBox="0 0 420 420" role="img" aria-label={`Bohr-style model of ${atom.name}-${atom.isotope}; ${atom.shells.join(', ')} electrons in each shell`}>
+      <circle className="atom-nucleus" cx="210" cy="210" r="37" />
+      <text className="atom-symbol" x="210" y="218" textAnchor="middle">{atom.symbol}</text>
+      {atom.shells.map((electronCount, shellIndex) => {
+        const radius = 65 + shellIndex * 34;
+        return (
+          <g className="atom-shell-group" key={`${atom.symbol}-${shellIndex}`} style={{ '--shell-speed': `${18 + shellIndex * 7}s`, animationDelay: `${-shellIndex * 2.7}s` }}>
+            <circle className="atom-shell" cx="210" cy="210" r={radius} />
+            {Array.from({ length: electronCount }, (_, electronIndex) => {
+              const angle = -Math.PI / 2 + (2 * Math.PI * electronIndex) / electronCount + shellIndex * 0.19;
+              return (
+                <circle
+                  className="atom-electron"
+                  key={electronIndex}
+                  cx={210 + radius * Math.cos(angle)}
+                  cy={210 + radius * Math.sin(angle)}
+                  r="5.5"
+                />
+              );
+            })}
+          </g>
+        );
+      })}
+    </svg>
+  );
+}
+
 function SpaceObjectLayer({ section, objects, decoys, onFind, onDecoy }) {
   const sectionObjects = objects.filter((object) => object.section === section && object.id > 1);
   const sectionDecoys = decoys.filter((decoy) => decoy.section === section && !decoy.special);
@@ -192,6 +238,7 @@ function SpaceObjectLayer({ section, objects, decoys, onFind, onDecoy }) {
 }
 
 export default function Home() {
+  const [atom, setAtom] = useState(atomModels[0]);
   const [stars, setStars] = useState([]);
   const [darkMode, setDarkMode] = useState(false);
   const [ripple, setRipple] = useState(null);
@@ -211,8 +258,18 @@ export default function Home() {
   const crownClickTimer = useRef(null);
   const meteorTimer = useRef(null);
   const rippleTimers = useRef([]);
+  const atomChosen = useRef(false);
 
   useEffect(() => {
+    if (!atomChosen.current) {
+      atomChosen.current = true;
+      const previousAtomicNumber = localStorage.getItem('ryan-atom-number');
+      const choices = atomModels.filter((model) => String(model.number) !== previousAtomicNumber);
+      const nextAtom = choices[Math.floor(Math.random() * choices.length)];
+      setAtom(nextAtom);
+      localStorage.setItem('ryan-atom-number', String(nextAtom.number));
+    }
+
     const board = getRandomHuntBoard();
     setSpaceObjects(board.objects);
     setDecoys(board.decoys);
@@ -404,20 +461,22 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="hero-art reveal" aria-label="An abstract biology-inspired illustration">
+            <div className="hero-art reveal">
               <div className="orb orb-main">
-                <svg className="cell-art" viewBox="0 0 420 420" role="img" aria-label="Stylised cell and leaf illustration">
-                  <defs><linearGradient id="cellGradient" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#eee9ff"/><stop offset="1" stopColor="#b8c4ff"/></linearGradient></defs>
-                  <path className="cell-outline" d="M95 83c48-39 130-51 184-13 56 39 82 124 50 187-29 59-111 96-175 79-66-18-111-81-101-147 6-39 14-80 42-106Z"/>
-                  <circle className="nucleus" cx="192" cy="196" r="65"/><circle className="nucleus-core" cx="203" cy="184" r="25"/>
-                  <path className="leaf" d="M282 119c-9 39-35 61-73 67 5-40 29-64 73-67Z"/><path className="leaf-vein" d="m218 177 53-47"/>
-                  <path className="microbe" d="M119 238c21-16 44-12 55 7 10 18 2 40-20 51-23 11-43 3-51-15-7-16-1-31 16-43Z"/>
-                  <g className="bubbles"><circle cx="111" cy="151" r="12"/><circle cx="289" cy="233" r="18"/><circle cx="254" cy="289" r="8"/><circle cx="147" cy="105" r="7"/></g>
-                </svg>
-                <span className="orbit orbit-one"/><span className="orbit orbit-two"/>
+                <AtomDiagram atom={atom} />
               </div>
-              <div className="floating-note note-one"><span>🧬</span> Biology</div>
-              <div className="floating-note note-two"><span>✦</span> Stay curious</div>
+              <div className="floating-note note-one"><span aria-hidden="true">⚛</span> New element</div>
+              <div className="atom-details">
+                <div className="atom-details-heading">
+                  <span className="atom-symbol-badge" aria-hidden="true">{atom.symbol}</span>
+                  <div><p className="atom-kicker">A different atom each visit</p><h2>{atom.name}-{atom.isotope}</h2></div>
+                  <span className="atom-number">No. {atom.number}</span>
+                </div>
+                <p className="atom-particles"><strong>Structure</strong> {atom.number} protons · {atom.isotope - atom.number} neutrons · {atom.number} electrons</p>
+                <p className="atom-shells"><strong>Electron shells</strong> {atom.shells.join(' · ')}</p>
+                <p className="atom-fact"><strong>Quick fact</strong> {atom.fact}</p>
+                <p className="atom-model-note">Bohr-style model · not to scale</p>
+              </div>
               <span className="dot-grid" aria-hidden="true"/>
             </div>
           </section>

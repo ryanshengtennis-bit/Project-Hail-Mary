@@ -1535,6 +1535,41 @@ html { scroll-padding-top: 1.5rem; }
 .goal { border-radius: 18px; }
 .quote { border-radius: 30px; }
 
+.hero-art { grid-template-columns: minmax(0, 1fr); gap: 15px; padding-bottom: 8px; }
+.orb-main { width: min(430px, 84vw); }
+.atom-art { position: absolute; inset: 6%; width: 88%; height: 88%; overflow: visible; }
+.atom-shell { fill: none; stroke: rgba(79,70,146,.32); stroke-width: 1.5; stroke-dasharray: 3 5; }
+.atom-electron { fill: #f28b78; stroke: #fff8f3; stroke-width: 2; filter: drop-shadow(0 0 5px rgba(242,139,120,.52)); }
+.atom-shell-group { transform-box: view-box; transform-origin: 210px 210px; animation: atom-shell-spin var(--shell-speed) linear infinite; }
+.atom-nucleus { fill: #6557c9; stroke: #fff; stroke-width: 3; filter: drop-shadow(0 8px 14px rgba(51,42,120,.3)); }
+.atom-symbol { fill: white; font: 700 24px var(--sans); }
+.atom-details {
+  position: relative;
+  z-index: 3;
+  width: min(460px, 94%);
+  padding: 18px 20px 14px;
+  border: 1px solid rgba(255,255,255,.8);
+  border-radius: 20px;
+  background: rgba(255,255,255,.84);
+  box-shadow: 0 16px 40px rgba(48,42,103,.14), inset 0 1px 0 white;
+  backdrop-filter: blur(14px);
+}
+.atom-details-heading { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.atom-symbol-badge { width: 45px; height: 45px; display: grid; flex: 0 0 auto; place-items: center; border-radius: 14px; color: white; background: linear-gradient(145deg, #7667d8, #3e7da4); font-size: 1.2rem; font-weight: 700; }
+.atom-kicker { margin: 0 0 1px; color: var(--ink-soft); font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.atom-details-heading h2 { margin: 0; font-size: 1.25rem; letter-spacing: -.02em; }
+.atom-number { margin-left: auto; color: #5145a3; font-size: .78rem; font-weight: 700; white-space: nowrap; }
+.atom-details > p { margin: 5px 0 0; color: var(--ink-soft); font-size: .83rem; line-height: 1.45; }
+.atom-details > p strong { color: var(--ink); }
+.atom-details .atom-fact { margin-top: 10px; padding-top: 9px; border-top: 1px solid var(--line); color: var(--ink); font-size: .88rem; }
+.atom-details .atom-model-note { margin-top: 9px; font-size: .7rem; opacity: .75; }
+
+@keyframes atom-shell-spin { to { transform: rotate(360deg); } }
+
+html[data-theme="dark"] .atom-details { border-color: rgba(208,203,255,.18); background: rgba(17,20,46,.89); box-shadow: 0 18px 42px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.1); }
+html[data-theme="dark"] .atom-number { color: #c1b6ff; }
+html[data-theme="dark"] .atom-shell { stroke: rgba(207,199,255,.4); }
+
 @media (max-width: 680px) {
   .site-header {
     height: auto;
@@ -1560,6 +1595,10 @@ html { scroll-padding-top: 1.5rem; }
   .section { padding-block: 76px; }
   .interests { padding-top: 76px; }
   .interest-card { min-height: 245px; padding: 25px; }
+  .hero-art { min-height: 0; padding-top: 12px; }
+  .orb-main { width: min(330px, 82vw); }
+  .atom-details { padding: 15px 16px 13px; }
+  .note-one { top: 8%; left: -1%; }
 }
 
 @media (prefers-reduced-motion: reduce) {
