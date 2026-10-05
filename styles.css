@@ -1547,6 +1547,13 @@ html { scroll-padding-top: 1.5rem; }
 .atom-mass { width: 46px; height: 46px; margin-left: auto; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,.12); border-radius: 13px; background: rgba(255,255,255,.07); }
 .atom-mass strong { color: #ffe2a0; font-size: 1.08rem; line-height: 1; }
 .atom-mass small { margin-top: 3px; color: #b8b8d2; font-size: .75rem; font-weight: 700; letter-spacing: .08em; }
+.atom-style-picker { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+.atom-style-picker label { color: #c5c3e2; font-size: .8rem; font-weight: 700; }
+.atom-style-picker select { min-width: 174px; height: 40px; padding: 0 36px 0 12px; border: 1px solid rgba(173,164,255,.3); border-radius: 11px; color: #f7f6ff; background-color: #282557; background-image: linear-gradient(45deg, transparent 50%, #c7c2fa 50%), linear-gradient(135deg, #c7c2fa 50%, transparent 50%); background-position: calc(100% - 15px) 17px, calc(100% - 10px) 17px; background-size: 5px 5px; background-repeat: no-repeat; color-scheme: dark; font: 600 .84rem var(--sans); cursor: pointer; }
+.atom-style-picker select:focus-visible { outline: 3px solid #a6ead7; outline-offset: 3px; }
+.atom-rutherford-orbit { fill: none; stroke: rgba(108,93,211,.55); stroke-width: 1.7; stroke-dasharray: 4 4; }
+.atom-cloud-aura { fill: rgba(124,116,226,.13); filter: blur(13px); }
+.atom-cloud-dot { fill: #89daf0; filter: drop-shadow(0 0 4px rgba(117,207,239,.7)); }
 .atom-particle-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 8px; }
 .atom-particle-grid > div { display: flex; flex-direction: column; gap: 2px; padding: 9px 11px; border: 1px solid rgba(255,255,255,.09); border-radius: 12px; background: rgba(255,255,255,.055); }
 .atom-particle-grid strong { color: #fff; font-size: 1rem; line-height: 1.2; }
@@ -1600,6 +1607,8 @@ html[data-theme="dark"] .atom-shell { stroke: rgba(207,199,255,.4); }
   .hero-art { min-height: 0; padding-top: 12px; }
   .orb-main { width: min(330px, 82vw); }
   .atom-details { padding: 15px 16px 13px; }
+  .atom-style-picker { align-items: stretch; flex-direction: column; gap: 6px; }
+  .atom-style-picker select { width: 100%; min-width: 0; }
   .atom-card-label { font-size: .75rem; letter-spacing: .06em; }
   .atom-shell-readout { gap: 8px; }
   .atom-shell-readout > strong { font-size: .66rem; }

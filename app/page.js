@@ -182,7 +182,48 @@ function SpaceObjectIcon({ type }) {
   }
 }
 
-function AtomDiagram({ atom }) {
+function AtomDiagram({ atom, diagramStyle }) {
+  if (diagramStyle === 'electron-cloud') {
+    const cloudDots = Array.from({ length: atom.number * 4 + 28 }, (_, index) => {
+      const seeded = Math.sin((index + 1) * 12.9898 + atom.number * 78.233) * 43758.5453;
+      const random = seeded - Math.floor(seeded);
+      const angle = index * 2.399963 + atom.number * 0.37;
+      const radius = 42 + 128 * Math.sqrt(random);
+      return <circle className="atom-cloud-dot" key={index} cx={210 + radius * Math.cos(angle)} cy={210 + radius * Math.sin(angle)} r={1.4 + random * 2.3} opacity={0.12 + random * 0.28} />;
+    });
+
+    return (
+      <svg className="atom-art" viewBox="0 0 420 420" role="img" aria-label={`Electron-cloud illustration for ${atom.name}-${atom.isotope}; the dots suggest regions where electrons may be found`}>
+        <circle className="atom-cloud-aura" cx="210" cy="210" r="166" />
+        {cloudDots}
+        <circle className="atom-nucleus" cx="210" cy="210" r="37" />
+        <text className="atom-symbol" x="210" y="218" textAnchor="middle">{atom.symbol}</text>
+      </svg>
+    );
+  }
+
+  if (diagramStyle === 'rutherford') {
+    const electrons = Array.from({ length: atom.number }, (_, index) => {
+      const orbit = index % 3;
+      const electronIndex = Math.floor(index / 3);
+      const orbitElectronCount = Math.ceil((atom.number - orbit) / 3);
+      const angle = -Math.PI / 2 + (2 * Math.PI * electronIndex) / orbitElectronCount;
+      const rotation = (orbit * Math.PI) / 3;
+      const x = 143 * Math.cos(angle);
+      const y = 49 * Math.sin(angle);
+      return <circle className="atom-electron" key={index} cx={210 + x * Math.cos(rotation) - y * Math.sin(rotation)} cy={210 + x * Math.sin(rotation) + y * Math.cos(rotation)} r="5.5" />;
+    });
+
+    return (
+      <svg className="atom-art" viewBox="0 0 420 420" role="img" aria-label={`Simplified Rutherford-style model of ${atom.name}-${atom.isotope} with a central nucleus and ${atom.number} electrons`}>
+        {[0, 1, 2].map((orbit) => <ellipse className="atom-rutherford-orbit" key={orbit} cx="210" cy="210" rx="143" ry="49" transform={`rotate(${orbit * 60} 210 210)`} />)}
+        {electrons}
+        <circle className="atom-nucleus" cx="210" cy="210" r="37" />
+        <text className="atom-symbol" x="210" y="218" textAnchor="middle">{atom.symbol}</text>
+      </svg>
+    );
+  }
+
   return (
     <svg className="atom-art" viewBox="0 0 420 420" role="img" aria-label={`Bohr-style model of ${atom.name}-${atom.isotope}; ${atom.shells.join(', ')} electrons in each shell`}>
       <circle className="atom-nucleus" cx="210" cy="210" r="37" />
@@ -256,6 +297,7 @@ function SpaceObjectLayer({ section, objects, decoys, onFind, onDecoy }) {
 
 export default function Home() {
   const [atom, setAtom] = useState({ ...atomModels[0], fact: atomModels[0].facts[0] });
+  const [diagramStyle, setDiagramStyle] = useState('bohr');
   const [stars, setStars] = useState([]);
   const [darkMode, setDarkMode] = useState(false);
   const [ripple, setRipple] = useState(null);
@@ -481,7 +523,7 @@ export default function Home() {
 
             <div className="hero-art reveal">
               <div className="orb orb-main">
-                <AtomDiagram atom={atom} />
+                <AtomDiagram atom={atom} diagramStyle={diagramStyle} />
               </div>
               <div className="atom-details">
                 <div className="atom-card-label"><span>ELEMENT FILE</span><span>Z = {atom.number} <i aria-hidden="true" /> NEUTRAL</span></div>
@@ -489,6 +531,14 @@ export default function Home() {
                   <span className="atom-symbol-badge" aria-hidden="true">{atom.symbol}</span>
                   <div><p className="atom-kicker">A different atom each visit</p><h2>{atom.name}</h2></div>
                   <span className="atom-mass"><strong>{atom.isotope}</strong><small>MASS</small></span>
+                </div>
+                <div className="atom-style-picker">
+                  <label htmlFor="atom-diagram-style">Diagram style</label>
+                  <select id="atom-diagram-style" value={diagramStyle} onChange={(event) => setDiagramStyle(event.target.value)}>
+                    <option value="bohr">Bohr model</option>
+                    <option value="rutherford">Rutherford model</option>
+                    <option value="electron-cloud">Electron cloud</option>
+                  </select>
                 </div>
                 <div className="atom-particle-grid" role="group" aria-label={`Atomic structure: ${atom.number} protons, ${atom.isotope - atom.number} neutrons, ${atom.number} electrons`}>
                   <div><strong>{atom.number}</strong><span>PROTONS</span></div>
@@ -501,7 +551,7 @@ export default function Home() {
                 </div>
                 <div className="atom-fact-box" aria-live="polite" aria-atomic="true"><span>QUICK FACT</span><p>{atom.fact}</p></div>
                 <div className="atom-detail-footer">
-                  <p className="atom-model-note">Bohr-style model · not to scale</p>
+                  <p className="atom-model-note">{diagramStyle === 'electron-cloud' ? 'Probability cloud · not to scale' : diagramStyle === 'rutherford' ? 'Rutherford-style · not to scale' : 'Bohr-style · not to scale'}</p>
                   <button className="atom-another-button" type="button" onClick={handleAnotherAtom}>Another element <span aria-hidden="true">↻</span></button>
                 </div>
               </div>
