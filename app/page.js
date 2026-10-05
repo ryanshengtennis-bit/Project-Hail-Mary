@@ -465,7 +465,6 @@ export default function Home() {
               <div className="orb orb-main">
                 <AtomDiagram atom={atom} />
               </div>
-              <div className="floating-note note-one"><span aria-hidden="true">⚛</span> New element</div>
               <div className="atom-details">
                 <div className="atom-details-heading">
                   <span className="atom-symbol-badge" aria-hidden="true">{atom.symbol}</span>

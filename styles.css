@@ -416,23 +416,6 @@ h1 em {
 .orbit-one { width: 108%; height: 78%; inset: 11% -4%; transform: rotate(18deg); }
 .orbit-two { width: 80%; height: 112%; inset: -6% 10%; transform: rotate(-22deg); }
 
-.floating-note {
-  position: absolute;
-  z-index: 3;
-  padding: 11px 16px;
-  border: 1px solid rgba(23,61,50,.1);
-  border-radius: 99px;
-  background: rgba(255,255,255,.9);
-  box-shadow: 0 10px 30px rgba(58,49,119,.12);
-  backdrop-filter: blur(8px);
-  font-size: .82rem;
-  font-weight: 700;
-}
-
-.floating-note span { margin-right: 6px; }
-.note-one { top: 17%; left: -4%; animation: float 4.4s ease-in-out infinite; }
-.note-two { right: -2%; bottom: 18%; animation: float 5.2s .4s ease-in-out infinite; }
-
 .dot-grid {
   position: absolute;
   right: 2%;
@@ -1241,13 +1224,6 @@ html[data-theme="dark"] .orb-main {
 
 html[data-theme="dark"] .nucleus { fill: rgba(22,27,59,.78); }
 
-html[data-theme="dark"] .floating-note {
-  border-color: rgba(220,225,255,.14);
-  color: #f1f2ff;
-  background: rgba(18,22,47,.86);
-  box-shadow: 0 10px 30px rgba(0,0,0,.28);
-}
-
 html[data-theme="dark"] .interest-card {
   --ink: #20233f;
   --ink-soft: #62657d;
@@ -1463,7 +1439,6 @@ html[data-theme="dark"] .moon-track { border-color: rgba(193,199,255,.45); }
   h1 { font-size: clamp(3rem, 15vw, 4.4rem); }
   .hero-art { min-height: 370px; }
   .orb-main { width: min(330px, 82vw); }
-  .floating-note { font-size: .73rem; }
   .section { padding: 82px 0; }
   .about { grid-template-columns: 1fr; gap: 22px; }
   .about-side { align-items: center; }
@@ -1486,8 +1461,6 @@ html[data-theme="dark"] .moon-track { border-color: rgba(193,199,255,.45); }
   .site-header nav { gap: 10px; }
   .theme-toggle { min-width: 98px; height: 38px; padding: 0 9px; font-size: .7rem; }
   .button { width: 100%; }
-  .note-one { left: -1%; }
-  .note-two { right: 0; }
 }
 
 /* A clearer, more comfortable pass across the whole site. */
@@ -1598,7 +1571,6 @@ html[data-theme="dark"] .atom-shell { stroke: rgba(207,199,255,.4); }
   .hero-art { min-height: 0; padding-top: 12px; }
   .orb-main { width: min(330px, 82vw); }
   .atom-details { padding: 15px 16px 13px; }
-  .note-one { top: 8%; left: -1%; }
 }
 
 @media (prefers-reduced-motion: reduce) {
