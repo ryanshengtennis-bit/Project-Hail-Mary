@@ -1559,7 +1559,13 @@ html { scroll-padding-top: 1.5rem; }
 .atom-fact-box { display: grid; grid-template-columns: auto 1fr; align-items: start; gap: 10px; margin-top: 12px; padding: 10px 12px; border-left: 2px solid #f3c878; border-radius: 0 11px 11px 0; background: rgba(243,200,120,.08); }
 .atom-fact-box > span { padding-top: 2px; color: #f3d38f; font-size: .75rem; font-weight: 700; letter-spacing: .05em; white-space: nowrap; }
 .atom-fact-box p { margin: 0; color: #e8e8f7; font-size: .78rem; line-height: 1.4; }
-.atom-details .atom-model-note { margin: 9px 0 0; color: #b3b2cc; font-size: .75rem; text-align: right; }
+.atom-detail-footer { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 10px; }
+.atom-details .atom-model-note { margin: 0; color: #b3b2cc; font-size: .75rem; }
+.atom-another-button { display: inline-flex; align-items: center; gap: 8px; min-height: 38px; padding: 0 13px; border: 1px solid rgba(158,221,208,.36); border-radius: 999px; color: #d7fff1; background: rgba(95,202,170,.12); font: 700 .82rem var(--sans); cursor: pointer; transition: transform .2s ease, background .2s ease, border-color .2s ease; }
+.atom-another-button span { color: #9be8cf; font-size: 1.1rem; }
+.atom-another-button:hover { transform: translateY(-2px); border-color: rgba(158,221,208,.7); background: rgba(95,202,170,.22); }
+.atom-another-button:active { transform: translateY(0); }
+.atom-another-button:focus-visible { outline: 3px solid #a6ead7; outline-offset: 3px; }
 
 @keyframes atom-shell-spin { to { transform: rotate(360deg); } }
 @keyframes atom-orb-glow { from { box-shadow: inset 0 0 35px rgba(126,117,231,.1), 0 0 0 9px rgba(108,93,211,.035), 0 24px 58px rgba(49,43,119,.13); } to { box-shadow: inset 0 0 52px rgba(126,117,231,.2), 0 0 0 13px rgba(108,93,211,.065), 0 32px 82px rgba(49,43,119,.22); } }

@@ -19,21 +19,37 @@ const solarSystemFacts = [
 ];
 
 const atomModels = [
-  { name: 'Hydrogen', symbol: 'H', number: 1, isotope: 1, shells: [1], fact: 'Hydrogen makes up about three-quarters of the detectable matter in the universe.' },
-  { name: 'Helium', symbol: 'He', number: 2, isotope: 4, shells: [2], fact: 'Helium was detected in the Sun before it was found on Earth.' },
-  { name: 'Lithium', symbol: 'Li', number: 3, isotope: 7, shells: [2, 1], fact: 'Lithium is the least dense metal.' },
-  { name: 'Carbon', symbol: 'C', number: 6, isotope: 12, shells: [2, 4], fact: 'Diamond and graphite are both made of carbon atoms.' },
-  { name: 'Nitrogen', symbol: 'N', number: 7, isotope: 14, shells: [2, 5], fact: 'Nitrogen gas makes up most of Earth’s atmosphere.' },
-  { name: 'Oxygen', symbol: 'O', number: 8, isotope: 16, shells: [2, 6], fact: 'Oxygen is the third most abundant element in the universe.' },
-  { name: 'Neon', symbol: 'Ne', number: 10, isotope: 20, shells: [2, 8], fact: 'Neon glows reddish-orange inside a discharge tube.' },
-  { name: 'Sodium', symbol: 'Na', number: 11, isotope: 23, shells: [2, 8, 1], fact: 'Table salt is a compound made from sodium and chlorine.' },
-  { name: 'Magnesium', symbol: 'Mg', number: 12, isotope: 24, shells: [2, 8, 2], fact: 'Burning magnesium gives off a bright white light.' },
-  { name: 'Silicon', symbol: 'Si', number: 14, isotope: 28, shells: [2, 8, 4], fact: 'Silicon is a key material in computer chips.' },
-  { name: 'Sulfur', symbol: 'S', number: 16, isotope: 32, shells: [2, 8, 6], fact: 'Pure sulfur is a bright yellow solid.' },
-  { name: 'Argon', symbol: 'Ar', number: 18, isotope: 40, shells: [2, 8, 8], fact: 'Argon is the most abundant noble gas in Earth’s atmosphere.' },
-  { name: 'Calcium', symbol: 'Ca', number: 20, isotope: 40, shells: [2, 8, 8, 2], fact: 'Calcium is the most abundant mineral in the human body.' },
-  { name: 'Iron', symbol: 'Fe', number: 26, isotope: 56, shells: [2, 8, 14, 2], fact: 'Iron is the main ingredient in steel.' },
+  { name: 'Hydrogen', symbol: 'H', number: 1, isotope: 1, shells: [1], facts: ['Hydrogen makes up about three-quarters of the detectable matter in the universe.', 'Hydrogen bonds help give water many of its special properties.', 'Deuterium and tritium are hydrogen isotopes with extra neutrons.'] },
+  { name: 'Helium', symbol: 'He', number: 2, isotope: 4, shells: [2], facts: ['Helium was detected in the Sun before it was found on Earth.', 'Helium is the second most abundant element in the universe.', 'Liquid helium helps cool the powerful magnets used in MRI scanners.'] },
+  { name: 'Lithium', symbol: 'Li', number: 3, isotope: 7, shells: [2, 1], facts: ['Lithium is the least dense metal.', 'Lithium is used in rechargeable batteries for phones and electric cars.', 'Its name comes from “lithos”, the Greek word for stone.'] },
+  { name: 'Carbon', symbol: 'C', number: 6, isotope: 12, shells: [2, 4], facts: ['Diamond and graphite are both made of carbon atoms.', 'Graphene is a sheet of carbon just one atom thick.', 'Carbon is a key building block of living things.'] },
+  { name: 'Nitrogen', symbol: 'N', number: 7, isotope: 14, shells: [2, 5], facts: ['Nitrogen gas makes up about 78% of Earth’s air by volume.', 'Plants use nitrogen compounds to build proteins and DNA.', 'Liquid nitrogen is used to freeze and preserve samples.'] },
+  { name: 'Oxygen', symbol: 'O', number: 8, isotope: 16, shells: [2, 6], facts: ['Oxygen makes up about 21% of Earth’s atmosphere by volume.', 'Oxygen is the third most abundant element in the universe.', 'Oxygen and its compounds make up nearly half the Earth’s crust by mass.'] },
+  { name: 'Neon', symbol: 'Ne', number: 10, isotope: 20, shells: [2, 8], facts: ['Neon glows reddish-orange inside a discharge tube.', 'Neon is the fifth most abundant element in the universe.', 'Earth’s atmosphere contains only about 18 parts per million of neon.'] },
+  { name: 'Sodium', symbol: 'Na', number: 11, isotope: 23, shells: [2, 8, 1], facts: ['Table salt is a compound made from sodium and chlorine.', 'Sodium is a soft, silvery metal.', 'Sodium reacts vigorously with water, so it is stored carefully in labs.'] },
+  { name: 'Magnesium', symbol: 'Mg', number: 12, isotope: 24, shells: [2, 8, 2], facts: ['Burning magnesium gives off a bright white light.', 'The green pigment chlorophyll contains magnesium at its centre.', 'Magnesium alloys help make some vehicles and devices lighter.'] },
+  { name: 'Silicon', symbol: 'Si', number: 14, isotope: 28, shells: [2, 8, 4], facts: ['Silicon is a key semiconductor in computer chips.', 'Diatoms build their tiny cell walls from silica, a silicon compound.', 'Ultrapure silicon has a blue-grey metallic sheen.'] },
+  { name: 'Sulfur', symbol: 'S', number: 16, isotope: 32, shells: [2, 8, 6], facts: ['Pure sulfur is a bright yellow solid.', 'Sulfur is part of the amino acids cysteine and methionine.', 'Sulfur compounds are used to make sulfuric acid and fertilisers.'] },
+  { name: 'Argon', symbol: 'Ar', number: 18, isotope: 40, shells: [2, 8, 8], facts: ['Argon makes up about 0.94% of Earth’s atmosphere.', 'Welders use argon to shield hot metal from reacting with air.', 'Some light bulbs contain argon to protect the filament.'] },
+  { name: 'Calcium', symbol: 'Ca', number: 20, isotope: 40, shells: [2, 8, 8, 2], facts: ['Calcium phosphate is the main mineral component of bones.', 'The average human body contains about one kilogram of calcium.', 'Calcium is the fifth most abundant metal in Earth’s crust.'] },
+  { name: 'Iron', symbol: 'Fe', number: 26, isotope: 56, shells: [2, 8, 14, 2], facts: ['Around 90% of all refined metal produced today is iron.', 'Iron rusts in damp air.', 'Most iron is used to make steel.'] },
 ];
+
+function chooseRandomAtom(excludedAtomicNumber) {
+  const excludedNumber = Number(excludedAtomicNumber);
+  const choices = atomModels.filter((model) => model.number !== excludedNumber);
+  const model = choices[Math.floor(Math.random() * choices.length)];
+  let previousFacts = {};
+  try {
+    previousFacts = JSON.parse(localStorage.getItem('ryan-atom-fact-indices') || '{}');
+  } catch {}
+  const availableFactIndices = model.facts.map((_, index) => index).filter((index) => index !== previousFacts[model.number]);
+  const factIndex = availableFactIndices[Math.floor(Math.random() * availableFactIndices.length)];
+  previousFacts[model.number] = factIndex;
+  localStorage.setItem('ryan-atom-fact-indices', JSON.stringify(previousFacts));
+  localStorage.setItem('ryan-atom-number', String(model.number));
+  return { ...model, fact: model.facts[factIndex] };
+}
 
 const spaceObjectTypes = ['planet', 'star', 'comet', 'moon', 'asteroid', 'satellite', 'rocket', 'galaxy', 'black-hole', 'supernova'];
 
@@ -239,7 +255,7 @@ function SpaceObjectLayer({ section, objects, decoys, onFind, onDecoy }) {
 }
 
 export default function Home() {
-  const [atom, setAtom] = useState(atomModels[0]);
+  const [atom, setAtom] = useState({ ...atomModels[0], fact: atomModels[0].facts[0] });
   const [stars, setStars] = useState([]);
   const [darkMode, setDarkMode] = useState(false);
   const [ripple, setRipple] = useState(null);
@@ -265,10 +281,7 @@ export default function Home() {
     if (!atomChosen.current) {
       atomChosen.current = true;
       const previousAtomicNumber = localStorage.getItem('ryan-atom-number');
-      const choices = atomModels.filter((model) => String(model.number) !== previousAtomicNumber);
-      const nextAtom = choices[Math.floor(Math.random() * choices.length)];
-      setAtom(nextAtom);
-      localStorage.setItem('ryan-atom-number', String(nextAtom.number));
+      setAtom(chooseRandomAtom(previousAtomicNumber));
     }
 
     const board = getRandomHuntBoard();
@@ -413,6 +426,10 @@ export default function Home() {
     ];
   }
 
+  function handleAnotherAtom() {
+    setAtom(chooseRandomAtom(atom.number));
+  }
+
   return (
     <>
       <div className="page-shell" style={{
@@ -482,8 +499,11 @@ export default function Home() {
                   <strong>Electron shells</strong>
                   <div className="atom-shell-pills">{atom.shells.map((electronCount, index) => <span key={index}><small>{'KLMN'[index]}</small>{electronCount}</span>)}</div>
                 </div>
-                <div className="atom-fact-box"><span>QUICK FACT</span><p>{atom.fact}</p></div>
-                <p className="atom-model-note">Bohr-style model · not to scale</p>
+                <div className="atom-fact-box" aria-live="polite" aria-atomic="true"><span>QUICK FACT</span><p>{atom.fact}</p></div>
+                <div className="atom-detail-footer">
+                  <p className="atom-model-note">Bohr-style model · not to scale</p>
+                  <button className="atom-another-button" type="button" onClick={handleAnotherAtom}>Another element <span aria-hidden="true">↻</span></button>
+                </div>
               </div>
               <span className="dot-grid" aria-hidden="true"/>
             </div>
