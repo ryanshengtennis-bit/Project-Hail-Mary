@@ -1,6 +1,8 @@
 import '../styles.css';
 import './mobile.css';
 import './solar-system.css';
+import './space-music.css';
+import SpaceMusic from './SpaceMusic';
 
 export const metadata = {
   title: 'Ryan | Curious by Nature',
@@ -18,7 +20,7 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
         />
       </head>
-      <body>{children}</body>
+      <body>{children}<SpaceMusic /></body>
     </html>
   );
 }

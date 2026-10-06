@@ -1,0 +1,14 @@
+.space-music-control { position: fixed; z-index: 30; right: max(18px, env(safe-area-inset-right)); bottom: max(18px, env(safe-area-inset-bottom)); color: #f4f2ff; font-family: var(--sans); }
+.space-music-buttons { display: flex; align-items: center; padding: 4px; border: 1px solid #b3a5ff44; border-radius: 18px; background: #141932f2; box-shadow: 0 8px 28px #090b2044; backdrop-filter: blur(12px); }
+.space-music-buttons button { display: flex; align-items: center; gap: 9px; min-height: 44px; padding: 4px 12px; border: 0; border-radius: 13px; color: inherit; background: transparent; font: 600 .8rem var(--sans); text-align: left; cursor: pointer; }
+.space-music-buttons button:disabled { cursor: default; opacity: .6; }
+.space-music-buttons small { display: block; margin-top: 1px; color: #b8b8d7; font-size: .65rem; font-weight: 400; }
+.music-icon { font-size: 1.35rem; color: #a7ecd9; }
+.space-music-buttons summary { display: grid; place-items: center; min-width: 44px; min-height: 44px; border-radius: 12px; list-style: none; cursor: pointer; color: #bdb5f3; font-size: 1.2rem; }
+.space-music-buttons summary::-webkit-details-marker { display: none; }
+.space-music-buttons button:hover, .space-music-buttons summary:hover { background: #b3a5ff18; }
+.music-volume { position: absolute; right: 0; bottom: calc(100% + 10px); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; width: 210px; padding: 16px; border: 1px solid #b3a5ff44; border-radius: 16px; background: #141932; font-size: .8rem; box-shadow: 0 8px 28px #090b2044; }
+.music-volume input { width: 100%; min-height: 32px; accent-color: #a7ecd9; cursor: pointer; }
+.space-music-buttons :is(button, summary, input):focus-visible { outline: 3px solid #a7ecd9; outline-offset: 2px; }
+footer { padding-bottom: 100px; }
+@media (max-width: 680px) { .space-music-control { right: max(12px, env(safe-area-inset-right)); bottom: max(12px, env(safe-area-inset-bottom)); } }
