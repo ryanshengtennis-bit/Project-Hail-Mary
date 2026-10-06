@@ -2,8 +2,10 @@
 
 import { useEffect, useRef, useState } from 'react';
 
-// Original ambient score: short organ pulses, a soft bass, and sparse high notes.
+// Original ambient score: overlapping broken chords and gently evolving melodies.
 const chords = [[48, 55, 62, 64], [45, 52, 59, 60], [41, 48, 55, 57], [43, 50, 57, 59], [48, 55, 59, 62], [41, 48, 52, 59]];
+const transitions = [[1, 2, 4], [2, 3, 5], [0, 3, 4], [0, 1, 4], [1, 2, 5], [0, 3, 4]];
+const rhythms = [[.9, 1.1, .8, 1.2], [1.1, .85, 1.05, 1], [.8, 1, 1.2, .95]];
 
 function makeSoundtrack() {
   const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -21,14 +23,14 @@ function makeSoundtrack() {
   tone.Q.value = .3;
   tone.connect(master);
   const reverb = context.createConvolver();
-  const impulse = context.createBuffer(2, Math.ceil(context.sampleRate * 1.2), context.sampleRate);
+  const impulse = context.createBuffer(2, Math.ceil(context.sampleRate * 2.1), context.sampleRate);
   for (let channel = 0; channel < 2; channel += 1) {
     const samples = impulse.getChannelData(channel);
     for (let i = 0; i < samples.length; i += 1) samples[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / samples.length, 3);
   }
   reverb.buffer = impulse;
   const wet = context.createGain();
-  wet.gain.value = .35;
+  wet.gain.value = .42;
   tone.connect(reverb).connect(wet).connect(master);
   const wave = context.createPeriodicWave(new Float32Array(6), new Float32Array([0, 1, .3, .1, .12, .035]));
   const voices = new Set();
@@ -39,8 +41,8 @@ function makeSoundtrack() {
     else oscillator.type = 'sine';
     oscillator.frequency.value = 440 * Math.pow(2, (midi - 69) / 12);
     envelope.gain.setValueAtTime(0, time);
-    envelope.gain.linearRampToValueAtTime(level, time + Math.min(.18, duration * .2));
-    envelope.gain.setValueAtTime(level * .8, time + duration * .55);
+    envelope.gain.linearRampToValueAtTime(level, time + Math.min(organ ? .65 : .35, duration * .25));
+    envelope.gain.linearRampToValueAtTime(level * .7, time + duration * .5);
     envelope.gain.linearRampToValueAtTime(0, time + duration);
     oscillator.connect(envelope).connect(tone);
     voices.add(oscillator);
@@ -50,18 +52,41 @@ function makeSoundtrack() {
   }
   let next = 0;
   let step = 0;
+  let chordIndex = 0;
+  let phraseRemaining = 8;
+  let rhythm = rhythms[0];
+  let previousMid = 60;
+  let previousLead = 74;
+  let leadAt = 2;
+  function nearbyPitch(chord, previous, low, high) {
+    const choices = [...new Set(chord.flatMap((pitch) => [pitch, pitch + 12, pitch + 24]))]
+      .filter((pitch) => pitch >= low && pitch <= high && pitch !== previous)
+      .sort((a, b) => Math.abs(a - previous) - Math.abs(b - previous));
+    return choices[Math.floor(Math.random() * Math.min(3, choices.length))] ?? previous;
+  }
   function schedule() {
     if (context.state !== 'running') return;
     if (next < context.currentTime) next = context.currentTime + .1;
     while (next < context.currentTime + 3) {
-      const chord = chords[Math.floor(step / 8) % chords.length];
-      // Briefly overlap the short chord pulses so there is no silent gap.
-      chord.forEach((pitch) => note(pitch, next, 1.6, .045));
-      if (step % 2 === 0) {
-        note(chord[0] - 12, next, 1.8, .055, false);
+      if (phraseRemaining === 0) {
+        const choices = transitions[chordIndex];
+        chordIndex = choices[Math.floor(Math.random() * choices.length)];
+        phraseRemaining = 6 + Math.floor(Math.random() * 5);
+        rhythm = rhythms[Math.floor(Math.random() * rhythms.length)];
+        tone.frequency.setTargetAtTime(1600 + Math.random() * 600, next, 2);
       }
-      if (step % 2 === 0) note(chord[(Math.floor(step / 2) + 1) % chord.length] + 12, next, .7, .024, false);
-      next += 1.25;
+      const chord = chords[chordIndex];
+      // Let separate voices overlap instead of striking the whole chord together.
+      previousMid = nearbyPitch(chord, previousMid, 52, 72);
+      note(previousMid, next, 2.8 + Math.random() * .6, .055 + Math.random() * .012);
+      if (step % 3 === 0) note(chord[0] - 12, next, 4.2, .038, false);
+      if (step >= leadAt) {
+        previousLead = nearbyPitch(chord, previousLead, 67, 84);
+        note(previousLead, next + .18, 1.8 + Math.random() * .8, .021, false);
+        leadAt = step + 2 + Math.floor(Math.random() * 3);
+      }
+      next += rhythm[step % rhythm.length];
+      phraseRemaining -= 1;
       step += 1;
     }
   }
