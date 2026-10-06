@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 
-// Original cinematic organ score, with its own harmony and melodic patterns.
+// Original cinematic score: intimate keys and warm strings over spacious organ.
 const chords = [[50, 53, 57, 64], [46, 53, 57, 62], [41, 48, 55, 57], [48, 55, 62, 65], [43, 50, 57, 58], [50, 57, 60, 65]];
 const transitions = [[1, 2, 4], [2, 3, 5], [0, 3, 4], [0, 1, 4], [1, 2, 5], [0, 3, 4]];
 const motifs = [[0, 2, 1, 3, 2, 1, 3, 1], [1, 0, 2, 3, 1, 2, 0, 3], [2, 1, 3, 0, 1, 3, 2, 1]];
@@ -35,18 +35,26 @@ function makeSoundtrack() {
   preDelay.delayTime.value = .055;
   tone.connect(preDelay).connect(reverb).connect(wet).connect(master);
   const wave = context.createPeriodicWave(new Float32Array(13), new Float32Array([0, 1, .52, .2, .28, .08, .12, .035, .08, .015, .025, .01, .015]));
+  const pianoWave = context.createPeriodicWave(new Float32Array(9), new Float32Array([0, 1, .38, .16, .065, .035, .018, .01, .006]));
+  const stringWave = context.createPeriodicWave(new Float32Array(9), new Float32Array([0, 1, .32, .2, .12, .07, .04, .025, .012]));
   const voices = new Set();
-  function note(midi, time, duration, level, organ = true, swell = false) {
+  function note(midi, time, duration, level, organ = true, swell = false, texture = 'organ') {
     const oscillator = context.createOscillator();
     const envelope = context.createGain();
     const pan = context.createStereoPanner();
-    pan.pan.value = organ ? ((midi % 12) - 5.5) * .055 : 0;
-    if (organ) oscillator.setPeriodicWave(wave);
+    pan.pan.value = texture === 'piano' ? -.18 : organ ? ((midi % 12) - 5.5) * (texture === 'strings' ? .09 : .04) : 0;
+    if (organ) oscillator.setPeriodicWave(texture === 'piano' ? pianoWave : texture === 'strings' ? stringWave : wave);
     else oscillator.type = 'sine';
     oscillator.frequency.value = 440 * Math.pow(2, (midi - 69) / 12);
     envelope.gain.setValueAtTime(0, time);
-    envelope.gain.linearRampToValueAtTime(level, time + Math.min(swell ? 1.6 : organ ? .32 : .4, duration * .35));
-    envelope.gain.linearRampToValueAtTime(level * .7, time + duration * .5);
+    if (texture === 'piano') {
+      envelope.gain.linearRampToValueAtTime(level, time + .028);
+      envelope.gain.exponentialRampToValueAtTime(level * .35, time + duration * .22);
+      envelope.gain.exponentialRampToValueAtTime(.0001, time + duration - .02);
+    } else {
+      envelope.gain.linearRampToValueAtTime(level, time + Math.min(swell ? 1.6 : organ ? .32 : .4, duration * .35));
+      envelope.gain.linearRampToValueAtTime(level * .7, time + duration * .5);
+    }
     envelope.gain.linearRampToValueAtTime(0, time + duration);
     oscillator.connect(envelope).connect(pan).connect(tone);
     voices.add(oscillator);
@@ -80,15 +88,19 @@ function makeSoundtrack() {
         tone.frequency.setTargetAtTime(1800 + intensity * 1400, next, 3);
       }
       const chord = chords[chordIndex];
-      // A steady organ figure floats over quiet swells, with a gradual rise and fall.
+      // Intimate keys lead the quieter passages; the organ slowly grows underneath.
       const pitch = chord[motifs[motifIndex][step % 8]];
-      note(pitch < 55 ? pitch + 12 : pitch, next, 2.2, .036 + intensity * .018);
-      if (step % 4 === 0) note(chord[0] - 12, next, 4.8, .038 + intensity * .01, false);
-      if (step % 8 === 0) chord.slice(1, 3).forEach((harmony) => note(harmony, next + .12, 4.6, .015 + intensity * .012, true, true));
+      note(pitch < 55 ? pitch + 12 : pitch, next, 2.4, .022 + intensity * .018);
+      if (step % 4 === 0) note(chord[0] - 12, next, 4.8, .03 + intensity * .012, false);
+      if (step % 8 === 0) {
+        chord.slice(1, 3).forEach((harmony) => note(harmony, next + .12, 5.2, .018 + intensity * .009, true, true, 'strings'));
+        note(chord[1] + 12, next + .3, 4.6, .009 + intensity * .008, true, true);
+      }
       if (step >= leadAt) {
-        previousLead = nearbyPitch(chord, previousLead, 67, 84);
-        note(previousLead, next + .18, 2.4, .012 + intensity * .009);
-        leadAt = step + 4 + Math.floor(Math.random() * 4);
+        previousLead = nearbyPitch(chord, previousLead, 62, 81);
+        note(previousLead, next + .08, 3.2, .052 - intensity * .01, true, false, 'piano');
+        if (step % 4 === 0) note(previousLead - 12, next + .11, 2.8, .018, true, false, 'piano');
+        leadAt = step + 2 + Math.floor(Math.random() * 3);
       }
       next += .74;
       phraseRemaining -= 1;
