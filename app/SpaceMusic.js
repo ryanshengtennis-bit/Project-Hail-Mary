@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 
-// Original ambient score: spacious organ chords, a soft bass, and sparse high notes.
+// Original ambient score: short organ pulses, a soft bass, and sparse high notes.
 const chords = [[48, 55, 62, 64], [45, 52, 59, 60], [41, 48, 55, 57], [43, 50, 57, 59], [48, 55, 59, 62], [41, 48, 52, 59]];
 
 function makeSoundtrack() {
@@ -21,14 +21,14 @@ function makeSoundtrack() {
   tone.Q.value = .3;
   tone.connect(master);
   const reverb = context.createConvolver();
-  const impulse = context.createBuffer(2, Math.ceil(context.sampleRate * 3), context.sampleRate);
+  const impulse = context.createBuffer(2, Math.ceil(context.sampleRate * 1.2), context.sampleRate);
   for (let channel = 0; channel < 2; channel += 1) {
     const samples = impulse.getChannelData(channel);
     for (let i = 0; i < samples.length; i += 1) samples[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / samples.length, 3);
   }
   reverb.buffer = impulse;
   const wet = context.createGain();
-  wet.gain.value = .55;
+  wet.gain.value = .35;
   tone.connect(reverb).connect(wet).connect(master);
   const wave = context.createPeriodicWave(new Float32Array(6), new Float32Array([0, 1, .3, .1, .12, .035]));
   const voices = new Set();
@@ -39,7 +39,7 @@ function makeSoundtrack() {
     else oscillator.type = 'sine';
     oscillator.frequency.value = 440 * Math.pow(2, (midi - 69) / 12);
     envelope.gain.setValueAtTime(0, time);
-    envelope.gain.linearRampToValueAtTime(level, time + Math.min(2, duration * .3));
+    envelope.gain.linearRampToValueAtTime(level, time + Math.min(.18, duration * .2));
     envelope.gain.setValueAtTime(level * .8, time + duration * .55);
     envelope.gain.linearRampToValueAtTime(0, time + duration);
     oscillator.connect(envelope).connect(tone);
@@ -55,11 +55,11 @@ function makeSoundtrack() {
     if (next < context.currentTime) next = context.currentTime + .1;
     while (next < context.currentTime + 1) {
       const chord = chords[Math.floor(step / 8) % chords.length];
-      if (step % 8 === 0) {
-        chord.forEach((pitch) => note(pitch, next, 12, .045));
-        note(chord[0] - 12, next, 11, .055, false);
+      if (step % 2 === 0) {
+        chord.forEach((pitch) => note(pitch, next, 1.6, .045));
+        note(chord[0] - 12, next, 1.8, .055, false);
       }
-      if (step % 2 === 0) note(chord[(Math.floor(step / 2) + 1) % chord.length] + 12, next, 3.5, .024, false);
+      if (step % 2 === 0) note(chord[(Math.floor(step / 2) + 1) % chord.length] + 12, next, .7, .024, false);
       next += 1.25;
       step += 1;
     }
