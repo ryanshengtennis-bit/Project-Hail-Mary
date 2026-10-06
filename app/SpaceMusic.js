@@ -53,10 +53,11 @@ function makeSoundtrack() {
   function schedule() {
     if (context.state !== 'running') return;
     if (next < context.currentTime) next = context.currentTime + .1;
-    while (next < context.currentTime + 1) {
+    while (next < context.currentTime + 3) {
       const chord = chords[Math.floor(step / 8) % chords.length];
+      // Briefly overlap the short chord pulses so there is no silent gap.
+      chord.forEach((pitch) => note(pitch, next, 1.6, .045));
       if (step % 2 === 0) {
-        chord.forEach((pitch) => note(pitch, next, 1.6, .045));
         note(chord[0] - 12, next, 1.8, .055, false);
       }
       if (step % 2 === 0) note(chord[(Math.floor(step / 2) + 1) % chord.length] + 12, next, .7, .024, false);
@@ -89,7 +90,7 @@ export default function SpaceMusic() {
     engine.current = soundtrack;
     soundtrack.context.onstatechange = () => setPlaying(soundtrack.context.state === 'running');
     const start = () => { if (enabled.current && !document.hidden) soundtrack.start().catch(() => setPlaying(false)); };
-    const visibility = () => { if (document.hidden) soundtrack.pause().catch(() => {}); else start(); };
+    const visibility = () => { if (!document.hidden) start(); };
     document.addEventListener('pointerdown', start);
     document.addEventListener('keydown', start);
     document.addEventListener('visibilitychange', visibility);
