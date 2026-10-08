@@ -3,7 +3,7 @@ const repositoryPath = '/Project-Hail-Mary';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
+  ...(isGitHubPages ? { output: 'export' } : {}),
   trailingSlash: true,
   basePath: isGitHubPages ? repositoryPath : '',
   assetPrefix: isGitHubPages ? repositoryPath : '',

@@ -501,6 +501,7 @@ export default function Home() {
               <a href="#about">About</a>
               <a href="#interests">Interests</a>
               <a href="#now">Now</a>
+              <a href="/opportunities/">Opportunities</a>
             </nav>
             <button className="theme-toggle" type="button" aria-pressed={darkMode} onClick={handleThemeToggle}>
               <span className="theme-icon" aria-hidden="true">{darkMode ? '☀' : '☾'}</span>
